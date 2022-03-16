@@ -1,0 +1,101 @@
+
+.wrapper{
+    width:100%;
+    height: 55vh;
+    margin-top: 45vh;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content:space-evenly;
+}
+    .namewrapper{
+        width: 100%;
+        height: 20%;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content:end;
+        /* top | right | bottom | left */
+        border-color:lightgray;
+        border-width: 1.5px; 
+        border-style: solid;
+        border-top: 2px;
+        border-left: 2px;
+        border-right: 2px;
+    }
+        .name{
+            width:70%;
+            height: 100%;
+            font-size: 1.1rem;
+            font-weight: 500;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+        }
+        .group{
+            width: 15%;
+            height: 100%;
+            font-size: 1.1rem;
+            font-weight: 500;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+        }
+    .platillo{
+        width: 100%;
+        height: 10%;
+        padding-left: 6%;
+        font-size: 0.9rem;
+        font-weight: 500;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    .SubtotalW{
+        width: 100%;
+        height: 10%;
+        font-size: 0.9rem;
+        font-weight: 500;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-start;
+    }
+        .subtotal{
+            width: 60%;
+            height: 100%;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding-left: 6%;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        .cantidad{
+            width: 40%;
+            height: 100%;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding-right: 6%;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: flex-end;
+        }
+    .pagar{
+        width: 100%;
+        height: 15%;
+        font-size: 0.9rem;
+        font-weight: 500;
+        padding-right: 6%;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        background-color: black;  
+        color: white;   
+    }

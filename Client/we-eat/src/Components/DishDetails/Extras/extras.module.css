@@ -1,0 +1,34 @@
+.wrapper{
+    width: 100%;
+    height: 5%;
+    margin-top: 4%;
+    margin-bottom: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+    .img{
+        width: 8%;
+        height: 100%;
+        padding-left: 2%;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .ingrediente{
+        width: 54%;
+        height: 100%;
+        padding-left: 5%;
+        font-size: 1rem;
+        font-weight: 500;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .precio{
+        width: 26%;
+        padding-left: 2%;
+        height: 100%;
+        font-size: 1rem;
+        font-weight: 400;
+        display: flex;
+        flex-wrap: wrap;
+    }
