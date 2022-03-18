@@ -1,0 +1,32 @@
+{
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.3",
+    "nodemon": "^2.0.15",
+    "pg": "^8.7.3",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.17.0"
+  },
+  "name": "we_eat",
+  "version": "1.0.0",
+  "description": "API to order food home delivery  from restaurants",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/soyIsaacDev/We-Eat"
+  },
+  "keywords": [
+    "food",
+    "home",
+    "delivery"
+  ],
+  "author": "Isaac Borbon Miquirray",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/soyIsaacDev/We-Eat/issues"
+  },
+  "homepage": "https://github.com/soyIsaacDev/We-Eat#readme"
+}
