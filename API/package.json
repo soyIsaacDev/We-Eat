@@ -10,7 +10,7 @@
   "name": "we_eat",
   "version": "1.0.0",
   "description": "API to order food home delivery  from restaurants",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -7,7 +7,7 @@ db.sync({ force }) */
 app.use(cors());
 
 const alter = true;
-db.sync({ alter })
+db.sync({ force:true })
     .then(function () {
         app.listen(4000, function () {
             console.log('Server is listening on port 4000!');

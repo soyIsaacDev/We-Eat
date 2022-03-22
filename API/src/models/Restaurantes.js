@@ -2,7 +2,7 @@ const {DataTypes} = require ('sequelize');
 
 module.exports = s => {
     s.define(
-        "Restuaurantes", 
+        "Restaurantes", 
     {
         nombre:{
             type: DataTypes.STRING,
@@ -17,15 +17,12 @@ module.exports = s => {
             type: DataTypes.INTEGER,
             allowNull:false
         }, 
-        activo:{
-            type: DataTypes.ENUM("Activo", "Cerrado", "Pausa"),
+        actividad:{
+            type: DataTypes.ENUM('Abierto', 'Cerrado', 'Pausa'),
             allowNull: false
         },
-        /* imagen:{
-            
-        }, */
         estatus:{
-            type: DataTypes.ENUM("Activo", "Inactivo","En_Registro", "En_Baja"),
+            type: DataTypes.ENUM('Activo', 'Inactivo','En_Registro', 'En_Baja'),
             allowNull: false
         }
     }, {

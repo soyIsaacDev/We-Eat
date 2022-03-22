@@ -2,7 +2,7 @@ const {DataTypes} = require ('sequelize');
 
 module.exports = s => {
     s.define(
-        "Envio", 
+        "Envios", 
     {
         tiempo_promedio:{
             type: DataTypes.INTEGER,

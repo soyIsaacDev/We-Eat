@@ -2,7 +2,7 @@ const {DataTypes} = require ('sequelize');
 
 module.exports = s => {
     s.define(
-        "Metodos_de_pago", 
+        "MetodosdePago", 
     {
         metodo_pago:{
             type: DataTypes.ENUM("Efectivo", "Tarjeta"),

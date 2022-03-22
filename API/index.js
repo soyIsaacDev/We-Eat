@@ -1,12 +1,12 @@
 const express = require('express');
-const nunjucks = require('nunjucks');
+/* const nunjucks = require('nunjucks'); */
 const { index } = require('./src/routes/index');
 const app = express();
 
-const env = nunjucks.configure('views', {noCache: true});
+/* const env = nunjucks.configure('views', {noCache: true}); */
 
 app.set('view engine', 'html');
-app.engine('html', nunjucks.render);
+/* app.engine('html', nunjucks.render); */
 
 app.use(express.static('./public'));
 

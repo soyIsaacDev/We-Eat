@@ -2,7 +2,7 @@ const {DataTypes} = require ('sequelize');
 
 module.exports = s => {
     s.define(
-        "Compras_juntas", 
+        "ComprasJuntas", 
     {
         nombre:{
             type: DataTypes.STRING,
