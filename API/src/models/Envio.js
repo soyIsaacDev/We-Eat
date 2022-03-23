@@ -8,8 +8,8 @@ module.exports = s => {
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        Entrega:{
-            type: DataTypes.ENUM("Entega", "Recoleccion"),
+        tipo_de_Entrega:{
+            type: DataTypes.ENUM("Entrega", "Recoleccion"),
             allowNull: false
         }
     }, {

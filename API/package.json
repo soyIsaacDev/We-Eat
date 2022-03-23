@@ -12,6 +12,8 @@
   "description": "API to order food home delivery  from restaurants",
   "main": "app.js",
   "scripts": {
+    "dev": "nodemon index.js",
+    "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
