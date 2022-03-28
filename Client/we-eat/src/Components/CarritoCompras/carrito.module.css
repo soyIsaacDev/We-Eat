@@ -14,7 +14,7 @@
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        justify-content:end;
+        justify-content:felx-end;
         /* top | right | bottom | left */
         border-color:lightgray;
         border-width: 1.5px; 

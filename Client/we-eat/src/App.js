@@ -7,6 +7,7 @@ import RestaurantCard from "./Components/RestaurantCard/restaurant-card";
 import RestaurantDetails from "./Components/RestDetails/r-detail";
 import DishDetails from "./Components/DishDetails/dish-details";
 import Carrito from "./Components/CarritoCompras/carrito";
+import LiveCoding from "./Components/GeolocationMap/MapLiveCoding";
 
 function App() {
   return (
@@ -24,6 +25,9 @@ function App() {
           />
           <Route exact path="/Carrito" element=
             { <Carrito/>  }
+          />
+          <Route exact path="/LiveCoding" element=
+            { <LiveCoding/>  }
           />
         </Routes>
       </React.Fragment>
