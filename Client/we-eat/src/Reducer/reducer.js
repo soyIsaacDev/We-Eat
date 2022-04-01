@@ -1,6 +1,7 @@
 //REDUCER
 const initialState = {
-    googleMap: {}
+    googleMap: {},
+    geolocation:[]
   }
 
   // getPlumber, getPlumberDetail
@@ -11,6 +12,11 @@ const initialState = {
         return {
           ...state,
           googleMap: action.payload
+        }
+      case 'ADD_GEOLOCATION':
+        return {
+          ...state,
+          geolocation: action.payload
         }
 
       default:

@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.13.10",
-    "@googlemaps/react-wrapper": "^1.1.28",
+    "@googlemaps/react-wrapper": "^1.1.29",
     "@googlemaps/typescript-guards": "^1.0.10",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.4",

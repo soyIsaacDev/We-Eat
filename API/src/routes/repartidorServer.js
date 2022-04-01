@@ -50,5 +50,24 @@ server.get("/repartidoractivo", async (req, res) => {
   }
 });
 
+server.post("/ubicacionRepartidor", async (req, res) => { 
+  try {
+    const { position } = req.body;
+
+    const ubicacionRepartidor = await Repartidor.findOrCreate({
+        where: {
+          id
+        },
+        defaults: {
+          ubicacion: position
+        }      
+    });
+    res.json(ubicacionRepartidor);
+
+  } catch (error) {
+    res.send(error);
+  }
+});
+
 
 module.exports = server;

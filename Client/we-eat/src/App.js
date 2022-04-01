@@ -8,6 +8,7 @@ import RestaurantDetails from "./Components/RestDetails/r-detail";
 import DishDetails from "./Components/DishDetails/dish-details";
 import Carrito from "./Components/CarritoCompras/carrito";
 import LiveCoding from "./Components/GeolocationMap/MapLiveCoding";
+import Geolocation from "./Components/GeolocationMap/Geolocation";
 
 function App() {
   return (
@@ -28,6 +29,9 @@ function App() {
           />
           <Route exact path="/LiveCoding" element=
             { <LiveCoding/>  }
+          />
+          <Route exact path="/Geolocation" element=
+            { <Geolocation/>  }
           />
         </Routes>
       </React.Fragment>

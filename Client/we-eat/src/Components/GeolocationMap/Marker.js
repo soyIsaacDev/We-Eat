@@ -1,25 +1,36 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
 
-export default function Marker(properties) {
+export default function Marker({positions}) {
   const map = useSelector((state) => state.googleMap);
+  
+
   
   const style = {height: "90vh"};
   const inputDiv = useRef(); 
   const [marker, setMarker] = useState(null);
-  var position = properties.center;
+  
 
   function handleClick(){
-    setMarker(
+    /* setMarker(
       new window.google.maps.Marker({
       })
-    )
+    ) */
+    positions.map((position)=>{
+      new window.google.maps.Marker({
+        position,
+        map: map,
+        title: "Hello World!",
+      });
+    })
+    
+
   }
  
-  if(marker){
+  /* if(marker){
     marker.setMap(map);
     marker.setPosition(position);
-  }
+  } */
 
   // Solo Renderiza un marker
   // Tal vez tenga que mandar las posiciones a Store y mapear las posiciones

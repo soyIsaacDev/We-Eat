@@ -22,6 +22,7 @@ const  modelPlatillo = require("./models/Platillo/Platillo");
 const  modelSelecciondeIngredientes = require("./models/Platillo/Seleccion_Ingredientes");
 const  modelRepartidor = require("./models/Repartidor/Repartidor");
 const  modelImgPlatillo = require("./models/Platillo/ImagenPlatillo");
+const  modelUbicacionRepartidor = require("./models/Repartidor/UbicacionRepartidor");
 
 
 const sequelize = new Sequelize("postgres://postgres:Postgres@localhost:5432/we_eat",{
@@ -49,12 +50,13 @@ modelPlatillo(sequelize);
 /* modelSelecciondeIngredientes(sequelize); */
 modelRepartidor(sequelize);
 modelImgPlatillo(sequelize);
+modelUbicacionRepartidor(sequelize);
 
 
 let {Corporativo, /* Ciudad, */ Envios, Evaluaciones, ImgRest, Menu, Restaurantes, 
     TipodeComida, Clientes, Direccion, MetodosdePago, Pedidos, PedidoGrupal, 
     Platillo, IngredientesExtra, IngredientesaQuitar, Ingredientes,
-    ComprasJuntas, Repartidor, ImgPlatillo} = sequelize.models;
+    ComprasJuntas, Repartidor, ImgPlatillo, UbicacionRepartidor} = sequelize.models;
 
 /* Relaciones de DB */
 Corporativo.hasMany(Restaurantes);
@@ -109,6 +111,7 @@ Restaurantes.hasOne(ImgRest);
 ImgRest.belongsTo(Restaurantes);
 Platillo.hasOne(ImgPlatillo);
 ImgPlatillo.belongsTo(Platillo);
+UbicacionRepartidor.belongsTo(Repartidor);
 
 module.exports = {
     ...sequelize.models,
