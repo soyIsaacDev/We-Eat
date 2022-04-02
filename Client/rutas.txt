@@ -1,0 +1,18 @@
+app.use('/', index);
+app.use("/restaurantes", restaurantes)
+app.use("/envios", envios);
+app.use("/repartidor", repartidor);
+        /nuevoRepartidor    --> post
+        /ubicacionRepartidor -> post
+        /repartidor         --> get
+        /repartidoractivo   --> get
+
+Front-End
+
+/RestaurantCard     
+/RestaurantDetails  
+/DishDetail         
+/Carrito            
+/LiveCoding   --> MapLiveCoding    
+/Geolocation
+/addRepartidor

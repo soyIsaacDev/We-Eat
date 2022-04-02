@@ -63,8 +63,9 @@ Corporativo.hasMany(Restaurantes);
 Restaurantes.belongsTo(Corporativo);
 Restaurantes.hasOne(TipodeComida);
 TipodeComida.belongsTo(Restaurantes);
-Envios.hasMany(Repartidor);
-Repartidor.belongsTo(Envios);
+//Envios.hasMany(Repartidor);
+//Repartidor.belongsTo(Envios);
+Envios.belongsTo(Repartidor)
 Restaurantes.hasMany(Envios);
 Envios.belongsTo(Restaurantes);
 Restaurantes.hasMany(Evaluaciones);
@@ -112,6 +113,7 @@ ImgRest.belongsTo(Restaurantes);
 Platillo.hasOne(ImgPlatillo);
 ImgPlatillo.belongsTo(Platillo);
 UbicacionRepartidor.belongsTo(Repartidor);
+
 
 module.exports = {
     ...sequelize.models,

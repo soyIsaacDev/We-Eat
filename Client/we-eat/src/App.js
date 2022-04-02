@@ -9,6 +9,7 @@ import DishDetails from "./Components/DishDetails/dish-details";
 import Carrito from "./Components/CarritoCompras/carrito";
 import LiveCoding from "./Components/GeolocationMap/MapLiveCoding";
 import Geolocation from "./Components/GeolocationMap/Geolocation";
+import AddRepartidor from "./Components/Repartidor/repartidor";
 
 function App() {
   return (
@@ -32,6 +33,9 @@ function App() {
           />
           <Route exact path="/Geolocation" element=
             { <Geolocation/>  }
+          />
+          <Route exact path="/addRepartidor" element=
+            { <AddRepartidor/>  }
           />
         </Routes>
       </React.Fragment>

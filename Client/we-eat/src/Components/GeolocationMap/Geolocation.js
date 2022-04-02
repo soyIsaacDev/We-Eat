@@ -1,21 +1,13 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 // Importing geolocated reducer function
 //import { geolocated } from "react-geolocated";
 import { addGeolocation } from "../../Actions/actions";
+import { addUbicacionRepartidor } from "../../Actions/postFunctions";
 
 export default function Geolocation (){
 	const dispatch = useDispatch();
-  /*   navigator.geolocation? 
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                const pos = {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude,
-                }
-            }
-        ): alert("Sin Localizacion activada") */
     
     if(navigator.geolocation){
         
@@ -25,8 +17,9 @@ export default function Geolocation (){
                     lat: position.coords.latitude,
                     lng: position.coords.longitude,
                 }
+				addUbicacionRepartidor( {"ubicacion":pos, "RepartidorId":1} );  
                 console.log(pos)
-                dispatch(addGeolocation(pos));
+                addGeolocation(pos);
             }
         )
         return <div> Localizacion</div>

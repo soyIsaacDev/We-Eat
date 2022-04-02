@@ -5,8 +5,8 @@ module.exports = s => {
         "UbicacionRepartidor", 
     {
         ubicacion:{
-            type:DataTypes.INTEGER,
-            allowNull: true
+            type:DataTypes.JSONB,
+            allowNull: false
         }
     }, {
     timestamps: false,

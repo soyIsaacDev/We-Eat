@@ -1,24 +1,44 @@
 const server = require("express").Router();
-const req = require("express/lib/request");
-const {  Repartidor } = require("../db");
+//const req = require("express/lib/request");
+const {  Repartidor, UbicacionRepartidor } = require("../db");
 const {Op} = require("sequelize");
 
 
 server.post("/nuevoRepartidor", async (req, res) => { 
   try {
     const { nombre, usuario, contraseña, estatus } = req.body;
-
+    
     const repartidor = await Repartidor.findOrCreate({
         where: {
-          nombre
+          usuario
         },
         defaults: {
-          usuario,
+          nombre,
           contraseña, 
           estatus
         }      
     });
     res.json(repartidor);
+  } catch (error) {
+    res.send(error);
+  }
+});
+/* Format to send from Thunder Client
+{  "ubicacion": { "lat": 29.0843225, "lng": -111.0360456 }   }  */
+server.post("/ubicacionRepartidor", async (req, res) => { 
+  try {
+    const { ubicacion } = req.body;
+
+    const ubicacionRepartidor = await UbicacionRepartidor.create({
+        /* where: {
+          RepartidorId
+        }, 
+        defaults: {
+          ubicacion
+        }  */  
+       ubicacion   
+    });
+    res.json(ubicacionRepartidor);
 
   } catch (error) {
     res.send(error);
@@ -50,24 +70,14 @@ server.get("/repartidoractivo", async (req, res) => {
   }
 });
 
-server.post("/ubicacionRepartidor", async (req, res) => { 
+server.get("/ubicacionRepartidor", async (req, res) => {
   try {
-    const { position } = req.body;
-
-    const ubicacionRepartidor = await Repartidor.findOrCreate({
-        where: {
-          id
-        },
-        defaults: {
-          ubicacion: position
-        }      
+    const repartidor = await UbicacionRepartidor.findAll({
     });
-    res.json(ubicacionRepartidor);
-
-  } catch (error) {
+    res.json(repartidor);
+  } catch (error) {     
     res.send(error);
   }
 });
-
 
 module.exports = server;
