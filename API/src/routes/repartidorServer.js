@@ -25,25 +25,71 @@ server.post("/nuevoRepartidor", async (req, res) => {
 });
 /* Format to send from Thunder Client
 {  "ubicacion": { "lat": 29.0843225, "lng": -111.0360456 }   }  */
-server.post("/ubicacionRepartidor", async (req, res) => { 
+/* server.post("/ubicacionRepartidor", async (req, res) => { 
   try {
-    const { ubicacion } = req.body;
-
+    const { idRepartidor, ubicacion } = req.body;
     const ubicacionRepartidor = await UbicacionRepartidor.create({
-        /* where: {
-          RepartidorId
-        }, 
-        defaults: {
-          ubicacion
-        }  */  
-       ubicacion   
-    });
-    res.json(ubicacionRepartidor);
+       ubicacion, 
+       RepartidorId: idRepartidor 
+    });  
+    res.send(ubicacionRepartidor);
+  } catch (error) {
+    res.send(error);
+  }
+}); */
 
+server.get("/buscarRepartidor", async (req, res) => {
+  const { name } = req.query;
+  try {
+    const repartidor = await Repartidor.findOne({
+      where: {
+        nombre: name,
+      },
+    });
+    res.json(repartidor ? repartidor : "No existe ese repartidor");
   } catch (error) {
     res.send(error);
   }
 });
+
+server.post("/ubicacionRepartidor", async (req, res) => { 
+  try {
+    const { name, ubicacion } = req.body;
+    const repartidor = await Repartidor.findOne({
+      where: {
+        nombre: name,
+      },
+    });
+    const idRepartidor = repartidor
+    const ubiRepartidor = await UbicacionRepartidor.findOne({
+      where:{
+        ubicacion
+      }
+    })
+    if(!ubiRepartidor){
+      const ubicacionRepartidor = await UbicacionRepartidor.create({
+        ubicacion, 
+        RepartidorId: idRepartidor.id 
+     });  
+     res.send(ubicacionRepartidor);
+    }
+    else{
+      const ubicacionRepartidor = await UbicacionRepartidor.update(
+        {ubicacion},
+        {
+          where:{
+            RepartidorId: idRepartidor.id 
+          }
+      });  
+      res.send(ubicacionRepartidor);
+    }
+    
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+
 
 server.get("/repartidor", async (req, res) => {
   try {
@@ -54,6 +100,8 @@ server.get("/repartidor", async (req, res) => {
     res.send(error);
   }
 });
+
+
 
 server.get("/repartidoractivo", async (req, res) => {
   try {
