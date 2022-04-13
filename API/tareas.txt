@@ -1,4 +1,3 @@
 
 A) Envios y Repartidores
-1.- Pensar como seleccionar un Repartidor a la hora de crear un envio
-2.- Pensar como se obtendra el tiempo promedio que toma a un restaurant entregar su envio.
+1.- Pensar como se obtendra el tiempo promedio que toma a un restaurant entregar su envio.

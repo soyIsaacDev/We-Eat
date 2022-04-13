@@ -12,6 +12,17 @@ export function addRestaurant(data){
       postData();       
 }
 
+/* export function addRestaurantImg(data){
+    async function postData(){
+        const requestOptions = {
+          method: 'POST',
+          body: data
+      };
+      await fetch('http://localhost:4000/restaurantes/agregarImgRest', requestOptions)
+      };
+      postData();       
+} */
+
 export function addRepartidor(data){
     async function postData(){
         const requestOptions = {

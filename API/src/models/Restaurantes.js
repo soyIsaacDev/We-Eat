@@ -14,7 +14,7 @@ module.exports = s => {
             allowNull: false,
         },
         area_de_reparto:{
-            type: DataTypes.INTEGER,
+            type: DataTypes.FLOAT,
             allowNull:false
         }, 
         actividad:{

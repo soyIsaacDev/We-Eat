@@ -60,28 +60,32 @@ server.post("/ubicacionRepartidor", async (req, res) => {
         nombre: name,
       },
     });
-    const idRepartidor = repartidor
-    const ubiRepartidor = await UbicacionRepartidor.findOne({
+    const repartidorObject = repartidor;
+    const ubicacionActualRepartidor = await UbicacionRepartidor.findOne({
       where:{
-        ubicacion
+        [Op.and]: [
+          { ubicacion },
+          { RepartidorId:repartidorObject.id }
+        ]
+        
       }
     })
-    if(!ubiRepartidor){
-      const ubicacionRepartidor = await UbicacionRepartidor.create({
+    if(!ubicacionActualRepartidor){
+      const createUbicacionRepartidor = await UbicacionRepartidor.create({
         ubicacion, 
-        RepartidorId: idRepartidor.id 
+        RepartidorId: repartidorObject.id 
      });  
-     res.send(ubicacionRepartidor);
+     res.send(createUbicacionRepartidor);
     }
     else{
-      const ubicacionRepartidor = await UbicacionRepartidor.update(
+      const actualizarUbicacionRepartidor = await UbicacionRepartidor.update(
         {ubicacion},
         {
           where:{
-            RepartidorId: idRepartidor.id 
+            RepartidorId: repartidorObject.id 
           }
       });  
-      res.send(ubicacionRepartidor);
+      res.send(actualizarUbicacionRepartidor);
     }
     
   } catch (error) {

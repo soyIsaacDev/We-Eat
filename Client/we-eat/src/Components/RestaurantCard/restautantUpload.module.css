@@ -1,0 +1,35 @@
+form{
+    width: 100vw;
+    height: 90vh;
+    background-color: lightgray;
+    /* display: flex;
+    flex-wrap: wrap; */
+}
+
+input{
+    width:80vw;
+    height: 11vh;
+    box-sizing: border-box;
+    margin: 5px 0;
+    padding: 0 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+}
+label{
+    width:100vw;
+    height: 11vh;
+    box-sizing: border-box;
+    margin: 5px 0;
+    padding: 0 20px;
+    font-size: 1.3rem;
+    border-radius: 5px;
+}
+select{
+    width:80vw;
+    height: 11vh;
+    box-sizing: border-box;
+    margin: 5px 0;
+    padding: 0 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+}

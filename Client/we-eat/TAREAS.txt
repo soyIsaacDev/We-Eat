@@ -1,2 +1,0 @@
-Ver como renderizar mas marcadores;
-Una idea esta descrita en linea 24 de Marker.js

@@ -115,6 +115,8 @@ ImgPlatillo.belongsTo(Platillo);
 UbicacionRepartidor.belongsTo(Repartidor);
 
 
+
+
 module.exports = {
     ...sequelize.models,
     db: sequelize,
