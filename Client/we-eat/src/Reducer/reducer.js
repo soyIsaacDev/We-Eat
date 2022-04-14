@@ -1,7 +1,9 @@
 //REDUCER
 const initialState = {
     googleMap: {},
-    geolocation:[]
+    geolocation:[],
+    loadedRestaurants:[],
+    loadedImg:[]
   }
 
   // getPlumber, getPlumberDetail
@@ -17,6 +19,16 @@ const initialState = {
         return {
           ...state,
           geolocation: action.payload
+        }
+      case 'GET_RESTAURANTES':
+        return{
+          ...state,
+          loadedRestaurants: action.payload
+        }
+      case 'GET_IMAGENES':
+        return{
+          ...state,
+          loadedImg: action.payload
         }
 
       default:

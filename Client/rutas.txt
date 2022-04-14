@@ -1,5 +1,11 @@
 app.use('/', index);
 app.use("/restaurantes", restaurantes)
+        /imagenes
+        /restaurantes
+        /agregarcorp        --> post
+        /agregarRestaurantes
+        /agregarImgRest
+        
 app.use("/envios", envios);
 app.use("/repartidor", repartidor);
         /nuevoRepartidor    --> post

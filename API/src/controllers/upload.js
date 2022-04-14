@@ -17,7 +17,7 @@ const uploadFiles = async (req, res) => {
       return res.send(`You must select a file.`);
     }
     
-    await ImgRest.create({
+    const imagenRest = await ImgRest.create({
       type: req.file.mimetype,
       name: req.file.filename
       /* name: req.file.originalname */,

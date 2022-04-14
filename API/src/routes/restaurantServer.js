@@ -1,5 +1,6 @@
 const server = require("express").Router();
 const fs = require("fs");
+const express = require("express");
 
 const { Restaurantes, Corporativo, ImgRest } = require("../db");
 const path = require('path')
@@ -47,6 +48,7 @@ server.post("/agregarRestaurantes", async (req, res) => {
     });
     await corp[0].addRestaurantes(restaurante[0]);
     res.json(restaurante);
+    //res.redirect()
 
   } catch (error) {
     res.send(error);
@@ -86,5 +88,9 @@ server.get("/imagenes", async (req,res)=> {
     res.send(e);
   }
 });
+
+server.use(express.static(__dirname + 'public'));
+server.use('/uploads', express.static('resources/uploads'));
+  //para ver la imagen -> http://localhost:4000/uploads/nombre de la imagen
 
 module.exports = server;

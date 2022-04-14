@@ -76,6 +76,7 @@ export default function Restaurant() {
 
     return (
         <form onSubmit={onSubmit}>
+            <h1>Registro de Nuevo Restaurant</h1>
             <input
                 name= 'nombre'
                 value = {input.nombre}
@@ -106,19 +107,24 @@ export default function Restaurant() {
                 id="actividad" 
                 name="actividad"
                 value= {input.actividad}
-                placeholder = "Abierto / Cerrado / Pausa"
                 onChange={(e) => handleInputChange(e)}
             >
                 <option value="Abierto">Abierto</option>
                 <option value="Cerrado">Cerrado</option>
                 <option value="Pausa">Pausa</option>
             </select>
-            <input
-                name= "estatus"
-                value={input.estatus}
-                placeholder= "Activo / Inactivo / En_Registro / En_Baja"
+            <label>Estatus de Registro</label>
+            <select 
+                id="estatus" 
+                name="estatus"
+                value= {input.estatus}
                 onChange={(e) => handleInputChange(e)}
-            />
+            >
+                <option value="Activo">Activo</option>
+                <option value="Inactivo">Inactivo</option>
+                <option value="En_Registro">En Registro</option>
+                <option value="En_Baja">Baja</option>
+            </select>
             <input
                 name= "nombreCorp"
                 value= {input.nombreCorp}
@@ -131,7 +137,7 @@ export default function Restaurant() {
                 placeholder="Direccion del Corporativo"
                 onChange={(e) => handleInputChange(e)}
             />
-            <input type="file" name="file" onChange={onChangeHandler}/>
+            <input type="file" name="file" onChange={onChangeHandler} className={style.file}/>
             {isFilePicked ? (
                 <div>
                     <p>Filename: {selectedFile.name}</p>
@@ -145,10 +151,10 @@ export default function Restaurant() {
             ):(
                <p> Seleccione una foto de su Restaurante</p> 
             )}
-            <div>
-                <input type="submit" />
+            
+                <input type="submit" className={style.submit}/>
                 {/* <button onClick={onSubmit}>Submit</button> */}
-            </div>
+            
         </form> 
     )
 };
