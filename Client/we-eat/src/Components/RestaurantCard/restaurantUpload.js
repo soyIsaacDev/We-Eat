@@ -17,6 +17,7 @@ export default function Restaurant() {
         nombreCorp:"",  direccionCorp:""
     });
     console.log(input)
+    
     const [selectedFile, setSelectedFile] = useState();
     const [isFilePicked, setIsFilePicked] = useState(false);
 
@@ -35,9 +36,9 @@ export default function Restaurant() {
         console.log(input)
       }
 
-    const onSubmit = async() => {
+    /* const onSubmit = async(e) => {
+        e.preventDefault();
         const formData = new FormData();
-        //formData.append('username', 'Chris');
 		formData.append('file', selectedFile);
         for(var pair of formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]);
@@ -53,10 +54,10 @@ export default function Restaurant() {
 		)
 			.then((response) => response.json())
 			.then((result) => {
-				console.log('Success:', result);
+				console.log('Se agrego el restaurante correctamente:', result);
 			})
 			.catch((error) => {
-				console.error('Error:', error);
+				console.error('Error al agregar restaurante:', error);
 			});
         await fetch(
 			'http://localhost:4000/restaurantes/agregarImgRest',
@@ -67,10 +68,37 @@ export default function Restaurant() {
 		)
 			.then((response) => response.json())
 			.then((result) => {
-				console.log('Success:', result);
+				console.log('Imagen Agregada con Exito:', result);
 			})
 			.catch((error) => {
-				console.error('Error:', error);
+				console.error('Error al agregar la Imagen:', error);
+			});
+	}; */
+    const onSubmit = async(e) => {
+        e.preventDefault();
+        const formData = new FormData();
+		formData.append('file', selectedFile);
+        formData.append('data', JSON.stringify(input));
+        for(var pair of formData.entries()) {
+            console.log(pair[0]+ ', '+ pair[1]);
+         }
+
+        await fetch(
+			'http://localhost:4000/restaurantes/agregarImgRest',
+			{
+				method: 'POST',
+                //headers: { 'Content-Type': 'application/json' },
+                body: formData,
+                //body: selectedFile,
+				//body: JSON.stringify(input)
+			}
+		)
+			.then((response) => response.json())
+			.then((result) => {
+				console.log(result);
+			})
+			.catch((error) => {
+				console.error('Error al agregar la Imagen:', error);
 			});
 	};
 

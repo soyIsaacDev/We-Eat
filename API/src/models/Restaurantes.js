@@ -24,8 +24,31 @@ module.exports = s => {
         estatus:{
             type: DataTypes.ENUM('Activo', 'Inactivo','En_Registro', 'En_Baja'),
             allowNull: false
+        },
+        urlTitle:{
+            type: DataTypes.STRING,
+            unique: true,
+            allowNull: false,
+        },
+        route:{
+            type: DataTypes.VIRTUAL,
+            get () {
+                return `/pages/${this.urlTitle}`
+            }
         }
-    }, {
+              
+    },
+    {
+        hooks:{
+            beforeValidate: Restaurantes =>  {
+                Restaurantes.urlTitle = Restaurantes.nombre && Restaurantes.nombre.replace(/\s+/g, '_').replace(/[^\w-]+/g, '');
+            }
+        }
+    
+    },
+    {
     timestamps: false,
     });
+    
+    
 }

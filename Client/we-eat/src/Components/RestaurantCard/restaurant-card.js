@@ -13,25 +13,25 @@ export default function Restaurant_Card() {
 
   const restaurants = useSelector((state) => state.loadedRestaurants);
   const imagen = useSelector((state) => state.loadedImg);
+  
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getRestaurants());
     dispatch(getImg());
   }, []);
   
-  console.log(imagen[0].name)
-  var img = imagen[0].name;
   return (
     <Link to={`/RestaurantDetails`}>
       {restaurants.map((restaurant) => {
         return (
           <div  key = "restcard" className={style.restcardwrap}>
-            <img className={style.img} src={img} alt="Imagen Restaurant" />
-            {/* {imagen.map((img) => {
+            {/* <img className={style.img} src={img} alt="Imagen Restaurant" /> */}
+            {imagen.map((img) => {
+              const rutaImg = "http://localhost:4000/uploads/"+ img.name;
               return(
-                <img className={style.img} src={img.name} alt="Imagen Restaurant" />
+                <img className={style.img} src={rutaImg} alt="Imagen Restaurant" />
               )
-            })} */}
+            })}
             
             <div key = "rnamewrap" className={style.rnamewrap}>
                 <div key = "rname" className={style.rname}>{restaurant.nombre}</div>

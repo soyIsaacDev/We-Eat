@@ -1,4 +1,4 @@
-// Image Uoloading based on https://www.bezkoder.com/node-js-upload-image-mysql/
+// Image Uploading based on https://www.bezkoder.com/node-js-upload-image-mysql/
 
 const fs = require("fs");
 
@@ -10,7 +10,13 @@ const carpeta = path.join(__dirname, '../../resources/uploads')
 console.log("DIRECTORIO" + carpeta)
 
 const uploadFiles = async (req, res) => {
+  
   try {
+    
+    const obj = req.body.data;
+    const parseado = JSON.parse(obj)
+    const { nombreCorp, direccionCorp, nombre, direccion, area_de_reparto, actividad, estatus } = parseado;
+    console.log(nombreCorp)
     console.log(req.file);
 
     if (req.file == undefined) {
@@ -19,8 +25,7 @@ const uploadFiles = async (req, res) => {
     
     const imagenRest = await ImgRest.create({
       type: req.file.mimetype,
-      name: req.file.filename
-      /* name: req.file.originalname */,
+      name: req.file.filename,
       data: fs.readFileSync(
         carpeta +"/"+ req.file.filename
       ),
@@ -32,8 +37,6 @@ const uploadFiles = async (req, res) => {
       );
     });
 
-    /* const { nombreCorp, direccionCorp, nombre, direccion, area_de_reparto, actividad, estatus } = req.body;
-
     const corp = await Corporativo.findOrCreate({
       where: {
         nombre: nombreCorp
@@ -42,7 +45,7 @@ const uploadFiles = async (req, res) => {
         direccion: direccionCorp
       }
     });
-    const restaurante = await Restaurantes.findOrCreate({
+     const restaurante = await Restaurantes.findOrCreate({
       where: {
         nombre: nombre
       },
@@ -55,12 +58,15 @@ const uploadFiles = async (req, res) => {
     });
     
     await corp[0].addRestaurantes(restaurante[0]);
-    res.json(`Se creo el restaurante y su imagen`,restaurante ); */
-    return res.send(`File has been uploaded.`);
+    await imagenRest.addRestaurantes(restaurante[0]);
+    console.log(imagenRest)
+    
+    res.json(`Se creo el restaurante y su imagen`);
+    //return res.send(`File has been uploaded.`);
     
   } catch (error) {
     console.log(error);
-    return res.send(`Error al intentar crear el restaurante: ${error}`);
+    return res.send(`Error al intentar crear la imagen: ${error}`);
   }
 };
 

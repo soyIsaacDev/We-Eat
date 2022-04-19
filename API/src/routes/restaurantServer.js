@@ -47,8 +47,10 @@ server.post("/agregarRestaurantes", async (req, res) => {
       }      
     });
     await corp[0].addRestaurantes(restaurante[0]);
+    //await restaurante[0].addImgRest(uploadController.uploadFiles.imagenRest)
+    console.log(restaurante);
     res.json(restaurante);
-    //res.redirect()
+    //res.redirect(restaurante.route)
 
   } catch (error) {
     res.send(error);
@@ -80,7 +82,7 @@ server.post("/agregarcorp", async (req, res) => {
 server.get("/imagenes", async (req,res)=> {
   try{
     const imagenes = await ImgRest.findAll({
-      attributes: ['name']
+      attributes: ['name','RestauranteId']
     });
     res.send(imagenes);
   }
@@ -89,6 +91,7 @@ server.get("/imagenes", async (req,res)=> {
   }
 });
 
+// Para ver las imagenes
 server.use(express.static(__dirname + 'public'));
 server.use('/uploads', express.static('resources/uploads'));
   //para ver la imagen -> http://localhost:4000/uploads/nombre de la imagen
