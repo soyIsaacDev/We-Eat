@@ -14,6 +14,11 @@ server.post("/agregarImgRest", upload.single("file"), uploadController.uploadFil
 server.get("/restaurantes", async (req, res) => {
   try {
     const Restaurants= await Restaurantes.findAll({
+      include: {
+        model: ImgRest,
+        attributes: ['name','RestauranteId'],
+      },
+      
     });
     res.json(Restaurants);
   } catch (error) {
@@ -76,7 +81,17 @@ server.post("/agregarcorp", async (req, res) => {
   }
 });
 
-
+server.get("/corporativo", async (req,res)=> {
+  try{
+    const corp = await Corporativo.findAll({
+      
+    });
+    res.json(corp);
+  }
+  catch(e){
+    res.send(e);
+  }
+});
 
 
 server.get("/imagenes", async (req,res)=> {

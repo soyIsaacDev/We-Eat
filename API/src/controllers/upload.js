@@ -13,22 +13,35 @@ const uploadFiles = async (req, res) => {
   
   try {
     
-    const obj = req.body.data;
-    const parseado = JSON.parse(obj)
-    const { nombreCorp, direccionCorp, nombre, direccion, area_de_reparto, actividad, estatus } = parseado;
-    console.log(nombreCorp)
+    const bodyObj = req.body.data;
+    const parsedbodyObj = JSON.parse(bodyObj)
+    const { nombreCorp, direccionCorp, nombre, direccion, area_de_reparto, actividad, estatus } = parsedbodyObj;
+   
     console.log(req.file);
 
     if (req.file == undefined) {
       return res.send(`You must select a file.`);
     }
-    
+    const restaurante = await Restaurantes.findOrCreate({
+      where: {
+        nombre: nombre
+      },
+      defaults: {
+        direccion,
+        area_de_reparto,
+        actividad,
+        estatus
+      }      
+    });
+    console.log("Restaurante " + JSON.stringify(restaurante));
+    console.log("Restaurante " + restaurante[0].id)
     const imagenRest = await ImgRest.create({
       type: req.file.mimetype,
       name: req.file.filename,
       data: fs.readFileSync(
         carpeta +"/"+ req.file.filename
       ),
+      RestauranteId:restaurante[0].id
       
     }).then((image) => {
       fs.writeFileSync(
@@ -45,20 +58,10 @@ const uploadFiles = async (req, res) => {
         direccion: direccionCorp
       }
     });
-     const restaurante = await Restaurantes.findOrCreate({
-      where: {
-        nombre: nombre
-      },
-      defaults: {
-        direccion,
-        area_de_reparto,
-        actividad,
-        estatus
-      }      
-    });
+     
     
     await corp[0].addRestaurantes(restaurante[0]);
-    await imagenRest.addRestaurantes(restaurante[0]);
+    //await imagenRest.setRestaurantes(restaurante[0]);
     console.log(imagenRest)
     
     res.json(`Se creo el restaurante y su imagen`);
