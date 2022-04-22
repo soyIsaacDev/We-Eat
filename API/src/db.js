@@ -7,7 +7,8 @@ const  modelEnvio = require("./models/Envio");
 const  modelEvaluaciones = require("./models/Evaluaciones");
 const  modelImgRest = require("./models/ImagenRestaurante");
 const  modelMenu = require("./models/Menu");
-const  modelRestaurantes = require("./models/Restaurantes");
+const  modelRestaurantes = require("./models/Restaurantes/Restaurantes");
+const  modelRestaurantDetails = require("./models/Restaurantes/RestDetails");
 const  modelTipodeComida = require("./models/TipoDeComida");
 const  modelClientes = require("./models/Clientes/Clientes");
 const  modelDireccion = require("./models/Clientes/Direccion");
@@ -51,12 +52,13 @@ modelPlatillo(sequelize);
 modelRepartidor(sequelize);
 modelImgPlatillo(sequelize);
 modelUbicacionRepartidor(sequelize);
+modelRestaurantDetails(sequelize);
 
 
 let {Corporativo, /* Ciudad, */ Envios, Evaluaciones, ImgRest, Menu, Restaurantes, 
     TipodeComida, Clientes, Direccion, MetodosdePago, Pedidos, PedidoGrupal, 
     Platillo, IngredientesExtra, IngredientesaQuitar, Ingredientes,
-    ComprasJuntas, Repartidor, ImgPlatillo, UbicacionRepartidor} = sequelize.models;
+    ComprasJuntas, Repartidor, ImgPlatillo, UbicacionRepartidor, RestaurantDetails} = sequelize.models;
 
 /* Relaciones de DB */
 Corporativo.hasMany(Restaurantes);
@@ -113,6 +115,8 @@ ImgRest.belongsTo(Restaurantes);
 Platillo.hasOne(ImgPlatillo);
 ImgPlatillo.belongsTo(Platillo);
 UbicacionRepartidor.belongsTo(Repartidor);
+Restaurantes.hasOne(RestaurantDetails);
+RestaurantDetails.belongsTo(Restaurantes); 
 
 
 

@@ -15,7 +15,8 @@ const uploadFiles = async (req, res) => {
     
     const bodyObj = req.body.data;
     const parsedbodyObj = JSON.parse(bodyObj)
-    const { nombreCorp, direccionCorp, nombre, direccion, area_de_reparto, actividad, estatus } = parsedbodyObj;
+    const { nombreCorp, direccionCorp, nombre, direccion, area_de_reparto, 
+      actividad, estatus,costoEnvio, horarios, tipoComida } = parsedbodyObj;
    
     console.log(req.file);
 
@@ -30,26 +31,30 @@ const uploadFiles = async (req, res) => {
         direccion,
         area_de_reparto,
         actividad,
-        estatus
+        estatus,
+        costoEnvio, 
+        horarios, 
+        tipoComida
       }      
     });
-    console.log("Restaurante " + JSON.stringify(restaurante));
-    console.log("Restaurante " + restaurante[0].id)
-    const imagenRest = await ImgRest.create({
-      type: req.file.mimetype,
-      name: req.file.filename,
-      data: fs.readFileSync(
-        carpeta +"/"+ req.file.filename
-      ),
-      RestauranteId:restaurante[0].id
-      
-    }).then((image) => {
-      fs.writeFileSync(
-        carpeta + image.name,
-        image.data
-      );
-    });
 
+    if(restaurante[1]=== true){
+      const imagenRest = await ImgRest.create({
+        type: req.file.mimetype,
+        name: req.file.filename,
+        data: fs.readFileSync(
+          carpeta +"/"+ req.file.filename
+        ),
+        RestauranteId:restaurante[0].id
+        
+      }).then((image) => {
+        fs.writeFileSync(
+          carpeta + image.name,
+          image.data
+        );
+      });
+    }
+    
     const corp = await Corporativo.findOrCreate({
       where: {
         nombre: nombreCorp
@@ -62,9 +67,9 @@ const uploadFiles = async (req, res) => {
     
     await corp[0].addRestaurantes(restaurante[0]);
     //await imagenRest.setRestaurantes(restaurante[0]);
-    console.log(imagenRest)
+    //console.log(imagenRest)
     
-    res.json(`Se creo el restaurante y su imagen`);
+    res.json(restaurante );
     //return res.send(`File has been uploaded.`);
     
   } catch (error) {

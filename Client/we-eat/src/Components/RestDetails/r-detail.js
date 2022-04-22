@@ -1,43 +1,54 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+import { useDispatch, useSelector  } from "react-redux";
 
+import { getRestaurantDetails } from "../../Actions/actions";
 import s from "./r-details.module.css";
 import DishCard from "../DishCard/dishCard";
 
-import banner from "./RestBanner.jpeg";
-import star from "./star.png";
-import food from "./food-tray-a.png";
-import busqueda from "./lupa-a.png";
+import banner from "./media/RestBanner.jpeg";
+import star from "./media//star.png";
+import food from "./media//food-tray-a.png";
+import busqueda from "./media/lupa-a.png";
 
-export default function restaurant_card() {
-  return (
-      <div className={s.wrapper}>
-          <img className={s.img} src={banner} alt="Banner de Restaurant"></img>
-          <div className={s.infoWrapper}>
-            <div className={s.restname}>El Rinconcito Poniente</div>
-            <div className={s.datos}>
-                <img  className={s.icon} src={star} alt="Estrella Calificacion"></img>
-                <div className={s.calificacion}>4.6 (70 calificaciones)</div>
-                <div className={s.tiempoComida}>Desayuno y brunch</div>
-                <div className={s.precio}>$$$$</div>
-                <img  className={s.icon} src={food} alt="Envio Comida"></img>
-            </div>
-            <div className={s.envio}>
-                <div className={s.tiempo}>15-25min</div>
-                <div className={s.costo}>Costo de envio: $55</div>
-            </div>
-            <div className={s.envio}>Toca para ver los horarios, dirrección y mas</div>
-            <div className={s.menuWraper}>
-                <div className={s.menu}>Menú</div>
-                <img  className={s.busqueda} src={busqueda} alt="Busqueda"></img>
-            </div>
-            <div className={s.seleccion}>Seleccionado para ti</div>
-            <Link to = "/DishDetail">
-                <DishCard></DishCard>
-            </Link>
-            
+export default function RestaurantDetails() {
+    const restaurante = useSelector((state) => state.loadedRestDetails)
+    
+    const dispatch = useDispatch();
+    const restaurantId = useParams().id;
+    console.log(restaurantId);
+    
+    useEffect(() => { 
+        dispatch(getRestaurantDetails(restaurantId));
+    }, []);
+    
+    return(
+        <div className={s.wrapper}>
+            <img className={s.img} src={banner} alt="Banner de Restaurant"></img>
+            <div className={s.infoWrapper}>
+                <div className={s.restname}>{restaurante.nombre}</div>
+                <div className={s.datos}>
+                    <img  className={s.icon} src={star} alt="Estrella Calificacion"></img>
+                    <div className={s.calificacion}>4.6 (70 calificaciones)</div>
+                    <div className={s.tiempoComida}>{restaurante.tipoComida}</div>
+                    <div className={s.precio}>$$$$</div>
+                    <img  className={s.icon} src={food} alt="Envio Comida"></img>
+                </div>
+                <div className={s.envio}>
+                    <div className={s.tiempo}>15-25min</div>
+                    <div className={s.costo}>Costo de envio: ${restaurante.costoEnvio}</div>
+                </div>
+                <div className={s.envio}>Toca para ver los horarios, dirrección y mas</div>
+                <div className={s.menuWraper}>
+                    <div className={s.menu}>Menú</div>
+                    <img  className={s.busqueda} src={busqueda} alt="Busqueda"></img>
+                </div>
+                <div className={s.seleccion}>Seleccionado para ti</div>
+                <Link to = "/DishDetail">
+                    <DishCard></DishCard>
+                </Link>
+            </div>          
+        </div>
+    )
 
-          </div>        
-      </div>
-  );
 }

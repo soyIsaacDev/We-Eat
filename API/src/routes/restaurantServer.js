@@ -2,61 +2,26 @@ const server = require("express").Router();
 const fs = require("fs");
 const express = require("express");
 
-const { Restaurantes, Corporativo, ImgRest } = require("../db");
+const { Restaurantes, Corporativo, ImgRest, Platillo, Menu } = require("../db");
 const path = require('path')
 const carpeta = path.join(__dirname, '../../resources/uploads')
 console.log("DIRECTORIO" + carpeta)
 const uploadController = require("../controllers/upload");
+const uploadImgPlatilloController = require("../controllers/uploadPlatillo");
 const upload = require("../middleware/upload");
 
-server.post("/agregarImgRest", upload.single("file"), uploadController.uploadFiles);
+server.post("/agregarRestaurante", upload.single("file"), uploadController.uploadFiles);
+server.post("/agregarPlatillo", upload.single("file"), uploadImgPlatilloController.uploadPlatillo);
 
-server.get("/restaurantes", async (req, res) => {
+server.post("/agregarmenu", async (req, res) => { 
   try {
-    const Restaurants= await Restaurantes.findAll({
-      include: {
-        model: ImgRest,
-        attributes: ['name','RestauranteId'],
-      },
-      
-    });
-    res.json(Restaurants);
-  } catch (error) {
-    res.send(error);
-  }
-});
-
-server.post("/agregarRestaurantes", async (req, res) => { 
-  try {
-    const { nombreCorp, direccionCorp, nombre, direccion, area_de_reparto, actividad, estatus } = req.body;
-    /* for(var pair of formData.entries()) {
-      console.log(pair[0]+ ', '+ pair[1]);
-    } */
-    const corp = await Corporativo.findOrCreate({
+    const {nombre } = req.body;
+    const menu = await Menu.findOrCreate({
       where: {
-        nombre: nombreCorp
-      },
-      defaults:{
-        direccion: direccionCorp
+        nombre
       }
     });
-    const restaurante = await Restaurantes.findOrCreate({
-      where: {
-        nombre: nombre
-      },
-      defaults: {
-        direccion,
-        area_de_reparto,
-        actividad,
-        estatus
-      }      
-    });
-    await corp[0].addRestaurantes(restaurante[0]);
-    //await restaurante[0].addImgRest(uploadController.uploadFiles.imagenRest)
-    console.log(restaurante);
-    res.json(restaurante);
-    //res.redirect(restaurante.route)
-
+    res.json(menu);
   } catch (error) {
     res.send(error);
   }
@@ -73,9 +38,23 @@ server.post("/agregarcorp", async (req, res) => {
       defaults:{
         direccion: direccionCorp
       }
-    });
-    
+    });   
     res.json(Corp);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+server.get("/restaurantes", async (req, res) => {
+  try {
+    const Restaurants= await Restaurantes.findAll({       
+      include: {
+        model: ImgRest,
+        attributes: ['name','RestauranteId'],
+      },
+      
+    });
+    res.json(Restaurants);
   } catch (error) {
     res.send(error);
   }
@@ -93,6 +72,23 @@ server.get("/corporativo", async (req,res)=> {
   }
 });
 
+server.get("/platillo", async (req, res) => {
+  try {
+    const platillo = await Platillo.findAll();
+    res.json(platillo);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+server.get("/menu", async (req, res) => {
+  try {
+    const menu = await Menu.findAll();
+    res.json(menu);
+  } catch (error) {
+    res.send(error);
+  }
+});
 
 server.get("/imagenes", async (req,res)=> {
   try{
@@ -105,6 +101,53 @@ server.get("/imagenes", async (req,res)=> {
     res.send(e);
   }
 });
+
+
+
+
+
+
+
+
+server.get("/:route", async (req, res) => {
+  try {
+    let {route} = req.params;
+    const restaurantDetails= await Restaurantes.findAll({
+      include: {
+        model: ImgRest,
+        attributes: ['name','RestauranteId'],
+      },
+      
+    });
+    res.json(Restaurants);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+server.get("/restaurantes/:id", async (req, res) => {
+  try {
+    let {id} = req.params;
+    const Restaurants= await Restaurantes.findOne({
+      where:{id},
+      include: {
+        model: ImgRest,
+        attributes: ['name','RestauranteId'],
+      },
+      
+    });
+    res.json(Restaurants);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+
+
+
+
+
+
 
 // Para ver las imagenes
 server.use(express.static(__dirname + 'public'));

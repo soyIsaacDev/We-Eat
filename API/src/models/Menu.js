@@ -6,8 +6,7 @@ module.exports = s => {
     {
         nombre:{
             type: DataTypes.STRING,
-            allowNull: false,
-            unique: true 
+            allowNull: false
         }
     }, {
     timestamps: false,

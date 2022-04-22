@@ -1,7 +1,7 @@
 form{
     width: 100vw;
     height: 100%;
-    background-color: lightgray;
+    background-color: black;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -14,7 +14,7 @@ h1{
     justify-content: center;
     width:100%;
     height: 6vh;
-    font-size: 2rem;
+    font-size: 1.3rem;
     margin: 2%;
 }
 input{

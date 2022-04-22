@@ -1,20 +1,15 @@
 // based on https://www.pluralsight.com/guides/uploading-files-with-reactjs
 // and https://jasonwatmore.com/post/2020/02/01/react-fetch-http-post-request-examples
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-import style from "./restautantUpload.module.css";
+import style from "./restaurant-card.module.css";
 
 export default function Restaurant() {
-    /* useEffect(() => {
-        //NOT really an action for React-Redux but placed in actions file
-        addRestaurant({ nombre:"Tuetano", direccion:"Morelos", area_de_reparto: 1, 
-        actividad:"Abierto", estatus: "En_Registro", 
-        nombreCorp: "We-Eat-Corp", direccionCorp: "Domicilio Corporativo"  });      
-      }, []); */
+    
     const [input, setInput] = useState({ 
         nombre: "", direccion: "", area_de_reparto:"", actividad:"", estatus:"",
-        nombreCorp:"",  direccionCorp:""
+        nombreCorp:"",  direccionCorp:"", costoEnvio: "", horarios: "", tipoComida:""
     });
     console.log(input)
     
@@ -84,13 +79,10 @@ export default function Restaurant() {
          }
 
         await fetch(
-			'http://localhost:4000/restaurantes/agregarImgRest',
+			'http://localhost:4000/restaurantes/agregarRestaurante',
 			{
 				method: 'POST',
-                //headers: { 'Content-Type': 'application/json' },
                 body: formData,
-                //body: selectedFile,
-				//body: JSON.stringify(input)
 			}
 		)
 			.then((response) => response.json())
@@ -103,7 +95,7 @@ export default function Restaurant() {
 	};
 
     return (
-        <form onSubmit={onSubmit}>
+        <form onSubmit={onSubmit} className={style.restaurantform}>
             <h1>Registro de Nuevo Restaurant</h1>
             <input
                 name= 'nombre'
@@ -124,12 +116,6 @@ export default function Restaurant() {
                 placeholder = "Area de Reparto en Km"
                 onChange={(e) => handleInputChange(e)}
             />
-            {/* <input
-                name= "actividad"
-                value= {input.actividad}
-                placeholder = "Abierto / Cerrado / Pausa"
-                onChange={(e) => handleInputChange(e)}
-            /> */}
             <label>Estatus de Actividad</label>
             <select 
                 id="actividad" 
@@ -160,11 +146,30 @@ export default function Restaurant() {
                 onChange={(e) => handleInputChange(e)}
             />
             <input
-                name= "direccionCorp"
-                value={input.direccionCorp}
-                placeholder="Direccion del Corporativo"
+                name= "costoEnvio"
+                value={input.costoEnvio}
+                placeholder="Costo de Envio"
                 onChange={(e) => handleInputChange(e)}
             />
+            <input
+                name= "horarios"
+                value={input.horarios}
+                placeholder="Horarios"
+                onChange={(e) => handleInputChange(e)}
+            />
+            <label>Tipo de Comida</label>
+            <select 
+                id="tipoComida" 
+                name="tipoComida"
+                value= {input.tipoComida}
+                onChange={(e) => handleInputChange(e)}
+            >
+                <option value="Desayuno">Desayuno</option>
+                <option value="Comida">Comida</option>
+                <option value="Cena">Cena</option>
+                <option value="Ensaladas">Ensaladas</option>
+            </select>
+
             <input type="file" name="file" onChange={onChangeHandler} className={style.file}/>
             {isFilePicked ? (
                 <div>

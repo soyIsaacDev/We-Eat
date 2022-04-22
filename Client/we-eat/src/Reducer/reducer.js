@@ -3,7 +3,9 @@ const initialState = {
     googleMap: {},
     geolocation:[],
     loadedRestaurants:[],
-    loadedImg:[]
+    loadedRestDetails:[],
+    loadedImg:[],
+    loadedMenu:[]
   }
 
   // getPlumber, getPlumberDetail
@@ -25,10 +27,20 @@ const initialState = {
           ...state,
           loadedRestaurants: action.payload
         }
+      case 'GET_RESTAURANTE_DETAILS':
+        return{
+          ...state,
+          loadedRestDetails: action.payload
+        }  
       case 'GET_IMAGENES':
         return{
           ...state,
           loadedImg: action.payload
+        }
+      case 'GET_MENU':
+        return{
+          ...state,
+          loadedMenu: action.payload
         }
 
       default:

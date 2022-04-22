@@ -11,6 +11,8 @@ import LiveCoding from "./Components/GeolocationMap/MapLiveCoding";
 import Geolocation from "./Components/GeolocationMap/Geolocation";
 import AddRepartidor from "./Components/Repartidor/repartidor";
 import AgregarRestaurant from "./Components/RestaurantCard/restaurantUpload";
+import AgregarPlatillo from "./Components/Platillos/platilloUpload"
+import AgregarDetallesRestaurant from "./Components/RestDetails/restDetailsUpload";
 
 function App() {
   return (
@@ -20,7 +22,7 @@ function App() {
           <Route exact path="/" element=
             { <RestaurantCard/> }
           />
-          <Route exact path="/RestaurantDetails" element=
+          <Route path="/RestaurantDetails/:id" element=
             { <RestaurantDetails/>  }
           />
           <Route exact path="/DishDetail" element=
@@ -41,6 +43,13 @@ function App() {
           <Route exact path="/agregarRestaurant" element=
             { <AgregarRestaurant/>  }
           />
+          <Route exact path="/agregarPlatillo" element=
+            { <AgregarPlatillo/>  }
+          />
+          <Route exact path="/agregarDetallesRestaurant" element=
+            { <AgregarDetallesRestaurant/>  }
+          />
+          
         </Routes>
       </React.Fragment>
     </div>

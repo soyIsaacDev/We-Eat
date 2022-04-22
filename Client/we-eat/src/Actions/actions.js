@@ -28,6 +28,20 @@ export function getRestaurants(){
     };
 }
 
+export function getRestaurantDetails(id){
+    return function (dispatch){
+       return fetch(`http://localhost:4000/restaurantes/restaurantes/${id}`)
+           .then(response => response.json())
+           .then(json => {
+               console.log(json)
+               dispatch({
+                   type: "GET_RESTAURANTE_DETAILS",
+                   payload: json
+               }); 
+           });
+    };
+}
+
 export function getImg(){
     return function (dispatch){
        return fetch("http://localhost:4000/restaurantes/imagenes")
@@ -42,4 +56,16 @@ export function getImg(){
     };
 }
 
-
+export function getMenu(){
+    return function (dispatch){
+       return fetch("http://localhost:4000/restaurantes/menu")
+           .then(response => response.json())
+           .then(json => {
+               console.log(json)
+               dispatch({
+                   type: "GET_MENU",
+                   payload: json
+               }); 
+           });
+    };
+}
