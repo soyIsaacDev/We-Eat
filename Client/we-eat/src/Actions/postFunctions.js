@@ -46,3 +46,15 @@ export function addUbicacionRepartidor(data){
       };
       postUbicacion();       
 }
+
+export function addClientes(data){
+    async function postData(){
+        const requestOptions = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+      };
+      await fetch('http://localhost:4000/clientes/agregarclientes', requestOptions)
+      };
+      postData();       
+}

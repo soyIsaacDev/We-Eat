@@ -16,11 +16,6 @@ module.exports = s => {
         contraseña:{
             type: DataTypes.STRING,
             allowNull: false
-        },
-        estatus:{
-            type: DataTypes.ENUM("Activo", "Repartiendo", "Pausa", "En_Registro",
-             "En_Baja", "Baja"),
-             allowNull: false
         }
     }, {
     timestamps: false,

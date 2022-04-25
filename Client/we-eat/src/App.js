@@ -13,6 +13,7 @@ import AddRepartidor from "./Components/Repartidor/repartidor";
 import AgregarRestaurant from "./Components/RestaurantCard/restaurantUpload";
 import AgregarPlatillo from "./Components/Platillos/platilloUpload"
 import AgregarDetallesRestaurant from "./Components/RestDetails/restDetailsUpload";
+import AgregarClientes from "./Components/Clientes/agregarClientes";
 
 function App() {
   return (
@@ -48,6 +49,9 @@ function App() {
           />
           <Route exact path="/agregarDetallesRestaurant" element=
             { <AgregarDetallesRestaurant/>  }
+          />
+          <Route exact path="/agregarClientes" element=
+            { <AgregarClientes/>  }
           />
           
         </Routes>
