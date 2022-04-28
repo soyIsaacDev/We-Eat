@@ -58,3 +58,17 @@ export function addClientes(data){
       };
       postData();       
 }
+
+export function login(data){
+    async function postData(){
+        const requestOptions = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+          mode: 'cors'
+      };
+      console.log(data)
+      await fetch('http://localhost:4000/login/password', requestOptions)
+      };
+      postData();       
+}

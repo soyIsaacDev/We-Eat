@@ -7,7 +7,7 @@ export default function Repartidor() {
   useEffect(() => {
     addRepartidor({ nombre:"Isaac Borbon", usuario:"iborbon", contraseña:"jivan", estatus:"Activo" });      
   }, []);
-
+  
   return (
       <div>
         Nuevo Repartidor

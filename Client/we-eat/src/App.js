@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 
 import "./App.css";
 
-import RestaurantCard from "./Components/RestaurantCard/restaurant-card";
+import Restaurantes from "./Components/RestaurantCard/restaurantes";
 import RestaurantDetails from "./Components/RestDetails/r-detail";
 import DishDetails from "./Components/DishDetails/dish-details";
 import Carrito from "./Components/CarritoCompras/carrito";
@@ -14,6 +14,7 @@ import AgregarRestaurant from "./Components/RestaurantCard/restaurantUpload";
 import AgregarPlatillo from "./Components/Platillos/platilloUpload"
 import AgregarDetallesRestaurant from "./Components/RestDetails/restDetailsUpload";
 import AgregarClientes from "./Components/Clientes/agregarClientes";
+import Login from "./Components/Login/login";
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
       <React.Fragment>
         <Routes>
           <Route exact path="/" element=
-            { <RestaurantCard/> }
+            { <Restaurantes/> }
           />
           <Route path="/RestaurantDetails/:id" element=
             { <RestaurantDetails/>  }
@@ -53,7 +54,9 @@ function App() {
           <Route exact path="/agregarClientes" element=
             { <AgregarClientes/>  }
           />
-          
+          <Route exact path="/login" element=
+            { <Login/>  }
+          />
         </Routes>
       </React.Fragment>
     </div>

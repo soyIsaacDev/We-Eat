@@ -27,13 +27,13 @@ server.get("/imagenes", async (req,res)=> {
 });
 
 server.use(express.static(__dirname + 'public'));
-server.use('/uploads', express.static('resources/uploads'));
-
+//server.use('/uploads', express.static('resources/uploads'));
 
 module.exports = {
   restaurantes: require("./restaurantServer"),
   envios: require("./envioServer"),
   repartidor: require("./repartidorServer"),
-  clientes:require("./clienteServer"),
+  clientes: require("./clienteServer"),
+  autenticacion: require("./auth"),
   index: server,
 };

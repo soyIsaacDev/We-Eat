@@ -3,7 +3,7 @@
 
 import React, { useState } from "react";
 
-import style from "./restaurant-card.module.css";
+import style from "./restautantUpload.module.css";
 
 export default function Restaurant() {
     

@@ -56,4 +56,39 @@ server.post("/agregarclientes", async (req, res) => {
     }
   }) 
 
+  const findByUsername = server.get(
+    async (username, req,res) => {
+      console.log("AHORA ACA" + username);      
+      try {
+        let {nombre} = req.query;
+        const client= await Clientes.findOne({
+          where:{usuario:"ewatt"}
+        });
+        console.log(client)
+        res.json(client)
+      } catch (error) {
+        console.log(error)
+      }
+    } 
+  )
+
+  /* const findByUsername =  
+    async (username) => {
+    try {
+      const client= await Clientes.findOne({
+        where:{usuario:username}
+      });
+      console.log(client)
+    } catch (error) {
+      console.log(error)
+    }
+  } */
+  
+
+  server.get("/buscar", async (req, res) => {
+    console.log("AQUI ANDO")
+    findByUsername()
+  }) 
+    
   module.exports = server;
+  module.exports = findByUsername;
