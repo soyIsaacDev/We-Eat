@@ -3,20 +3,22 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 
 import style from "./restaurantes";
-import { getRestaurants } from "../../Actions/actions";
+import { getRestaurants, getLogin } from "../../Actions/actions";
 
 export default function Restaurantes() {
   const restaurants = useSelector((state) => state.loadedRestaurants);
+  var loginState  = useSelector((state) => state.loginState);
   
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getRestaurants());
+    /* dispatch(getLogin()); */
   }, []);
   
   return (
     <div>
       <h1>Bienvenido a We-Eat</h1>
-      <Link to ="/login">Login</Link>
+      <Link to ="/signin">Login</Link>
       {restaurants.map((restaurant) => {
         const rutaImg = "http://localhost:4000/uploads/"+ restaurant.ImgRest.name;
         

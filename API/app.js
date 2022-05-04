@@ -5,12 +5,13 @@ const cors = require('cors');
 /* const force = true;
 db.sync({ force }) */
 app.use(cors());
-
+const PORT = 4000;
 const alter = true;
+
 db.sync({ force:true })
     .then(function () {
-        app.listen(4000, function () {
-            console.log('Server is listening on port 4000!');
+        app.listen(PORT, function () {
+            console.log('Server is listening on port ' + PORT);
           
         });
     });

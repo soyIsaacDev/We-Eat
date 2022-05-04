@@ -59,16 +59,78 @@ export function addClientes(data){
       postData();       
 }
 
-export function login(data){
+export function setUser(user) {
+    return { 
+        type: "SET_USER",
+        payload: user
+    };
+};
+
+
+
+export function loginSession(data){
+    return function (dispatch){
+        dispatch(setUser(data));
+        
+        async function postData(){
+            const requestOptions = {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(data),
+          };     
+          await fetch('http://localhost:4000/login/password', requestOptions)
+            .then(response => response.json())
+            .then(json => {
+                console.log("Usuario regresado por sesion ->>"+json)                
+            });
+        };    
+        postData();
+    }
+}
+export function getLogginSession(session) {
+    return { 
+        type: "GET_LOGIN",
+        payload: session
+    };
+};
+export function postLoginSession(data){
+    return function (dispatch){
+       
+        
+        async function postData(){
+            const requestOptions = {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(data),
+          };     
+          await fetch('http://localhost:4000/sesion', requestOptions)
+            .then(response => response.json())
+            .then(json => {
+                console.log("Session Autenticada"+json);
+                dispatch(getLogginSession(json));
+            });
+        };    
+        postData();
+    }
+}
+
+/*export function loginSession(data){
     async function postData(){
         const requestOptions = {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data),
-          mode: 'cors'
-      };
-      console.log(data)
+          body: JSON.stringify(data)
+      };     
       await fetch('http://localhost:4000/login/password', requestOptions)
+        .then(response => response.json())
+        .then(json => {
+            console.log("Usuario regresado por sesion ->>"+json)
+            
+            
+             Escribir respuesta en DB y consultarlo en ProtectedRoutes
+            
+        });
+        
       };
       postData();       
-}
+}*/

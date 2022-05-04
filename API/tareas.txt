@@ -1,3 +1,18 @@
 
 A) Envios y Repartidores
 1.- Pensar como se obtendra el tiempo promedio que toma a un restaurant entregar su envio.
+
+B) Resolver Sesion de Usuario
+1.- FrontEnd -> Post de sesion consultando al servidor si el usuario tiene acceso 
+                "loginSession" -> modificar para que guarde el usuario y contraseña en el 
+                estado como "user"
+    a) BackEnd -> el servidor guarda si la sesion se encuentra "LogedIn" o "LogedOut" y el 
+                  usuario en "Sesion"
+// 2.- En FrontEnd -> dispatch de accion que guarde el usuario y contraseña como "user" //
+2.- Front: consulta a el servidor para saber si el usuario (que esta guardado en el estado 
+    como "user") se encuentra en sesion activa (dispatch "getLoginSession")
+4.- BackEnd -> respuesta del servidor a "getLoginSession" y se despacha la accion "loginState" 
+    como "LogedIn" o "LogedOut"
+
+
+    git commit -m "Login Authentication Front & Backend""

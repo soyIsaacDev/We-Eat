@@ -1,16 +1,18 @@
 //REDUCER
 const initialState = {
+    
     googleMap: {},
     geolocation:[],
     loadedRestaurants:[],
     loadedRestDetails:[],
     loadedImg:[],
-    loadedMenu:[]
+    loadedMenu:[],
+    loginState:[],
+    user: []
   }
 
-  // getPlumber, getPlumberDetail
-
   const rootReducer = (state = initialState, action) => {
+    console.log(action.payload)
     switch (action.type) {
       case 'ADD_MAP':
         return {
@@ -42,7 +44,17 @@ const initialState = {
           ...state,
           loadedMenu: action.payload
         }
-
+      case 'GET_LOGIN':
+        return{
+          ...state,
+          loginState: action.payload
+        }
+      
+      case 'SET_USER':
+        return{
+          ...state,
+          user: action.payload
+        }
       default:
         return {...state}
     }

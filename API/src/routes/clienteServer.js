@@ -60,7 +60,7 @@ server.post("/agregarclientes", async (req, res) => {
     async (username, req,res) => {
       console.log("AHORA ACA" + username);      
       try {
-        let {nombre} = req.query;
+        const {nombre} = req.query;
         const client= await Clientes.findOne({
           where:{usuario:"ewatt"}
         });
@@ -72,6 +72,19 @@ server.post("/agregarclientes", async (req, res) => {
     } 
   )
 
+  server.get("/user", async (req,res) => {      
+      try {
+        const {usuario} = req.query;
+        const client= await Clientes.findOne({
+          where:{usuario}
+        });
+        console.log(client)
+        res.json(client)
+      } catch (error) {
+        console.log(error)
+      }
+    } 
+  )
   /* const findByUsername =  
     async (username) => {
     try {

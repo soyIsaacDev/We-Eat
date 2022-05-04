@@ -83,3 +83,27 @@ export function getUser(){
            });
     };
 }
+
+export function loginEstado() {
+    return { 
+        type: "SET_LOGIN"
+    };
+};
+
+export function getLoginSession(){
+    return function (dispatch){
+        console.log("getLoginSession")
+       return fetch("http://localhost:4000/sesion?username=ewatt")
+           .then(response => response.json())
+           .then(json => {
+               console.log("Respuesta Session -->>>"+JSON.stringify(json))
+               dispatch({
+                   type: "GET_LOGIN",
+                   payload: json
+               }); 
+           });
+    };
+}
+
+
+

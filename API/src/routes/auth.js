@@ -3,7 +3,8 @@ var passport = require('passport');
 //var Strategy = require('passport-local').Strategy;
 var LocalStrategy = require('passport-local');
 var app = express.Router();
-const { Clientes } = require("../db");
+
+const { Clientes, Sesion } = require("../db");
 
 // Autenticando al usuario con estrategia local de Passport
 passport.use(new LocalStrategy(
@@ -22,7 +23,8 @@ passport.use(new LocalStrategy(
           console.log("CONTRASEÑA INCORRECTA");
           return cb(null, false, { message: 'Incorrect password.' });
         }
-        console.log("USUARIO DE PASSPORT LOCAL  -->>"+user.nombre)
+        console.log("USUARIO DE PASSPORT LOCAL Loggeado  -->>"+user.nombre)
+        SesionAuth("LogedIn", user.id)
         return cb(null, user);
       } catch (error) {
         return cb(error);
@@ -80,23 +82,67 @@ app.use(passport.session()); */
   next();
 });*/
 
+const SesionAuth = async (auth, id) => { 
+  try {
+    //const { Sesion } = req.body;
+    const sesion = await Sesion.findOrCreate({
+      where:{ClienteId: id},
+      defaults:{
+        autenticated: auth
+      }
+    });
+    console.log("SesionAuth -->>"+ sesion)
+    return(sesion);
+    
+  } catch (error) {
+    return(error);
+  }
+};
+
 app.post('/login/password',
   passport.authenticate('local', { 
     //succesRedirect: '/localhost:3000/',
     failureRedirect: '/login' 
   }),
   function(req, res) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
-    res.redirect('http://localhost:3000/addRepartidor');  //Aqui dirigimos a donde deseamos (desde view servidor)
-    //res.redirect('localhost:3000/addRepartidor');  //Aqui dirigimos a donde deseamos (desde react falla cors policy)
+    //res.redirect('http://localhost:3000/addRepartidor');  //Aqui dirigimos a donde deseamos (desde view servidor)
+    //res.json('addRepartidor');  //Aqui dirigimos a donde deseamos (desde react falla cors policy)
+    
+    //res.json(loginState = true);
+    //res.json(user.id);
   }
-  );
+);
 
   
 app.get('/login', function(req, res, next) {
   res.render('login');
 });  
+
+app.get('/sesion', async function(req, res) {
+  //const { username } = req.query;
+  const { username } = req.body;
+  const user = await Clientes.findOne({
+    where:{ usuario: username }
+  });
+  console.log(user.id)
+  const sesion = await Sesion.findOne({
+    where:{ClienteId: user.id}
+  });
+  res.json(sesion)
+});  
+app.post('/sesion', async function(req, res) {
+  //const { username } = req.query;
+  const { username } = req.body;
+  const user = await Clientes.findOne({
+    where:{ usuario: username }
+  });
+  console.log(user.id)
+  const sesion = await Sesion.findOne({
+    where:{ClienteId: user.id}
+  });
+  res.json(sesion)
+}); 
+
 app.get('/logout',
   function(req, res){
     req.logout();
