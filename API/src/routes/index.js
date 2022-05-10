@@ -33,7 +33,8 @@ module.exports = {
   restaurantes: require("./restaurantServer"),
   envios: require("./envioServer"),
   repartidor: require("./repartidorServer"),
-  clientes: require("./clienteServer"),
+  clientefinal: require("./clienteServer"),
+  ClienteRestaurantero: require("./clienteRestaurantServer"),
   autenticacion: require("./auth"),
   index: server,
 };

@@ -1,8 +1,10 @@
 
 A) Envios y Repartidores
+
 1.- Pensar como se obtendra el tiempo promedio que toma a un restaurant entregar su envio.
 
 B) Resolver Sesion de Usuario
+
 1.- FrontEnd -> Post de sesion consultando al servidor si el usuario tiene acceso 
                 "loginSession" -> modificar para que guarde el usuario y contraseña en el 
                 estado como "user"
@@ -15,4 +17,41 @@ B) Resolver Sesion de Usuario
     como "LogedIn" o "LogedOut"
 
 
-    git commit -m "Login Authentication Front & Backend""
+C) Colocar un Pedido
+
+Lado Cliente
+
+1.- Cliente ve los restaurantes disponibles, entra a los detalles del restaurant y empieza 
+    a colocar un pedido.
+    En el pedido establece la cantidad de cada platillo.
+2.- Los platillos se agregan al carrito de compra.
+3.- Una vez que quiere colocar el pedido se loggea (si no estaba previamente loggeado)
+4.- Se coloca el pedido
+    a) se realiza el cobro
+5.- El pedido pasa al restautant 
+    a) entra al BackEnd por medio de ruta
+        /Pedido
+    b) En esta ruta se crea un nuevo pedido con el restaurant asignado (id restaurant),
+        platillos y cantidades
+6.- El cliente puede ver el status de su pedido
+
+Lado Restaurant
+
+1.- Armar front de Pedidos
+    a) Pedidos y su status
+    b) Detalle del pedido
+2.- El pedido entra a la cola de pedidos  (Ruta de /Pedidos/mispedidos donde
+                                           se tienen los pedidos por id del restaurant)
+3.- El pedido se marca como "recibido"   (post a /pedidos/mispedidos)
+4.- El pedido pasa por diferentes status (esto se le "avisa" al cliente en su Status de Pedido)
+5.- El pedido se marca como "Listo" y se asigna a el Repartidor mas cercano
+
+Lado Repartidor
+
+1.- Front de Pedidos
+2.- El pedido entra a Reparto
+3.- Al repartidor se le manda la ubicacion del Restaurant y nombre y ubicacion del Cliente
+4.- Restaurant marca pedido como "Entregado a Repartidor"
+5.- El repartidor entrega
+6.- El pedido es marcado como "Entregado"
+

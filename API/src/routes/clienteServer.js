@@ -1,19 +1,21 @@
 const server = require("express").Router();
 
-const { Clientes } = require("../db");
+const { Clientefinal } = require("../db");
 
 server.post("/agregarclientes", async (req, res) => { 
   try {
     const { nombre, usuario, contraseña } = req.body;
-    const client = await Clientes.findOrCreate({
-      where: {
+    const client = await Clientefinal.create({
+      /* where: {
         nombre
-      },
-      defaults:{
+      }, */
+      //defaults:{
+        nombre,
           usuario,
           contraseña
-      }
+      //}
     });
+    console.log(client)
     res.json(client);
   } catch (error) {
     res.send(error);
@@ -22,7 +24,7 @@ server.post("/agregarclientes", async (req, res) => {
 
  server.get("/clientes", async (req,res)=> {
     try{
-      const client = await Clientes.findAll({
+      const client = await Clientefinal.findAll({
         
       });
       res.json(client);
@@ -35,7 +37,7 @@ server.post("/agregarclientes", async (req, res) => {
   server.get("/cliente/:id", async (req, res) => {
     try {
       let {id} = req.params;
-      const client= await Clientes.findOne({
+      const client= await Clientefinal.findOne({
         where:{id}
       });
       res.json(client);
@@ -47,7 +49,7 @@ server.post("/agregarclientes", async (req, res) => {
   server.get("/clientes/:nombre", async (req, res) => {
     try {
       let {nombre} = req.params;
-      const client= await Clientes.findOne({
+      const client= await Clientefinal.findOne({
         where:{nombre}
       });
       res.json(client);
@@ -61,7 +63,7 @@ server.post("/agregarclientes", async (req, res) => {
       console.log("AHORA ACA" + username);      
       try {
         const {nombre} = req.query;
-        const client= await Clientes.findOne({
+        const client= await Clientefinal.findOne({
           where:{usuario:"ewatt"}
         });
         console.log(client)
@@ -75,7 +77,7 @@ server.post("/agregarclientes", async (req, res) => {
   server.get("/user", async (req,res) => {      
       try {
         const {usuario} = req.query;
-        const client= await Clientes.findOne({
+        const client= await Clientefinal.findOne({
           where:{usuario}
         });
         console.log(client)
@@ -88,7 +90,7 @@ server.post("/agregarclientes", async (req, res) => {
   /* const findByUsername =  
     async (username) => {
     try {
-      const client= await Clientes.findOne({
+      const client= await Clientefinal.findOne({
         where:{usuario:username}
       });
       console.log(client)

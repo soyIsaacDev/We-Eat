@@ -2,30 +2,26 @@ import React from "react";
 
 import s from "./navBar.module.css";
 
-import logo from "./logo.jpg";
-import burger from "./menu.png";
+import inicio from "./start.png";
+import cuenta from "./account.png";
+import oferta from "./sale.png";
+import carrito from "./burger-cart.png";
 
-
-export default function restaurant_card() {
+export default function NavBar() {
   return (
       <div className={s.navBar}>
-          <div className={s.menu}>
-            <img className={s.burger} src={burger} alt = "hamburger menu"></img>
-          </div>
-          <img className={s.logo} src = {logo} alt = "Imagen Logo"></img>
-          <div className={s.entrega}>Entrega a domicilo</div>
-          <div className={s.recolectar}>Recolectar</div>
-          <div className={s.domicilio}>Domicilio</div>
-          <div className={s.inputwrap}>
-            <input className={s.input} placeholder="Buscar"></input>
-          </div>
-          <div className={s.ultimos}>
-            <button className={s.carrito}>Carrito</button>
-          </div>
-          <div className={s.ultimos}>
-            <button className={s.init}>Iniciar sesión</button>
-          </div>
-          
+          <button className={s.menu_button}>
+            <img src= {inicio} alt="Inicio"></img>
+          </button>          
+          <button className={s.menu_button}>
+            <img src= {cuenta} alt="Cuenta"></img>
+          </button>
+          <button className={s.menu_button}>
+            <img src= {oferta} alt="Oferta"></img>
+          </button>
+          <button className={s.menu_button}>
+            <img src= {carrito} alt="Carrito"></img>
+          </button>
       </div>
   );
 }

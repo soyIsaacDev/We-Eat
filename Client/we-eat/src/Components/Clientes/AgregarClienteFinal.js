@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { addClientes } from "../../Actions/postFunctions";
 
-import style from "./agregarClientes.module.css";
+import style from "./agregarClienteFinal.module.css";
 
-export default function AgregarClientes() {
+export default function AgregarClienteFinal() {
+  
   const [input, setInput] = useState({
     nombre: "",
     usuario: "",
-    contraseña: "",
+    contraseña: ""
   });
   const [error, setError] = useState(true);
 
@@ -16,10 +17,11 @@ export default function AgregarClientes() {
       ...input,
       [e.target.name]: e.target.value,
     });
-    if (input.nombre && input.usuario && input.contraseña != "") {
+    if (input.nombre && input.usuario && input.contraseña !== "") {
       setError(false);
     } else {
-      console.log("Favor de llenar todos los campos");
+      setError("Favor de llenar todos los datos");
+      console.log("Favor de llenar todos los datos");
     }
   };
 
@@ -51,9 +53,10 @@ export default function AgregarClientes() {
         onChange={(e) => handleInputChange(e)}
         type="password"
       />
+      
 
       {error ? (
-        <div className={style.alert}>Por favor llena todos los campos</div>
+        <div className={style.alert}>{error}</div>
       ) : (
         <input type="submit" className={style.submit} />
       )}

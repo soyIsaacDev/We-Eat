@@ -1,10 +1,11 @@
 import React,{ useState,useEffect } from "react";
 import { loginSession } from "../../Actions/postFunctions";
 import { Navigate } from "react-router-dom";
+import { useLocation } from "react-router";
 import { useDispatch, useSelector  } from "react-redux";
 
-import { getUser, getLoginSession } from "../../Actions/actions";
-import { postLoginSession } from "../../Actions/postFunctions";
+import { getUser } from "../../Actions/actions";
+import { postLoginSession, getLogginSession } from "../../Actions/postFunctions";
 
 //import style from "";
 
@@ -18,8 +19,18 @@ export default function SignIn(props) {
         setWebpage(props.wp);
     }, []); */
     const handleInputChange = function(e){
-        setInput({
-            ...input,
+        //dispatch(getLogginSession()) 
+
+        /*  -------------  
+        
+                BUG  
+        
+        -------------------- */
+
+        // cada que cambio el input cambia el location 
+        // porque se dispara el handleInputChange
+        setInput({ 
+            ...input,  
             [e.target.name] : e.target.value
         });
     }
@@ -28,12 +39,12 @@ export default function SignIn(props) {
         e.preventDefault();
         dispatch(loginSession(input));
         console.log("en Login Onsubmit --> " + JSON.stringify(input))
-        //dispatch(getLoginSession())
+        //dispatch(getLogginSession())
         dispatch(postLoginSession(input));
     }
-
+    const location = useLocation();
+    console.log(location);
     
-
     return(
         <form onSubmit={onSubmit} /* className={style} */>
             <input
@@ -54,7 +65,7 @@ export default function SignIn(props) {
             <input type="submit" /* className={style.submit} *//>
 
             {loginState.autenticated === "LogedIn" ? (
-                <Navigate to="/Restaurantes" replace={true}></Navigate>
+                <Navigate to="/Restaurantes" ></Navigate>
                 ): (
                 <h2>Usuario o Contraseña Incorrecta</h2>
                 )}

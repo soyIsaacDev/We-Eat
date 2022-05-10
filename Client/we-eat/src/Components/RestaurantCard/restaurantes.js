@@ -18,7 +18,6 @@ export default function Restaurantes() {
   return (
     <div>
       <h1>Bienvenido a We-Eat</h1>
-      <Link to ="/signin">Login</Link>
       {restaurants.map((restaurant) => {
         const rutaImg = "http://localhost:4000/uploads/"+ restaurant.ImgRest.name;
         

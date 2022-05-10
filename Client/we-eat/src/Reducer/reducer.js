@@ -7,12 +7,12 @@ const initialState = {
     loadedRestDetails:[],
     loadedImg:[],
     loadedMenu:[],
-    loginState:[],
-    user: []
+    loginState:[{"autenticated":"LoggedIn"}],
+    user: [],
+    corporativo: []
   }
 
   const rootReducer = (state = initialState, action) => {
-    console.log(action.payload)
     switch (action.type) {
       case 'ADD_MAP':
         return {
@@ -54,6 +54,11 @@ const initialState = {
         return{
           ...state,
           user: action.payload
+        }
+      case 'GET_CORPORATIVO':
+        return{
+          ...state,
+          corporativo: action.payload
         }
       default:
         return {...state}

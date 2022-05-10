@@ -54,7 +54,20 @@ export function addClientes(data){
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data)
       };
-      await fetch('http://localhost:4000/clientes/agregarclientes', requestOptions)
+      await fetch('http://localhost:4000/clientefinal/agregarclientes', requestOptions)
+      };
+      postData();       
+}
+
+export function addClienteRestaurant(data){
+    async function postData(){
+        const requestOptions = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+      };
+      console.log(data)
+      await fetch('http://localhost:4000/ClienteRestaurantero/agregarclienterestaurantero', requestOptions)
       };
       postData();       
 }
@@ -95,8 +108,6 @@ export function getLogginSession(session) {
 };
 export function postLoginSession(data){
     return function (dispatch){
-       
-        
         async function postData(){
             const requestOptions = {
               method: 'POST',

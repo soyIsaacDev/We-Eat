@@ -4,14 +4,14 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local');
 var app = express.Router();
 
-const { Clientes, Sesion } = require("../db");
+const { clientefinal, Sesion } = require("../db");
 
 // Autenticando al usuario con estrategia local de Passport
 passport.use(new LocalStrategy(
     async (username, password, cb) => {
       try {
         console.log("AQUI ES");
-        const user= await Clientes.findOne({
+        const user= await clientefinal.findOne({
           where:{usuario:username}
         });
         //console.log("USUARIO DE PASSPORT LOCAL  -->>"+user.nombre)
@@ -49,7 +49,7 @@ passport.deserializeUser(function(user, cb) {
 });
 
 passport.deserializeUser(function(id, cb) {
-  const user= await Clientes.findOne({
+  const user= await clientefinal.findOne({
     where:{id}
   });
   return cb(null, user);
@@ -121,7 +121,7 @@ app.get('/login', function(req, res, next) {
 app.get('/sesion', async function(req, res) {
   //const { username } = req.query;
   const { username } = req.body;
-  const user = await Clientes.findOne({
+  const user = await clientefinal.findOne({
     where:{ usuario: username }
   });
   console.log(user.id)
@@ -133,7 +133,7 @@ app.get('/sesion', async function(req, res) {
 app.post('/sesion', async function(req, res) {
   //const { username } = req.query;
   const { username } = req.body;
-  const user = await Clientes.findOne({
+  const user = await clientefinal.findOne({
     where:{ usuario: username }
   });
   console.log(user.id)

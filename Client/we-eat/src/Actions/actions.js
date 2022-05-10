@@ -105,5 +105,17 @@ export function getLoginSession(){
     };
 }
 
-
+export function getCorporativo(){
+    return function (dispatch){
+       return fetch("http://localhost:4000/restaurantes/corporativo")
+           .then(response => response.json())
+           .then(json => {
+               console.log(json)
+               dispatch({
+                   type: "GET_CORPORATIVO",
+                   payload: json
+               }); 
+           });
+    };
+}
 

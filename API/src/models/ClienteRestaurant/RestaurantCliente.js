@@ -2,7 +2,7 @@ const {DataTypes} = require ('sequelize');
 
 module.exports = s => {
     s.define(
-        "Clientes", 
+        "ClienteRestaurantero", 
     {
         nombre:{
             type: DataTypes.STRING,
@@ -15,6 +15,11 @@ module.exports = s => {
         },
         contraseña:{
             type: DataTypes.STRING,
+            allowNull: false
+        },
+        tipo_de_usuario:{
+            type: DataTypes.ENUM("Director_General","Gerente_Regional",
+                    "Gerente_Restaurant", "Cajero", "Cocinero"),
             allowNull: false
         }
     }, {

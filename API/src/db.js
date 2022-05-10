@@ -10,7 +10,7 @@ const  modelMenu = require("./models/Menu");
 const  modelRestaurantes = require("./models/Restaurantes/Restaurantes");
 const  modelRestaurantDetails = require("./models/Restaurantes/RestDetails");
 const  modelTipodeComida = require("./models/TipoDeComida");
-const  modelClientes = require("./models/Clientes/Clientes");
+const  modelClienteFinal = require("./models/Clientes/Clientefinal");
 const  modelDireccion = require("./models/Clientes/Direccion");
 const  modelMetodosdePago = require("./models/Clientes/MetodosdePago");
 const  modelComprasJuntas = require("./models/Pedidos/Compras_juntas");
@@ -25,6 +25,7 @@ const  modelRepartidor = require("./models/Repartidor/Repartidor");
 const  modelImgPlatillo = require("./models/Platillo/ImagenPlatillo");
 const  modelUbicacionRepartidor = require("./models/Repartidor/UbicacionRepartidor");
 const  modelSesion = require("./models/Sesion.js");
+const  modelClienteRestaurantero = require("./models/ClienteRestaurant/RestaurantCliente");
 
 
 const sequelize = new Sequelize("postgres://postgres:Postgres@localhost:5432/we_eat",{
@@ -39,7 +40,7 @@ modelImgRest(sequelize);
 modelMenu(sequelize);
 modelRestaurantes(sequelize);
 modelTipodeComida(sequelize);
-modelClientes(sequelize);
+modelClienteFinal(sequelize);
 modelDireccion(sequelize);
 modelMetodosdePago(sequelize);
 modelComprasJuntas(sequelize);
@@ -55,12 +56,14 @@ modelImgPlatillo(sequelize);
 modelUbicacionRepartidor(sequelize);
 modelRestaurantDetails(sequelize);
 modelSesion(sequelize);
+modelClienteRestaurantero(sequelize);
 
 
 let {Corporativo, /* Ciudad, */ Envios, Evaluaciones, ImgRest, Menu, Restaurantes, 
-    TipodeComida, Clientes, Direccion, MetodosdePago, Pedidos, PedidoGrupal, 
+    TipodeComida, Clientefinal, Direccion, MetodosdePago, Pedidos, PedidoGrupal, 
     Platillo, IngredientesExtra, IngredientesaQuitar, Ingredientes,
-    ComprasJuntas, Repartidor, ImgPlatillo, UbicacionRepartidor, RestaurantDetails, Sesion} = sequelize.models;
+    ComprasJuntas, Repartidor, ImgPlatillo, UbicacionRepartidor, RestaurantDetails, Sesion,
+    ClienteRestaurantero} = sequelize.models;
 
 /* Relaciones de DB */
 Corporativo.hasMany(Restaurantes);
@@ -78,13 +81,13 @@ Evaluaciones.belongsTo(Restaurantes)
 Restaurantes.belongsToMany(Pedidos, {through:"PedidosRestaurantes"});
 Pedidos.belongsToMany(Restaurantes, {through:"PedidosRestaurantes"});
 
-Clientes.hasMany(Pedidos);
-Pedidos.belongsTo(Clientes);
-Clientes.hasMany(MetodosdePago);
-MetodosdePago.belongsTo(Clientes);
+Clientefinal.hasMany(Pedidos);
+Pedidos.belongsTo(Clientefinal);
+Clientefinal.hasMany(MetodosdePago);
+MetodosdePago.belongsTo(Clientefinal);
 /* El cliente puede tener muchas direcciones y las direcciones ser de varios clientes */
-Clientes.belongsToMany(Direccion, {through:"DireccionClientes"});
-Direccion.belongsToMany(Clientes, {through:"DireccionClientes"});
+Clientefinal.belongsToMany(Direccion, {through:"DireccionClientes"});
+Direccion.belongsToMany(Clientefinal, {through:"DireccionClientes"});
 
 Restaurantes.hasOne(Direccion);
 Direccion.belongsTo(Restaurantes);
@@ -92,8 +95,8 @@ Repartidor.hasOne(Direccion);
 Direccion.belongsTo(Repartidor);
 Pedidos.hasMany(PedidoGrupal);
 PedidoGrupal.belongsTo(Pedidos);
-PedidoGrupal.belongsToMany(Clientes, {through:"PedidoGrupalClientes"});
-Clientes.belongsToMany(PedidoGrupal, {through:"PedidoGrupalClientes"});
+PedidoGrupal.belongsToMany(Clientefinal, {through:"PedidoGrupalClientes"});
+Clientefinal.belongsToMany(PedidoGrupal, {through:"PedidoGrupalClientes"});
 Pedidos.hasOne(Evaluaciones);
 Evaluaciones.belongsTo(Pedidos);
 Repartidor.hasOne(Evaluaciones);
@@ -119,10 +122,13 @@ ImgPlatillo.belongsTo(Platillo);
 UbicacionRepartidor.belongsTo(Repartidor);
 Restaurantes.hasOne(RestaurantDetails);
 RestaurantDetails.belongsTo(Restaurantes); 
-Sesion.belongsTo(Clientes);
-Clientes.hasOne(Sesion);
+Sesion.belongsTo(Clientefinal);
+Clientefinal.hasOne(Sesion);
 
-
+ClienteRestaurantero.belongsToMany(Restaurantes, {through:"Usuario-Restaurantes"});
+Restaurantes.belongsToMany(ClienteRestaurantero, {through:"Usuario-Restaurantes"});
+ClienteRestaurantero.belongsTo(Corporativo);
+Corporativo.hasMany(ClienteRestaurantero);
 
 
 module.exports = {
