@@ -15,7 +15,6 @@ server.post("/agregarclientes", async (req, res) => {
           contraseña
       //}
     });
-    console.log(client)
     res.json(client);
   } catch (error) {
     res.send(error);

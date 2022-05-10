@@ -5,7 +5,7 @@ module.exports = s => {
         "Sesion", 
     {
         autenticated:{
-            type: DataTypes.ENUM("LogedIn","LogedOut"),
+            type: DataTypes.ENUM("LoggedIn","LoggedOut"),
             allowNull: false
         }
     }, {

@@ -4,14 +4,14 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local');
 var app = express.Router();
 
-const { clientefinal, Sesion } = require("../db");
+const { Clientefinal, Sesion } = require("../db");
 
 // Autenticando al usuario con estrategia local de Passport
 passport.use(new LocalStrategy(
     async (username, password, cb) => {
       try {
         console.log("AQUI ES");
-        const user= await clientefinal.findOne({
+        const user= await Clientefinal.findOne({
           where:{usuario:username}
         });
         //console.log("USUARIO DE PASSPORT LOCAL  -->>"+user.nombre)
@@ -23,8 +23,8 @@ passport.use(new LocalStrategy(
           console.log("CONTRASEÑA INCORRECTA");
           return cb(null, false, { message: 'Incorrect password.' });
         }
-        console.log("USUARIO DE PASSPORT LOCAL Loggeado  -->>"+user.nombre)
-        SesionAuth("LogedIn", user.id)
+        console.log("USUARIO DE PASSPORT LOCAL Loggeado Linea 26  -->>"+user.nombre + " ID "+ user.id)
+        SesionAuth("LoggedIn", user.id)
         return cb(null, user);
       } catch (error) {
         return cb(error);
@@ -49,7 +49,7 @@ passport.deserializeUser(function(user, cb) {
 });
 
 passport.deserializeUser(function(id, cb) {
-  const user= await clientefinal.findOne({
+  const user= await Clientefinal.findOne({
     where:{id}
   });
   return cb(null, user);
@@ -84,9 +84,9 @@ app.use(passport.session()); */
 
 const SesionAuth = async (auth, id) => { 
   try {
-    //const { Sesion } = req.body;
+    console.log("Paso por SesionAuth");
     const sesion = await Sesion.findOrCreate({
-      where:{ClienteId: id},
+      where:{ClientefinalId: id},
       defaults:{
         autenticated: auth
       }
@@ -121,24 +121,27 @@ app.get('/login', function(req, res, next) {
 app.get('/sesion', async function(req, res) {
   //const { username } = req.query;
   const { username } = req.body;
-  const user = await clientefinal.findOne({
+  const user = await Clientefinal.findOne({
     where:{ usuario: username }
   });
   console.log(user.id)
   const sesion = await Sesion.findOne({
-    where:{ClienteId: user.id}
+    where:{ClientefinalId: user.id}
   });
+  console.log("Get ./sesion Linea 132" + sesion);
   res.json(sesion)
 });  
+
 app.post('/sesion', async function(req, res) {
   //const { username } = req.query;
   const { username } = req.body;
-  const user = await clientefinal.findOne({
+  console.log(username);
+  const user = await Clientefinal.findOne({
     where:{ usuario: username }
   });
-  console.log(user.id)
+  console.log("Post /sesion"+user.id)
   const sesion = await Sesion.findOne({
-    where:{ClienteId: user.id}
+    where:{ClientefinalId: user.id}
   });
   res.json(sesion)
 }); 
