@@ -3,7 +3,7 @@
 const fs = require("fs");
 
 /* const Image = require("../models/Image"); */
-const {  Restaurantes, Corporativo, ImgRest } = require("../db");
+const {  Restaurantes, Corporativo, ImgRest, ClienteRestaurantero } = require("../db");
 
 const path = require('path')
 const carpeta = path.join(__dirname, '../../resources/uploads')
@@ -16,7 +16,7 @@ const uploadFiles = async (req, res) => {
     const bodyObj = req.body.data;
     const parsedbodyObj = JSON.parse(bodyObj)
     const { nombreCorp, direccionCorp, nombre, direccion, area_de_reparto, 
-      actividad, estatus,costoEnvio, horarios, tipoComida } = parsedbodyObj;
+      actividad, estatus,costoEnvio, horarios, tipoComida, usuario } = parsedbodyObj;
    
     console.log(req.file);
 
@@ -63,9 +63,14 @@ const uploadFiles = async (req, res) => {
         direccion: direccionCorp
       }
     });
+
+    const cliente = await ClienteRestaurantero.findOne(
+      { where:{usuario}}
+    );
      
-    
+    console.log(cliente);
     await corp[0].addRestaurantes(restaurante[0]);
+    await cliente.addRestaurantes(restaurante[0]);
     //await imagenRest.setRestaurantes(restaurante[0]);
     //console.log(imagenRest)
     

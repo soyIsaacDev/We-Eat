@@ -125,6 +125,25 @@ export function postLoginSession(data){
     }
 }
 
+export function postLoginSessionRest(data){
+    return function (dispatch){
+        async function postData(){
+            const requestOptions = {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(data),
+          };     
+          await fetch('http://localhost:4000/authrest/sesionrestaurantero', requestOptions)
+            .then(response => response.json())
+            .then(json => {
+                console.log("Session Autenticada"+json);
+                dispatch(getLogginSession(json));
+            });
+        };    
+        postData();
+    }
+}
+
 /*export function loginSession(data){
     async function postData(){
         const requestOptions = {

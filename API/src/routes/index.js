@@ -36,5 +36,6 @@ module.exports = {
   clientefinal: require("./clienteServer"),
   ClienteRestaurantero: require("./clienteRestaurantServer"),
   autenticacion: require("./auth"),
+  authrestaurantero: require("./authRestaurantero"),
   index: server,
 };

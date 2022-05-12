@@ -1,5 +1,5 @@
 const express = require('express');
-const { index, restaurantes, envios, repartidor, clientefinal, autenticacion, ClienteRestaurantero } = require('./src/routes');
+const { index, restaurantes, envios, repartidor, clientefinal, autenticacion, ClienteRestaurantero, authrestaurantero } = require('./src/routes');
 const app = express();
 const passport = require('passport');
 var session = require('express-session');
@@ -25,6 +25,7 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.json({extended: false}));
 
 app.use('/', index);
+app.use("/", authrestaurantero);
 app.use("/", autenticacion ) // usamos autenticacion en todas las rutas
 app.use("/restaurantes", restaurantes)
 app.use("/envios", envios);

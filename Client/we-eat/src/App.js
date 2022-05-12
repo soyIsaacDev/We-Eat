@@ -22,7 +22,9 @@ import Map from "./Components/GeolocationMap/Map";
 import Marker from "./Components/GeolocationMap/Marker";
 import Signin from "./Components/Login/SignIn"
 import NavBar from "./Components/NavBar/NavBar";     
-import NavBarRestauranero from "./Components/NavBar/NavBarRestaurantero";
+import NavBarRestaurantero from "./Components/NavBar/NavBarRestaurantero";
+import HomeRestaurantero from "./Components/HomeRestaurante/HomeRestaurantero";
+//import SignInRest from "./Components/Login/SignInRest"
 
 function App() { 
 
@@ -31,11 +33,12 @@ function App() {
         <React.Fragment>
           <Routes>
             <Route path="/" element={<Signin />} />
+            {/* <Route path="/signinrest" element={<SignInRest />} /> */}
             <Route exact path="/AgregarClienteFinal" element = { <AgregarClienteFinal/> } />
             <Route exact path="/AgregarClienteRestaurant" element = { <AgregarClienteRestaurant/> } />
             <Route path="/signin" element={<LogInButtons />} />
             <Route path="/NavBar" element={<NavBar/>} />
-            <Route path="/NavBarRestaurantero" element={<NavBarRestauranero/>} />
+            <Route path="/NavBarRestaurantero" element={<NavBarRestaurantero/>} />
             
             <Route element={<ProtectedRoutes />}>
 
@@ -53,6 +56,8 @@ function App() {
                 <Route exact path="/map" element = { <Map/> } />
                 <Route exact path="/marker" element = { <Marker/> } />
                 {/* <Route exact path="/Perfil" element = { <LoginHome/> } /> */}
+
+                <Route exact path="/homerestaurantero" element = { <HomeRestaurantero/> } />
 
             </Route>
         </Routes>

@@ -10,7 +10,7 @@ import platillo from "./comida.png";
 import usuario from "./cocinero.png";
 import pedido from "./take-away.png";
 
-export default function NavBar() {
+export default function NavBarRestaurantero() {
   return (
       <div className={s.navBar}>
           <button className={s.menu_button}  >

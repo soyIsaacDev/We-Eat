@@ -13,11 +13,8 @@ export default function SignIn(props) {
     const dispatch = useDispatch();
     
     const [input, setInput] = useState({ username: "", password:""});
-    const loginState = useSelector((state) => state.loginState);
-    /* const [webpage, setWebpage] = useState("");
-    useEffect(() => { 
-        setWebpage(props.wp);
-    }, []); */
+    const loginState = useSelector((state) => state.loginState.autenticated);
+    
     const handleInputChange = function(e){
         //dispatch(getLogginSession()) 
 
@@ -63,8 +60,8 @@ export default function SignIn(props) {
                 type= "password"
             />
             <input type="submit" /* className={style.submit} *//>
-
-            {loginState.autenticated === "LogedIn" ? (
+            
+            {loginState === "LoggedIn" ? (
                 <Navigate to="/Restaurantes" ></Navigate>
                 ): (
                 <h2>Usuario o Contraseña Incorrecta</h2>

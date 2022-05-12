@@ -1,20 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector  } from "react-redux";
+import React, { useState } from "react";
+import {  useSelector  } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 
 import { addClienteRestaurant } from "../../Actions/postFunctions";
-import {getRestaurants, getCorporativo} from "../../Actions/actions";
 
 import style from "./agregarClienteFinal.module.css";
 
 export default function AgregarClienteRestaurant() {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getRestaurants());
-    dispatch(getCorporativo());
-  }, []);
-
-  const restaurants = useSelector((state) => state.loadedRestaurants);
-  const corporativos = useSelector((state) => state.corporativo);
+  
+  let navigate = useNavigate();
   
   const [input, setInput] = useState({
     nombre: "",
@@ -41,7 +36,8 @@ export default function AgregarClienteRestaurant() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    addClienteRestaurant(input);
+    addClienteRestaurant(input);  
+    navigate("/homerestaurantero", { replace: true });
   };
 
   return (
@@ -68,7 +64,7 @@ export default function AgregarClienteRestaurant() {
         type="password"
       />
 
-      <select 
+      {/* <select 
         id="nombreRest" 
         name="nombreRest"
         value= {input.nombreRest}
@@ -92,7 +88,7 @@ export default function AgregarClienteRestaurant() {
               <option key = {corporativo.nombre} value={corporativo.nombre}>{corporativo.nombre}</option>
             )
           })}           
-      </select>
+      </select> */}
 
       <select 
         id="tipo_de_usuario" 
