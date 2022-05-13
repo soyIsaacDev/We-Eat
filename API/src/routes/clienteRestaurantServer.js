@@ -15,6 +15,7 @@ server.post("/agregarclienterestaurantero", async (req, res) => {
           tipo_de_usuario
       }
     });
+    console.log("Cliente Restaurantero (clienteRestaurantServer) L-18 "+client);
     const corp = await Corporativo.findOne({
       where: {
         nombre: nombreCorp
@@ -30,7 +31,7 @@ server.post("/agregarclienterestaurantero", async (req, res) => {
     await client[0].setCorporativo(corp);
     await rest.addClienteRestaurantero(client[0]);
     await client[0].addRestaurantes(rest);
-
+    
     res.json(client);
   } catch (error) {
     res.send(error);

@@ -1,4 +1,5 @@
 var express = require('express');
+const { json } = require('express/lib/response');
 const res = require('express/lib/response');
 var passport = require('passport');
 //var Strategy = require('passport-local').Strategy;
@@ -47,7 +48,7 @@ passport.deserializeUser(function(user, cb) {
 const SesionAuth = async function(auth, id) { 
   try {
     if(auth=== "LoggedIn"){
-      console.log("Paso por SesionAuth LoggedIn Linea 49");
+      console.log("Paso por SesionAuth LoggedIn Linea 50");
       const sesion = await SesionRestaurantero.findOrCreate({
         where:{ClienteRestauranteroId: id},
         defaults:{
@@ -79,21 +80,22 @@ app.post('/loginrest/password',
     failureRedirect: '/login' 
   }),
   function(req, res) {
-    res.send(sesion);
+    
+    //res.send(sesion); no se tiene acceso a sesion
   }
 );
 
 app.get('/sesionrestaurantero', async function(req, res) {
   try {
-    const { usuario } = req.body;
+    const { username } = req.body;
     const user = await ClienteRestaurantero.findOne({
-      where:{ usuario }
+      where:{ usuario: username }
     });
     console.log(user.id)
     const sesion = await SesionRestaurantero.findOne({
       where:{ClienteRestauranteroId: user.id}
     });
-    console.log("Get ./sesionrestaurantero Linea 132" + sesion);
+    console.log("Get ./sesionrestaurantero Linea 96" + sesion);
     res.json(sesion)
   } catch (e) {
     res.json(e);
@@ -102,15 +104,15 @@ app.get('/sesionrestaurantero', async function(req, res) {
 
 app.post('/sesionrestaurantero', async function(req, res) {
   const { username } = req.body;
-  console.log("Linea 105"+ username);
+  console.log("Linea 105 "+ username);
   const user = await ClienteRestaurantero.findOne({
     where:{ usuario: username }
   });
-  console.log("Post /sesionrestaurantero"+user.id)
+  console.log("sesionrestaurantero L-109  "+user.id)
   const sesion = await SesionRestaurantero.findOne({
     where:{ClienteRestauranteroId: user.id}
   });
-  console.log("Sesion Restaurantero L113" + sesion)
+  console.log("Sesion Restaurantero L-113  " + sesion)
   res.json(sesion)
 }); 
 
