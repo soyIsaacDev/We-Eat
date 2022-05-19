@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector  } from "react-redux";
 
-import { getRestaurantDetails } from "../../Actions/actions";
+import { getPlatillos, getRestaurantDetails } from "../../Actions/actions";
 import s from "./r-details.module.css";
 import DishCard from "../DishCard/dishCard";
 
@@ -12,7 +12,7 @@ import food from "./media//food-tray-a.png";
 import busqueda from "./media/lupa-a.png";
 
 export default function RestaurantDetails() {
-    const restaurante = useSelector((state) => state.loadedRestDetails)
+    const restaurante = useSelector((state) => state.loadedRestDetails);
     
     const dispatch = useDispatch();
     const restaurantId = useParams().id;
@@ -20,7 +20,10 @@ export default function RestaurantDetails() {
     
     useEffect(() => { 
         dispatch(getRestaurantDetails(restaurantId));
+        dispatch(getPlatillos());
     }, []);
+
+    const platillos = useSelector((state)=> state.loadedPlatillos);
     
     return(
         <div className={s.wrapper}>
@@ -44,9 +47,17 @@ export default function RestaurantDetails() {
                     <img  className={s.busqueda} src={busqueda} alt="Busqueda"></img>
                 </div>
                 <div className={s.seleccion}>Seleccionado para ti</div>
-                <Link to = "/DishDetail">
-                    <DishCard></DishCard>
-                </Link>
+                {platillos.map((platillo)=>{
+                    //const rutaImg = "http://localhost:4000/restaurantes/uploads/"+ platillo.ImgPlatillo.name
+                    return(
+                        <Link to = "/DishDetail">
+                            <DishCard nombrePlatillo = {platillo.nombre} descripcion = {platillo.descripcion}
+                            precio = {platillo.precio} /* imagen = {rutaImg} */
+                            ></DishCard>
+                        </Link>
+                    );
+                })}
+                
             </div>          
         </div>
     )

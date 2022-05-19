@@ -5,6 +5,7 @@ const initialState = {
     geolocation:[],
     loadedRestaurants:[],
     loadedRestDetails:[],
+    loadedPlatillos: [],
     loadedImg:[],
     loadedMenu:[],
     loginState:[{"autenticated":"LoggedIn"}],
@@ -60,6 +61,11 @@ const initialState = {
           ...state,
           corporativo: action.payload
         }
+      case 'GET_PLATILLOS':
+        return{
+          ...state,
+          loadedPlatillos: action.payload
+        } 
       default:
         return {...state}
     }

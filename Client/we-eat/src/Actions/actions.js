@@ -42,6 +42,20 @@ export function getRestaurantDetails(id){
     };
 }
 
+export function getPlatillos(){
+    return function (dispatch){
+       return fetch(`http://localhost:4000/restaurantes/platillos`)
+           .then(response => response.json())
+           .then(json => {
+               console.log(json)
+               dispatch({
+                   type: "GET_PLATILLOS",
+                   payload: json
+               }); 
+           });
+    };
+}
+
 export function getImg(){
     return function (dispatch){
        return fetch("http://localhost:4000/restaurantes/imagenes")

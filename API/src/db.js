@@ -113,10 +113,12 @@ IngredientesExtra.belongsToMany(Platillo, {through:"IngredientesExtraPlatillos"}
 Platillo.belongsToMany(IngredientesExtra, {through:"IngredientesExtraPlatillos"});
 IngredientesaQuitar.belongsToMany(Platillo, {through:"IngredientesaQuitarPlatillos"});
 Platillo.belongsToMany(IngredientesaQuitar, {through:"IngredientesaQuitarPlatillos"});
-Restaurantes.hasOne(Menu);
+/* Restaurantes.hasOne(Menu);
 Menu.belongsTo(Restaurantes);
 Menu.hasMany(Platillo);
-Platillo.belongsTo(Menu);
+Platillo.belongsTo(Menu); */
+Restaurantes.hasMany(Platillo);
+Platillo.belongsTo(Restaurantes);
 Restaurantes.hasOne(ImgRest);
 ImgRest.belongsTo(Restaurantes);
 Platillo.hasOne(ImgPlatillo);

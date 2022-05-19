@@ -17,6 +17,12 @@ module.exports = s => {
         precio:{
             type: DataTypes.INTEGER,
             allowNull: false
+        }, 
+        menu:{
+            type: DataTypes.ENUM(
+                "Desayuno", "Comida", "Cena", "Brunch", "Ensalada", "Sopa", "Bebidas", 
+                "Postres", ),
+            allowNull: false
         }
         /* imagen: {} */
 

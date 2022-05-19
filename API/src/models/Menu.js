@@ -5,7 +5,9 @@ module.exports = s => {
         "Menu", 
     {
         nombre:{
-            type: DataTypes.STRING,
+            type: DataTypes.ENUM(
+                "Desayuno", "Comida", "Cena", "Brunch", "Ensalada", "Sopa", "Bebidas", 
+                "Postres", ),
             allowNull: false
         }
     }, {

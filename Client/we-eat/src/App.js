@@ -11,7 +11,7 @@ import Carrito from "./Components/CarritoCompras/carrito";
 import LiveCoding from "./Components/GeolocationMap/MapLiveCoding";
 import Geolocation from "./Components/GeolocationMap/Geolocation";
 import AddRepartidor from "./Components/Repartidor/repartidor";
-import AgregarRestaurant from "./Components/RestaurantCard/restaurantUpload";
+
 import AgregarPlatillo from "./Components/Platillos/platilloUpload"
 import AgregarDetallesRestaurant from "./Components/RestDetails/restDetailsUpload";
 import AgregarClienteFinal from "./Components/Clientes/AgregarClienteFinal";
@@ -49,7 +49,7 @@ function App() {
                 <Route exact path="/LiveCoding" element = { <LiveCoding/> } />
                 <Route exact path="/Geolocation" element = { <Geolocation/> } />
                 <Route exact path="/addRepartidor" element = { <AddRepartidor/> } />
-                <Route exact path="/agregarRestaurant" element = { <AgregarRestaurant/> } />
+                
                 <Route exact path="/agregarPlatillo" element = { <AgregarPlatillo/> } />
                 <Route exact path="/agregarDetallesRestaurant" element = { <AgregarDetallesRestaurant/> } />
                 

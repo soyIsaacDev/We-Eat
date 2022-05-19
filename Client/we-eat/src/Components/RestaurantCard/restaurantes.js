@@ -19,14 +19,14 @@ export default function Restaurantes() {
     <div>
       <h1>Bienvenido a We-Eat</h1>
       {restaurants.map((restaurant) => {
-        const rutaImg = "http://localhost:4000/uploads/"+ restaurant.ImgRest.name;
+        const rutaImg = "http://localhost:4000/restaurantes/uploads/"+ restaurant.ImgRest.name;
         
           return (
             <Link to={`/restaurantDetails/${restaurant.id}`}>
               <div  key = {restaurant.id} className={style.restcardwrap}>
                 <img className={style.img} src={rutaImg} alt="Imagen Restaurant" />
                 <div key = {`${restaurant.nombre}nrap`} className={style.rnamewrap}>
-                    <div key = {restaurant.nombre} className={style.rname}>{restaurant.nombre}</div>
+                    <div key = {`${restaurant.nombre}nombre`} className={style.rname}>{restaurant.nombre}</div>
                     <div key = {`${restaurant.nombre}calif`} className={style.calif}>4.6</div>
                 </div>
                 <div key = {`${restaurant.nombre}enviowap`} className={style.enviowrap}>

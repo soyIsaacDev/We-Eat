@@ -2,7 +2,7 @@ const server = require("express").Router();
 const fs = require("fs");
 const express = require("express");
 
-const { Restaurantes, Corporativo, ImgRest, Platillo, Menu } = require("../db");
+const { Restaurantes, Corporativo, ImgRest, Platillo, Menu, ImgPlatillo} = require("../db");
 const path = require('path')
 const carpeta = path.join(__dirname, '../../resources/uploads')
 console.log("DIRECTORIO" + carpeta)
@@ -72,9 +72,14 @@ server.get("/corporativo", async (req,res)=> {
   }
 });
 
-server.get("/platillo", async (req, res) => {
+server.get("/platillos", async (req, res) => {
   try {
-    const platillo = await Platillo.findAll();
+    const platillo = await Platillo.findAll({
+      include: {
+        model: ImgPlatillo,
+        attributes: ['name']
+      }
+    });
     res.json(platillo);
   } catch (error) {
     res.send(error);

@@ -87,15 +87,19 @@ app.post('/loginrest/password',
 
 app.get('/sesionrestaurantero', async function(req, res) {
   try {
-    const { username } = req.body;
+    const { username, password } = req.body;
     const user = await ClienteRestaurantero.findOne({
       where:{ usuario: username }
     });
-    console.log(user.id)
+    console.log("Cliente Restaurantero sesion L-94 " + user.id + user.contraseña)
+    if(password != user.contraseña){
+      console.log("Contraseña Incorrecta SesionRestaurantero L-96")
+      res.send("Contraseña Incorrecta"); 
+      return}
     const sesion = await SesionRestaurantero.findOne({
       where:{ClienteRestauranteroId: user.id}
-    });
-    console.log("Get ./sesionrestaurantero Linea 96" + sesion);
+    })
+    console.log("Get ./sesionrestaurantero Linea 102" + sesion);
     res.json(sesion)
   } catch (e) {
     res.json(e);
@@ -103,17 +107,27 @@ app.get('/sesionrestaurantero', async function(req, res) {
 });  
 
 app.post('/sesionrestaurantero', async function(req, res) {
-  const { username } = req.body;
-  console.log("Linea 105 "+ username);
-  const user = await ClienteRestaurantero.findOne({
-    where:{ usuario: username }
-  });
-  console.log("sesionrestaurantero L-109  "+user.id)
-  const sesion = await SesionRestaurantero.findOne({
-    where:{ClienteRestauranteroId: user.id}
-  });
-  console.log("Sesion Restaurantero L-113  " + sesion)
-  res.json(sesion)
+  try {
+    const { username, password } = req.body;
+    console.log("Linea 105 "+ username);
+    const user = await ClienteRestaurantero.findOne({
+      where:{ usuario: username }
+    });
+    console.log("Cliente Restaurantero sesion L-116" + user.id + user.contraseña)
+    if(password != user.contraseña){
+      console.log("Contraseña Incorrecta SesionRestaurantero L-118")
+      res.send({"Response": "Contraseña Incorrecta"}); 
+      return}
+    console.log("sesionrestaurantero L-121  "+user.id)
+    const sesion = await SesionRestaurantero.findOne({
+      where:{ClienteRestauranteroId: user.id}
+    });
+    console.log("Sesion Restaurantero L-125  " + sesion)
+    res.json(sesion)
+  } catch (e) {
+    res.json(e);
+  }
+  
 }); 
 
 app.get('/logout',

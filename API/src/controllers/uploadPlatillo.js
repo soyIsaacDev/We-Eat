@@ -1,7 +1,7 @@
 const fs = require("fs");
-const {  Platillo, ImgPlatillo, Menu } = require("../db");
+const {  Platillo, ImgPlatillo, Restaurantes, Menu, ClienteRestaurantero } = require("../db");
 
-const path = require('path')
+const path = require('path');
 const carpeta = path.join(__dirname, '../../resources/uploads')
 console.log("DIRECTORIO" + carpeta)
 
@@ -9,30 +9,28 @@ const uploadPlatillo = async (req, res) => {
     try {
       const bodyObj = req.body.data;
       const parsedbodyObj = JSON.parse(bodyObj)
-      const {nombreMenu, nombre, descripcion, precio } = parsedbodyObj;
+      const {nombreMenu, nombrePlatillo, descripcion, precio, nombreRest} = parsedbodyObj;
       if (req.file == undefined) {
         return res.send(`Selecciona la imagen del platillo`);
       }
-      const menu = await Menu.findOrCreate({
-        where: {
-          RestauranteId: 1
-        },
-        defaults: {
-          nombre: nombreMenu
-        }  
-      });
-
-      console.log("MENU ID " + menu[0].id)
+      const restaurant = await Restaurantes.findOne({
+        where:{nombre: nombreRest}
+      })
       const platillo = await Platillo.findOrCreate({
         where: {
-          nombre: nombre,
+          nombre: nombrePlatillo,
         },
         defaults: {
           descripcion, 
           precio,
-          MenuId: menu[0].id
+          //MenuId: menu[0].id
+          menu: nombreMenu,
+          RestauranteId: restaurant.id
         }      
       });
+
+      //restaurant.addPlatillo(platillo);
+      
 
       const imagenRest = await ImgPlatillo.create({
         type: req.file.mimetype,
