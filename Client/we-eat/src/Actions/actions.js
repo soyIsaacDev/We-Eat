@@ -42,9 +42,10 @@ export function getRestaurantDetails(id){
     };
 }
 
-export function getPlatillos(){
+export function getPlatillos(restaurantId){
+    console.log("get Platillos")
     return function (dispatch){
-       return fetch(`http://localhost:4000/restaurantes/platillos`)
+       return fetch(`http://localhost:4000/restaurantes/platillos/${restaurantId}`)
            .then(response => response.json())
            .then(json => {
                console.log(json)

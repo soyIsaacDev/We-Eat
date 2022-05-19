@@ -10,7 +10,7 @@ export default function dish_details() {
   return (
     <div className={s.wrapper}>
       <img className={s.img} src = {platillo} alt = "chilaquiles"></img> 
-      <div className={s.platillo}>Chilaquiles </div> 
+      <div className={s.platillo}>Detalles del Platillo </div> 
       <div className={s.descripcion}>
         Totpopos crujientes con la salsa de tu eleccion, crema, queso freso,
         cebolla morada, acompañada de frijoles y mix de verduras

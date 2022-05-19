@@ -16,9 +16,10 @@ const uploadPlatillo = async (req, res) => {
       const restaurant = await Restaurantes.findOne({
         where:{nombre: nombreRest}
       })
+      console.log("Nombre Platillo uploadPlatillo L-19  "+nombrePlatillo);
       const platillo = await Platillo.findOrCreate({
         where: {
-          nombre: nombrePlatillo,
+          nombre: nombrePlatillo
         },
         defaults: {
           descripcion, 
@@ -29,30 +30,29 @@ const uploadPlatillo = async (req, res) => {
         }      
       });
 
+      console.log("Platillo Creado? " + platillo[1])
+
       //restaurant.addPlatillo(platillo);
       
-
-      const imagenRest = await ImgPlatillo.create({
-        type: req.file.mimetype,
-        name: req.file.filename,
-        data: fs.readFileSync(
-          carpeta +"/"+ req.file.filename
-        ),
-        PlatilloId:platillo[0].id
-        
-      }).then((image) => {
-        fs.writeFileSync(
-          carpeta + image.name,
-          image.data
-        );
-      });     
-      
-      //await imagenRest.setPlatillo(platillo[0]);
-      //await menu.setRestaurante()
-      console.log(imagenRest)
+      if(platillo[1] === true){
+        const imagenRest = await ImgPlatillo.create({
+          type: req.file.mimetype,
+          name: req.file.filename,
+          data: fs.readFileSync(
+            carpeta +"/"+ req.file.filename
+          ),
+          PlatilloId:platillo[0].id
+          
+        }).then((image) => {
+          fs.writeFileSync(
+            carpeta + image.name,
+            image.data
+          );
+        }); 
+        console.log("Imagen Restaurant L-52 "+imagenRest)
+      }
       
       res.json(`Se creo el platillo y su imagen ` + platillo);
-      //return res.send(`File has been uploaded.`);
       
     } catch (error) {
       console.log(error);

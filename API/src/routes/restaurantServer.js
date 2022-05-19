@@ -72,9 +72,11 @@ server.get("/corporativo", async (req,res)=> {
   }
 });
 
-server.get("/platillos", async (req, res) => {
+server.get("/platillos/:restaurantId", async (req, res) => {
   try {
+    const {restaurantId} = req.params;
     const platillo = await Platillo.findAll({
+      where:{RestauranteId: restaurantId},
       include: {
         model: ImgPlatillo,
         attributes: ['name']
