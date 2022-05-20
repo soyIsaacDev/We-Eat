@@ -22,7 +22,8 @@ export default function RestaurantDetails() {
     }, []);
 
     const platillos = useSelector((state)=> state.loadedPlatillos);
-    if(restaurante){
+
+    if(Object.keys(restaurante).length>0){
         const rutaImgRest = "http://localhost:4000/restaurantes/uploads/"+ restaurante.ImgRest.name;
         return(
             <div className={s.wrapper}>
@@ -49,9 +50,9 @@ export default function RestaurantDetails() {
                     {platillos.map((platillo)=>{
                         const rutaImg = "http://localhost:4000/restaurantes/uploads/"+ platillo.ImgPlatillo.name;
                         return(
-                            <Link to = "/DishDetail">
+                            <Link to = {`/DishDetail/${platillo.id}`}>
                                 <DishCard nombrePlatillo = {platillo.nombre} descripcion = {platillo.descripcion}
-                                precio = {platillo.precio} imagen = {rutaImg}
+                                precio = {platillo.precio} imagen = {rutaImg} id = {platillo.id}
                                 ></DishCard>
                             </Link>
                         );

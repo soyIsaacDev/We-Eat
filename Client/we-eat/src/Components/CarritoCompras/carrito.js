@@ -4,7 +4,7 @@ import s from "./carrito.module.css";
 import Articulo from "./ArticulosCarrito/Articulo";
 
 
-export default function carrito_compras() {
+export default function Carrito_Compras() {
   return (
       <div className={s.wrapper}>
         <div className={s.namewrapper}>

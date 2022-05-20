@@ -10,7 +10,8 @@ const initialState = {
     loadedMenu:[],
     loginState:[{"autenticated":"LoggedIn"}],
     user: [],
-    corporativo: []
+    corporativo: [],
+    carrito: []
   }
 
   const rootReducer = (state = initialState, action) => {
@@ -65,6 +66,11 @@ const initialState = {
         return{
           ...state,
           loadedPlatillos: action.payload
+        } 
+      case 'ADD_ITEM':
+        return{
+          ...state,
+          carrito: action.payload
         } 
       default:
         return {...state}

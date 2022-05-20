@@ -64,3 +64,13 @@
         display: flex;
         flex-wrap: wrap;
     }
+    .boton{
+        width:95%;
+        height: 8%;;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: center;
+        justify-content: center;
+        z-index: 3;
+        margin: 2.5%
+    }
