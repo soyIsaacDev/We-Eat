@@ -1,3 +1,4 @@
+
 //REDUCER
 const initialState = {
     
@@ -8,7 +9,7 @@ const initialState = {
     loadedPlatillos: [],
     loadedImg:[],
     loadedMenu:[],
-    loginState:[{"autenticated":"LoggedIn"}],
+    loginState:"",
     user: [],
     corporativo: [],
     carrito: []
@@ -68,9 +69,10 @@ const initialState = {
           loadedPlatillos: action.payload
         } 
       case 'ADD_ITEM':
+        state.carrito.push(action.payload)
         return{
           ...state,
-          carrito: action.payload
+          carrito: state.carrito
         } 
       default:
         return {...state}

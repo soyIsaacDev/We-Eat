@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import { addRepartidor } from "../../Actions/postFunctions";
+import { addRepartidor } from "../../Actions/APIMiddleware";
 
 export default function Repartidor() {
  

@@ -28,7 +28,8 @@ export default function Dish_Details(props) {
     dispatch(addItem(
       {
         "platillo":platilloData.nombre, 
-        "cantidad": 1
+        "cantidad": 1,
+        "precio": platilloData.precio
     }));
     navigate("/carrito");
   }

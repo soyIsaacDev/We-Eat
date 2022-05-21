@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
- import { addUbicacionRepartidor } from "../../Actions/postFunctions";
+ import { addUbicacionRepartidor } from "../../Actions/APIMiddleware.js";
 
 export default function Geolocation (){
 

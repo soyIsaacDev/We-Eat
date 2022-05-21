@@ -1,11 +1,10 @@
 import React,{ useState,useEffect } from "react";
-import { loginSession } from "../../Actions/postFunctions";
+import { loginSession } from "../../Actions/APIMiddleware";
 import { Navigate } from "react-router-dom";
 import { useLocation } from "react-router";
 import { useDispatch, useSelector  } from "react-redux";
 
-import { getUser } from "../../Actions/actions";
-import { postLoginSession, getLogginSession } from "../../Actions/postFunctions";
+import { getLogginSession, setLoginSession } from "../../Actions/APIMiddleware";
 
 //import style from "";
 
@@ -13,19 +12,9 @@ export default function SignIn(props) {
     const dispatch = useDispatch();
     
     const [input, setInput] = useState({ username: "", password:""});
-    const loginState = useSelector((state) => state.loginState.autenticated);
+    //const loginState = useSelector((state) => state.loginState.autenticated);
     
     const handleInputChange = function(e){
-        //dispatch(getLogginSession()) 
-
-        /*  -------------  
-        
-                BUG  
-        
-        -------------------- */
-
-        // cada que cambio el input cambia el location 
-        // porque se dispara el handleInputChange
         setInput({ 
             ...input,  
             [e.target.name] : e.target.value
@@ -34,10 +23,9 @@ export default function SignIn(props) {
 
     const onSubmit = async(e) => {
         e.preventDefault();
-        dispatch(loginSession(input));
         console.log("en Login Onsubmit --> " + JSON.stringify(input))
-        //dispatch(getLogginSession())
-        dispatch(postLoginSession(input));
+        dispatch(setLoginSession(input));
+        //dispatch(getLogginSession(input));
     }
     const location = useLocation();
     console.log(location);
@@ -61,11 +49,11 @@ export default function SignIn(props) {
             />
             <input type="submit" /* className={style.submit} *//>
             
-            {loginState === "LoggedIn" ? (
+            {/* {loginState === "LoggedIn" ? (
                 <Navigate to="/Restaurantes" ></Navigate>
                 ): (
                 <h2>Usuario o Contraseña Incorrecta</h2>
-                )}
+                )} */}
 
         </form>
     )

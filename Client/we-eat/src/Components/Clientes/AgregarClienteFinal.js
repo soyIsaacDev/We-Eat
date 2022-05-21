@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { addClientes } from "../../Actions/postFunctions";
+import { addClientes } from "../../Actions/APIMiddleware";
 
 import style from "./agregarClienteFinal.module.css";
 

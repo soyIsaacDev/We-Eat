@@ -4,28 +4,47 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local');
 var app = express.Router();
 
-const { Clientefinal, Sesion } = require("../db");
+const { Clientefinal, Sesion, ClienteRestaurantero } = require("../db");
 
 // Autenticando al usuario con estrategia local de Passport
 passport.use(new LocalStrategy(
     async (username, password, cb) => {
       try {
-        console.log("AQUI ES");
+        console.log("AQUI ES Auth");
         const user= await Clientefinal.findOne({
           where:{usuario:username}
         });
+        const restaurantUser= await ClienteRestaurantero.findOne({
+          where:{usuario:username}
+        });
+
+        console.log("usuario"+ user )
+        console.log("restaurantero"+ restaurantUser)
         //console.log("USUARIO DE PASSPORT LOCAL  -->>"+user.nombre)
-        if(!user) {
+        if(!user & !restaurantUser) {
           console.log("USUARIO INCORRECTO");
           return cb(null, false, { message: 'Incorrect username or password.' });
         }
-        if(user.contraseña != password) {
-          console.log("CONTRASEÑA INCORRECTA");
-          return cb(null, false, { message: 'Incorrect password.' });
+
+        if(user){
+          if(user.contraseña != password) {
+            console.log("CONTRASEÑA INCORRECTA");
+            return cb(null, false, { message: 'Incorrect password.' });
+          }
+          console.log("USUARIO DE PASSPORT LOCAL Loggeado Linea 26  -->>"+user.nombre + " ID "+ user.id)
+          SesionAuth("LoggedIn", user.id)
+          return cb(null, user)
         }
-        console.log("USUARIO DE PASSPORT LOCAL Loggeado Linea 26  -->>"+user.nombre + " ID "+ user.id)
-        SesionAuth("LoggedIn", user.id)
-        return cb(null, user);
+        if(restaurantUser){
+          if(restaurantUser.contraseña != password) {
+            console.log("CONTRASEÑA INCORRECTA");
+            return cb(null, false, { message: 'Incorrect password.' });
+          }
+          console.log("USUARIO DE PASSPORT LOCAL Loggeado Linea 26  -->>"+restaurantUser.nombre + " ID "+ restaurantUser.id)
+          SesionAuth("LoggedIn", restaurantUser.id)
+          return cb(null, restaurantUser);
+        }
+        
       } catch (error) {
         return cb(error);
       }
@@ -43,120 +62,112 @@ passport.deserializeUser(function(user, cb) {
     return cb(null, user);
   });
 });
-  
-/* passport.serializeUser(function(user, cb) {
-  cb(null, user.id);
-});
-
-passport.deserializeUser(function(id, cb) {
-  const user= await Clientefinal.findOne({
-    where:{id}
-  });
-  return cb(null, user);
-
-  /* db.users.findById(id)
-    .then((user) => {
-      cb(null, user);
-    })
-    .catch(err => {
-      return cb(err);
-    }) 
-});*/
-
-
-
-
-//app.use(express.urlencoded({ extended: true }));
-/* app.use(require('express-session')({
-  secret: 'secret',
-  resave: false,
-  saveUninitialized: false
-}));
-
-app.use(passport.initialize());
-app.use(passport.session()); */
-
-/*app.use((req, res, next) => {
-   console.log(req.session);
-  console.log(req.user); 
-  next();
-});*/
 
 const SesionAuth = async (auth, id) => { 
+  
   try {
-    console.log("Paso por SesionAuth");
-    const sesion = await Sesion.findOrCreate({
-      where:{ClientefinalId: id},
-      defaults:{
-        autenticated: auth
-      }
+    if(auth=== "LoggedIn"){
+      console.log("Paso por SesionAuth LoggedIn Linea 51");
+      const sesion = await Sesion.findOrCreate({
+        where:{ClientefinalId: id},
+        defaults:{
+          autenticated: auth
+        }
     });
-    console.log("SesionAuth -->>"+ sesion)
-    return(sesion);
-    
-  } catch (error) {
-    return(error);
+    console.log("SesionAuth Login L-58 -->>"+ sesion)
+    return(sesion); 
+    };
+    if(auth=== "LoggedOut"){
+      const sesion = await Sesion.findOne({
+        where:{ClientefinalId: id}
+      })
+      sesion.autenticated = auth;
+      await sesion.save();
+      console.log("SesionAuth Logout-->>"+ sesion)
+      return(sesion);
+    }
+  } catch (e) {
+    return(e);
   }
 };
 
-app.post('/login/password',
+app.post('/logincliente/password',
   passport.authenticate('local', { 
-    //succesRedirect: '/localhost:3000/',
     failureRedirect: '/login' 
   }),
   function(req, res) {
-    //res.redirect('http://localhost:3000/addRepartidor');  //Aqui dirigimos a donde deseamos (desde view servidor)
-    //res.json('addRepartidor');  //Aqui dirigimos a donde deseamos (desde react falla cors policy)
-    
-    //res.json(loginState = true);
-    //res.json(user.id);
   }
 );
 
-  
-app.get('/login', function(req, res, next) {
-  res.render('login');
-});  
 
 app.get('/sesion', async function(req, res) {
-  //const { username } = req.query;
-  const { username } = req.body;
-  const user = await Clientefinal.findOne({
-    where:{ usuario: username }
-  });
-  console.log(user.id)
-  const sesion = await Sesion.findOne({
-    where:{ClientefinalId: user.id}
-  });
-  console.log("Get ./sesion Linea 132" + sesion);
-  res.json(sesion)
+  try {
+    const { username, password } = req.body;
+    const user = await Clientefinal.findOne({
+      where:{ usuario: username }
+    });
+    console.log("SesionAuth L-127 " + user.id + user.contraseña)
+    if(password != user.contraseña){
+      console.log("Contraseña Incorrecta SesionAuth L-97")
+      res.send("Contraseña Incorrecta"); 
+      return
+    }
+    const sesion = await Sesion.findOne({
+      where:{ClientefinalId: user.id}
+    });
+    console.log("SesionAuth Linea 104" + sesion);
+    res.json(sesion)    
+  } catch (e) {
+    res.json(e);
+  }
 });  
 
 app.post('/sesion', async function(req, res) {
-  //const { username } = req.query;
-  const { username } = req.body;
-  console.log(username);
-  const user = await Clientefinal.findOne({
-    where:{ usuario: username }
-  });
-  console.log("Post /sesion"+user.id)
-  const sesion = await Sesion.findOne({
-    where:{ClientefinalId: user.id}
-  });
-  res.json(sesion)
+  try {
+    const { username, password } = req.body;
+    console.log(`SesionAuth L-114 ${username}`);
+    const user = await Clientefinal.findOne({
+      where:{ usuario: username }
+    });
+    console.log("SesionAuth L-118 " + user.id + " " + user.contraseña)
+    if(password != user.contraseña){
+      console.log("Contraseña Incorrecta SesionAuth L-120")
+      res.send({"Response": "Contraseña Incorrecta"}); 
+      return
+    }
+    console.log("SesionAuth L-124  "+user.id)
+
+    const sesion = await Sesion.findOne({
+      where:{ ClientefinalId: user.id }
+    });
+    console.log("SesionAuth L-129  "+sesion)
+    res.json(sesion)
+  } catch (e) {
+    res.json(e);
+  }
+  
 }); 
 
 app.get('/logout',
-  function(req, res){
-    req.logout();
-    res.redirect('/');
-  });
+  async function(req, res){
+    try {
+      const {username} = req.body;
+      const user = await Clientefinal.findOne({
+      where:{ usuario: username }
+      })
+      SesionAuth("LoggedOut", user.id);
+    } catch (e) {
+      res.json(e);
+    }
+  }
+);
 
 // Middleware que verifica si esta autenticado
 function isAuthenticated(req, res, next) {
   if(req.isAuthenticated()) {
     next(); // pasa a la ruta
   } else {
+    console.log("Usuario no autenticado");
     res.redirect('/login');
   }
 }

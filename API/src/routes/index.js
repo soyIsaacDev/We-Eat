@@ -35,7 +35,7 @@ module.exports = {
   repartidor: require("./repartidorServer"),
   clientefinal: require("./clienteServer"),
   ClienteRestaurantero: require("./clienteRestaurantServer"),
-  autenticacion: require("./auth"),
+  auth: require("./auth"),
   authrestaurantero: require("./authRestaurantero"),
   index: server,
 };

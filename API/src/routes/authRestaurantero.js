@@ -9,7 +9,7 @@ var app = express.Router();
 const { ClienteRestaurantero, SesionRestaurantero} = require("../db");
 
 // Autenticando al usuario con estrategia local de Passport
-passport.use(new LocalStrategy(
+/* passport.use(new LocalStrategy(
     async (username, password, cb) => {
       try {
         console.log("AQUI ES AuthRestaurantero");
@@ -31,7 +31,7 @@ passport.use(new LocalStrategy(
         return cb(error);
       }
     }
-));
+)); */
 
 passport.serializeUser(function(user, cb) {
   process.nextTick(function() {

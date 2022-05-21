@@ -5,16 +5,17 @@ const { Clientefinal } = require("../db");
 server.post("/agregarclientes", async (req, res) => { 
   try {
     const { nombre, usuario, contraseña } = req.body;
-    const client = await Clientefinal.create({
-      /* where: {
-        nombre
-      }, */
-      //defaults:{
+    const client = await Clientefinal.findOrCreate({
+      where: {
+        usuario
+      },
+      defaults:{
         nombre,
-          usuario,
-          contraseña
-      //}
+        usuario,
+        contraseña
+      }
     });
+    console.log(client)
     res.json(client);
   } catch (error) {
     res.send(error);
