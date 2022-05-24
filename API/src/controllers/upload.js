@@ -7,7 +7,7 @@ const {  Restaurantes, Corporativo, ImgRest, ClienteRestaurantero } = require(".
 
 const path = require('path')
 const carpeta = path.join(__dirname, '../../resources/uploads')
-console.log("DIRECTORIO" + carpeta)
+//console.log("DIRECTORIO" + carpeta)
 
 const uploadFiles = async (req, res) => {
   

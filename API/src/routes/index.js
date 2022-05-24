@@ -11,7 +11,7 @@ const upload = require("../middleware/upload");
 
 server.use(cors());
 
-server.get("/imageupload", homeController.getHome);
+//server.get("/imageupload", homeController.getHome);
 
 server.post("/upload", upload.single("file"), uploadController.uploadFiles);
 server.get("/imagenes", async (req,res)=> {

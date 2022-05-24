@@ -24,7 +24,7 @@ app.use(passport.authenticate('session'));
 app.use(express.urlencoded({extended: false}));
 app.use(express.json({extended: false}));
 
-//app.use('/', index);
+app.use('/', index);
 app.use("/authcliente", auth ) // usamos autenticacion en todas las rutas
 app.use("/authrestaurantero", authrestaurantero);
 

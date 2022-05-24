@@ -12,7 +12,9 @@ server.post("/agregarclienterestaurantero", async (req, res) => {
       defaults:{
           usuario,
           contraseña,
-          tipo_de_usuario
+          tipo_de_usuario,
+          nombreCorp, 
+          nombreRest 
       }
     });
     console.log("Cliente Restaurantero (clienteRestaurantServer) L-18 "+client);

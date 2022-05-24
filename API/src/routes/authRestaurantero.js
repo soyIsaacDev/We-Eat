@@ -109,11 +109,11 @@ app.get('/sesionrestaurantero', async function(req, res) {
 app.post('/sesionrestaurantero', async function(req, res) {
   try {
     const { username, password } = req.body;
-    console.log("Linea 105 "+ username);
+    console.log("Linea 112 "+ username);
     const user = await ClienteRestaurantero.findOne({
       where:{ usuario: username }
     });
-    console.log("Cliente Restaurantero sesion L-116" + user.id + user.contraseña)
+    console.log("Cliente Restaurantero sesion L-116  Usuario " + user.id  + " Contraseña " + user.contraseña)
     if(password != user.contraseña){
       console.log("Contraseña Incorrecta SesionRestaurantero L-118")
       res.send({"Response": "Contraseña Incorrecta"}); 

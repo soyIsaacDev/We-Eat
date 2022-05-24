@@ -4,7 +4,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local');
 var app = express.Router();
 
-const { Clientefinal, Sesion, ClienteRestaurantero } = require("../db");
+const { Clientefinal, Sesion, ClienteRestaurantero, SesionRestaurantero } = require("../db");
 
 // Autenticando al usuario con estrategia local de Passport
 passport.use(new LocalStrategy(
@@ -18,8 +18,8 @@ passport.use(new LocalStrategy(
           where:{usuario:username}
         });
 
-        console.log("usuario"+ user )
-        console.log("restaurantero"+ restaurantUser)
+        console.log("usuario L-21"+ user )
+        console.log("restaurantero L-22"+ restaurantUser)
         //console.log("USUARIO DE PASSPORT LOCAL  -->>"+user.nombre)
         if(!user & !restaurantUser) {
           console.log("USUARIO INCORRECTO");
@@ -31,8 +31,8 @@ passport.use(new LocalStrategy(
             console.log("CONTRASEÑA INCORRECTA");
             return cb(null, false, { message: 'Incorrect password.' });
           }
-          console.log("USUARIO DE PASSPORT LOCAL Loggeado Linea 26  -->>"+user.nombre + " ID "+ user.id)
-          SesionAuth("LoggedIn", user.id)
+          console.log("USUARIO DE PASSPORT LOCAL Loggeado Linea 34  -->>"+user.nombre + " ID "+ user.id)
+          SesionAuth("LoggedIn", user.id, "usuarioFinal")
           return cb(null, user)
         }
         if(restaurantUser){
@@ -40,8 +40,8 @@ passport.use(new LocalStrategy(
             console.log("CONTRASEÑA INCORRECTA");
             return cb(null, false, { message: 'Incorrect password.' });
           }
-          console.log("USUARIO DE PASSPORT LOCAL Loggeado Linea 26  -->>"+restaurantUser.nombre + " ID "+ restaurantUser.id)
-          SesionAuth("LoggedIn", restaurantUser.id)
+          console.log("USUARIO DE PASSPORT LOCAL Loggeado Linea 43  -->>"+restaurantUser.nombre + " ID "+ restaurantUser.id)
+          SesionAuth("LoggedIn", restaurantUser.id, "restaurantero")
           return cb(null, restaurantUser);
         }
         
@@ -63,29 +63,57 @@ passport.deserializeUser(function(user, cb) {
   });
 });
 
-const SesionAuth = async (auth, id) => { 
-  
+const SesionAuth = async (auth, id, clienteTipo) => { 
   try {
-    if(auth=== "LoggedIn"){
-      console.log("Paso por SesionAuth LoggedIn Linea 51");
-      const sesion = await Sesion.findOrCreate({
-        where:{ClientefinalId: id},
-        defaults:{
-          autenticated: auth
-        }
-    });
-    console.log("SesionAuth Login L-58 -->>"+ sesion)
-    return(sesion); 
-    };
-    if(auth=== "LoggedOut"){
-      const sesion = await Sesion.findOne({
-        where:{ClientefinalId: id}
-      })
-      sesion.autenticated = auth;
-      await sesion.save();
-      console.log("SesionAuth Logout-->>"+ sesion)
-      return(sesion);
+    if(clienteTipo === "restaurantero"){
+
+      if(auth=== "LoggedIn"){
+        console.log("Paso por SesionAuth LoggedIn Linea 70");
+        const sesion = await SesionRestaurantero.findOrCreate({
+          where:{ClienteRestauranteroId: id}, 
+          defaults:{
+            autenticated: auth
+          }
+      });
+      console.log("SesionAuth Login L-77 -->>"+ sesion)
+      return(sesion); 
+      };
+      if(auth=== "LoggedOut"){
+        const sesion = await SesionRestaurantero.findOne({
+          where:{ClienteRestauranteroId: id}
+        })
+        sesion.autenticated = auth;
+        await sesion.save();
+        console.log("SesionAuth Logout-->>"+ sesion)
+        return(sesion);
+      }
+
     }
+    else if (clienteTipo === "usuarioFinal"){
+
+      if(auth=== "LoggedIn"){
+        console.log("Paso por SesionAuth LoggedIn Linea 70");
+        const sesion = await Sesion.findOrCreate({
+          where:{ClientefinalId: id}, 
+          defaults:{
+            autenticated: auth
+          }
+      });
+      console.log("SesionAuth Login L-77 -->>"+ sesion)
+      return(sesion); 
+      };
+      if(auth=== "LoggedOut"){
+        const sesion = await Sesion.findOne({
+          where:{ClientefinalId: id}
+        })
+        sesion.autenticated = auth;
+        await sesion.save();
+        console.log("SesionAuth Logout-->>"+ sesion)
+        return(sesion);
+      }
+
+    }
+    
   } catch (e) {
     return(e);
   }
@@ -106,41 +134,43 @@ app.get('/sesion', async function(req, res) {
     const user = await Clientefinal.findOne({
       where:{ usuario: username }
     });
-    console.log("SesionAuth L-127 " + user.id + user.contraseña)
+    console.log("SesionAuth L-109 " + user.id + user.contraseña)
     if(password != user.contraseña){
-      console.log("Contraseña Incorrecta SesionAuth L-97")
+      console.log("Contraseña Incorrecta SesionAuth L-111")
       res.send("Contraseña Incorrecta"); 
       return
     }
     const sesion = await Sesion.findOne({
       where:{ClientefinalId: user.id}
     });
-    console.log("SesionAuth Linea 104" + sesion);
+    console.log("SesionAuth Linea 118" + sesion);
     res.json(sesion)    
   } catch (e) {
     res.json(e);
   }
 });  
 
+//Consulto la sesion (se manda como post por 
+// seguridad para mandar la contraseña por req.body)
 app.post('/sesion', async function(req, res) {
   try {
     const { username, password } = req.body;
-    console.log(`SesionAuth L-114 ${username}`);
+    console.log(`SesionAuth L-128 ${username}`);
     const user = await Clientefinal.findOne({
       where:{ usuario: username }
     });
-    console.log("SesionAuth L-118 " + user.id + " " + user.contraseña)
+    console.log("SesionAuth L-132 " + user.id + " " + user.contraseña)
     if(password != user.contraseña){
-      console.log("Contraseña Incorrecta SesionAuth L-120")
+      console.log("Contraseña Incorrecta SesionAuth L-134")
       res.send({"Response": "Contraseña Incorrecta"}); 
       return
     }
-    console.log("SesionAuth L-124  "+user.id)
+    console.log("SesionAuth L-138  "+user.id)
 
     const sesion = await Sesion.findOne({
       where:{ ClientefinalId: user.id }
     });
-    console.log("SesionAuth L-129  "+sesion)
+    console.log("SesionAuth L-143  "+sesion)
     res.json(sesion)
   } catch (e) {
     res.json(e);

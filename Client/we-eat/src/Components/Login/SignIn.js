@@ -12,7 +12,7 @@ export default function SignIn(props) {
     const dispatch = useDispatch();
     
     const [input, setInput] = useState({ username: "", password:""});
-    //const loginState = useSelector((state) => state.loginState.autenticated);
+    const loginState = useSelector((state) => state.loginState.autenticated);
     
     const handleInputChange = function(e){
         setInput({ 
@@ -25,7 +25,6 @@ export default function SignIn(props) {
         e.preventDefault();
         console.log("en Login Onsubmit --> " + JSON.stringify(input))
         dispatch(setLoginSession(input));
-        //dispatch(getLogginSession(input));
     }
     const location = useLocation();
     console.log(location);
@@ -49,11 +48,11 @@ export default function SignIn(props) {
             />
             <input type="submit" /* className={style.submit} *//>
             
-            {/* {loginState === "LoggedIn" ? (
+            {loginState === "LoggedIn" ? (
                 <Navigate to="/Restaurantes" ></Navigate>
                 ): (
                 <h2>Usuario o Contraseña Incorrecta</h2>
-                )} */}
+                )}
 
         </form>
     )
