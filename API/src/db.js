@@ -82,6 +82,8 @@ Evaluaciones.belongsTo(Restaurantes)
 /* Los clientes pueden hacer un pedido a varios restaurantes */
 Restaurantes.belongsToMany(Pedidos, {through:"PedidosRestaurantes"});
 Pedidos.belongsToMany(Restaurantes, {through:"PedidosRestaurantes"});
+Pedidos.hasMany(Platillo);
+Platillo.belongsTo(Pedidos)
 
 Clientefinal.hasMany(Pedidos);
 Pedidos.belongsTo(Clientefinal);

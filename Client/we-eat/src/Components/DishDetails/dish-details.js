@@ -1,17 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
 import s from "./dish-details.module.css";
-import Extras from "./Extras/extras";
+//import Extras from "./Extras/extras";
 import AddPedido from "./AgregarCarrito/agregar";
 import { addItem } from "../../Actions/actions";
 
 
 export default function Dish_Details(props) {
 
+  const restaurantId = useSelector((state) => state.loadedRestDetails.id);
   const platillos = useSelector((state)=> state.loadedPlatillos);
   const platilloId = useParams().id;
+  const [cantidad, setCantidad] = useState(1);
   var platilloData =  0;
   var rutaImg = 0;
   
@@ -24,14 +26,23 @@ export default function Dish_Details(props) {
   })
   const dispatch = useDispatch();
   let navigate = useNavigate();
+
+  const handleAdd = function(e){
+    setCantidad(cantidad + 1);
+  }
+  const handleSubtract = function(e){
+    setCantidad(cantidad - 1);
+  }
+  var precio = cantidad * platilloData.precio;
+
   const handleClick = function(e) {
     dispatch(addItem(
       {
         "platillo":platilloData.nombre, 
-        "cantidad": 1,
-        "precio": platilloData.precio
+        "cantidad": cantidad,
+        "precio": precio
     }));
-    navigate("/carrito");
+    navigate(`/restaurantDetails/${restaurantId}`);
   }
 
   return (
@@ -41,11 +52,14 @@ export default function Dish_Details(props) {
       <div className={s.descripcion}>
         {platilloData.descripcion}
       </div>
-      <div className={s.extras}>¿Deseas agregar extras? </div> 
-      <div className={s.selecciona}>Selecciona hasta 6 </div> 
-      <Extras></Extras>
+      {/* <Extras></Extras> */}
+      <div className={s.cwrapper}>
+        <button className={s.cboton} onClick={(e) =>handleSubtract(e)}> - </button>
+        <div className={s.cboton} >{cantidad}</div>
+        <button className={s.cboton} onClick={(e) =>handleAdd(e)}> +</button>
+      </div>
       <button className={s.boton} onClick={(e) =>handleClick(e)}>
-        <AddPedido precio = {platilloData.precio}></AddPedido>
+        <AddPedido precio = {precio} cantidad={cantidad}></AddPedido>
       </button>
     </div>   
   );

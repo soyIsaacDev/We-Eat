@@ -2,22 +2,23 @@ import React, { useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 
+import { getRestaurants } from "../../Actions/actions";
+import NavBar from "../NavBar/NavBar";
 import style from "./restaurantes";
-import { getRestaurants, getLogin } from "../../Actions/actions";
 
 export default function Restaurantes() {
   const restaurants = useSelector((state) => state.loadedRestaurants);
-  var loginState  = useSelector((state) => state.loginState);
+  
   
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getRestaurants());
-    /* dispatch(getLogin()); */
   }, []);
   
   return (
     <div>
       <h1>Bienvenido a We-Eat</h1>
+      <NavBar></NavBar>
       {restaurants.map((restaurant) => {
         const rutaImg = "http://localhost:4000/restaurantes/uploads/"+ restaurant.ImgRest.name;
         

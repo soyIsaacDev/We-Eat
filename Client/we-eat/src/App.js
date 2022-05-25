@@ -3,7 +3,6 @@ import { Routes, Route } from "react-router-dom";
 
 import "./App.css";
 
-import LogInButtons from "./Components/Login/LogInButtons"; 
 import Restaurantes from "./Components/RestaurantCard/restaurantes";
 import RestaurantDetails from "./Components/RestDetails/r-detail";
 import DishDetails from "./Components/DishDetails/dish-details";
@@ -13,7 +12,6 @@ import Geolocation from "./Components/GeolocationMap/Geolocation";
 import AddRepartidor from "./Components/Repartidor/repartidor";
 import AgregarClienteFinal from "./Components/Clientes/AgregarClienteFinal";
 import ProtectedRoutes from "./ProtectedRoutes";
-import LoggedIn from "./Components/Login/Loggedin";
 import Map from "./Components/GeolocationMap/Map";
 import Marker from "./Components/GeolocationMap/Marker";
 import Signin from "./Components/Login/SignIn"
@@ -28,7 +26,6 @@ function App() {
             <Route path="/" element={<Signin />} />
             {/* <Route path="/signinrest" element={<SignInRest />} /> */}
             <Route exact path="/AgregarClientes" element = { <AgregarClienteFinal/> } />
-            <Route path="/signin" element={<LogInButtons />} />
             <Route path="/NavBar" element={<NavBar/>} />
             
             <Route element={<ProtectedRoutes />}>

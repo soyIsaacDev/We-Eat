@@ -3,14 +3,16 @@ import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector  } from "react-redux";
 
 import { getPlatillos, getRestaurantDetails } from "../../Actions/actions";
-import s from "./r-details.module.css";
 import DishCard from "../DishCard/dishCard";
+
+import s from "./r-details.module.css";
 import star from "./media//star.png";
 import food from "./media//food-tray-a.png";
 import busqueda from "./media/lupa-a.png";
 
 export default function RestaurantDetails() {
     const restaurante = useSelector((state) => state.loadedRestDetails);
+    const carrito = useSelector((state)=>state.carrito)
     
     const dispatch = useDispatch();
     const restaurantId = useParams().id;
@@ -25,6 +27,7 @@ export default function RestaurantDetails() {
 
     if(Object.keys(restaurante).length>0){
         const rutaImgRest = "http://localhost:4000/restaurantes/uploads/"+ restaurante.ImgRest.name;
+        
         return(
             <div className={s.wrapper}>
                 <img className={s.img} src={rutaImgRest} alt="Banner de Restaurant"></img>
@@ -57,6 +60,14 @@ export default function RestaurantDetails() {
                             </Link>
                         );
                     })}
+                    
+                    {carrito.length>0? 
+                        <Link to = {"/carrito"}> 
+                            <div className={s.vercarrito}>Ver carrito ({carrito.length})</div> 
+                        </Link> 
+                        : 
+                        <div></div>
+                    }
                     
                 </div>          
             </div>

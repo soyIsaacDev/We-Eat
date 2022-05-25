@@ -49,7 +49,7 @@ export function setLoginSession(data){
     return function (dispatch){
         const auth = {"username": data.username}
         console.log("Ejecutando setLoginSession L-51 --> "+ auth);
-        dispatch(setUser(auth));
+        //dispatch(setUser(auth));
         
         async function postData(){
             const requestOptions = {

@@ -31,15 +31,18 @@ passport.use(new LocalStrategy(
             console.log("CONTRASEÑA INCORRECTA");
             return cb(null, false, { message: 'Incorrect password.' });
           }
+          //Success Usuario Final
           console.log("USUARIO DE PASSPORT LOCAL Loggeado Linea 34  -->>"+user.nombre + " ID "+ user.id)
           SesionAuth("LoggedIn", user.id, "usuarioFinal")
           return cb(null, user)
         }
+
         if(restaurantUser){
           if(restaurantUser.contraseña != password) {
             console.log("CONTRASEÑA INCORRECTA");
             return cb(null, false, { message: 'Incorrect password.' });
           }
+          //Success Usuario Restaurantero
           console.log("USUARIO DE PASSPORT LOCAL Loggeado Linea 43  -->>"+restaurantUser.nombre + " ID "+ restaurantUser.id)
           SesionAuth("LoggedIn", restaurantUser.id, "restaurantero")
           return cb(null, restaurantUser);

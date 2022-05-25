@@ -22,9 +22,8 @@
     align-content: center;
     justify-content: flex-start;
 }
-
-    .add{
-        width:60%;
+    .addwrapper{
+        width: 65%;
         padding-left: 18%;
         height: 100%;
         display: flex;
@@ -32,6 +31,30 @@
         justify-content: flex-start;
         align-content: center;
     }
+        .add{
+            width:38%;
+            height: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            align-content: center;
+        }
+        .cantidad{
+            width:14%;
+            height: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-content: center;
+        }
+        .cart{
+            width:45%;
+            height: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            align-content: center;
+        }
     .precio{
         width:30%;
         margin-left: 2%;
