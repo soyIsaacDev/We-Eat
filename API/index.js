@@ -1,5 +1,6 @@
 const express = require('express');
-const { index, restaurantes, envios, repartidor, clientefinal, auth, ClienteRestaurantero, authrestaurantero } = require('./src/routes');
+const { index, restaurantes, envios, repartidor, clientefinal, auth, 
+  ClienteRestaurantero, authrestaurantero, pedidos } = require('./src/routes');
 const app = express();
 const passport = require('passport');
 var session = require('express-session');
@@ -33,6 +34,7 @@ app.use("/envios", envios);
 app.use("/repartidor", repartidor);
 app.use("/clientefinal", clientefinal);
 app.use("/clienteRestaurantero", ClienteRestaurantero );
+app.use("/pedidos", pedidos);
 
 
 app.use(function (err, req, res, next) {

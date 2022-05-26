@@ -9,8 +9,8 @@ module.exports = s => {
             allowNull: false
         },
         status:{
-            type: DataTypes.ENUM("Recibido", "En_Proceso","Listo", "Enviado", "Entregado"),
-            allowNull:false
+            type: DataTypes.ENUM("Colocado","Recibido", "En_Proceso","Listo", "Enviado", "Entregado"),
+            allowNull:true
         }, 
         notas:{
             type: DataTypes.STRING,

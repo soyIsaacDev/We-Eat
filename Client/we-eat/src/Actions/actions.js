@@ -140,3 +140,9 @@ export function addItem(payload) {
         payload 
     };
 };
+
+export function deleteCart() {
+    return { 
+        type: "DELETE_CART"
+    };
+};

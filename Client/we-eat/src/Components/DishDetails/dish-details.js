@@ -34,14 +34,26 @@ export default function Dish_Details(props) {
     setCantidad(cantidad - 1);
   }
   var precio = cantidad * platilloData.precio;
-
+  const [input, setInput] = useState({
+    nombrePlatillo: platilloData.nombre,
+    cantidad:  cantidad,
+    precio: precio,
+    notas: ""
+  });
+  const handleInputChange = function(e) {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value
+    });
+    console.log(input)
+  }
   const handleClick = function(e) {
-    dispatch(addItem(
-      {
-        "platillo":platilloData.nombre, 
+    dispatch(addItem(input
+      /* {
+        "nombrePlatillo":platilloData.nombre, 
         "cantidad": cantidad,
         "precio": precio
-    }));
+    } */));
     navigate(`/restaurantDetails/${restaurantId}`);
   }
 
@@ -52,6 +64,12 @@ export default function Dish_Details(props) {
       <div className={s.descripcion}>
         {platilloData.descripcion}
       </div>
+      <input 
+        name= "notas"
+        value = {input.notas}
+        placeholder="Notas"
+        onChange={(e) => handleInputChange(e)}
+      />
       {/* <Extras></Extras> */}
       <div className={s.cwrapper}>
         <button className={s.cboton} onClick={(e) =>handleSubtract(e)}> - </button>

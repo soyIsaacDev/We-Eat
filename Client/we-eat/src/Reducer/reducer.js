@@ -73,6 +73,11 @@ const initialState = {
         return{
           ...state,
           carrito: state.carrito
+        }
+      case 'DELETE_CART':
+        return{
+          ...state,
+          carrito: []
         } 
       default:
         return {...state}

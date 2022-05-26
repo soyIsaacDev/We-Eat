@@ -1,9 +1,6 @@
 const server = require("express").Router();
 
-const { Pedidos, Clientefinal, Restaurantes, Platillo } = require("../db");
-
-// cantidad,  status:"Recibido", "En_Proceso","Listo", "Enviado", "Entregado", 
-// notas, nombreCliente
+const { Pedidos, Clientefinal, Restaurantes, Platillo, PedidosRestaurantes } = require("../db");
 
 server.post("/agregarpedido", async (req, res) => { 
     try {
@@ -30,22 +27,41 @@ server.post("/agregarpedido", async (req, res) => {
             }
         })
         console.log(pedido)
+
+        pedido.addRestaurantes(restaurant);
+        //restaurant.addPedidos(pedido); 
+        pedido.addPlatillo(platillo);
+        //platillo.addPedidos(pedido);
+        //cliente.addPedidos(pedido);
+        pedido.setClientefinal(cliente);
+
         res.json(pedido);
     } catch (e) {
         res.json(e);
     }
 });
 
-server.get("/pedido:restID", async (req, res) => { 
+server.get("/pedido/:RestauranteId", async (req, res) => { 
     try {
-        const {restID} = req.params;
+        let {RestauranteId} = req.params;
+        const restaurantPedido = PedidosRestaurantes.findAll({
+            where:{
+                RestauranteId
+            }
+        });
         const pedido = Pedidos.findAll({
-            include: {
-                model: Restaurantes,
-                attributes: ['nombre','id'],
-              },
-        })
+            where:{
+               id : restaurantPedido.PedidoId,
+               status:"Colocado"
+            }
+        });
+
+        const platillo = await pedido.getPlatillo();
+        const cliente = await pedido.getClientefinal();
+        res.json(pedido);
     } catch (e) {
         res.json(e);
     }
-})
+});
+
+module.exports = server;

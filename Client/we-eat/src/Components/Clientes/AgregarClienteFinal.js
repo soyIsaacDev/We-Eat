@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { addClientes } from "../../Actions/APIMiddleware";
+import { useNavigate } from "react-router-dom";
 
 import style from "./agregarClienteFinal.module.css";
 
 export default function AgregarClienteFinal() {
-  
+  let navigate = useNavigate();
+
   const [input, setInput] = useState({
     nombre: "",
     usuario: "",
@@ -28,6 +30,7 @@ export default function AgregarClienteFinal() {
   const onSubmit = async (e) => {
     e.preventDefault();
     addClientes(input);
+    navigate(`/`);
   };
 
   return (

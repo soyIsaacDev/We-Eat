@@ -13,7 +13,7 @@ server.use(cors());
 
 //server.get("/imageupload", homeController.getHome);
 
-server.post("/upload", upload.single("file"), uploadController.uploadFiles);
+//server.post("/upload", upload.single("file"), uploadController.uploadFiles);
 server.get("/imagenes", async (req,res)=> {
   try{
     const imagenes = await ImgRest.findAll({
@@ -37,5 +37,6 @@ module.exports = {
   ClienteRestaurantero: require("./clienteRestaurantServer"),
   auth: require("./auth"),
   authrestaurantero: require("./authRestaurantero"),
+  pedidos: require("./pedidoServer"),
   index: server,
 };

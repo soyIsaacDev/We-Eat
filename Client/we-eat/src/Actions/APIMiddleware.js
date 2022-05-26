@@ -1,5 +1,7 @@
 // Post a Servidor
 
+import { deleteCart } from "./actions";
+
 export function addRepartidor(data){
     async function postData(){
         const requestOptions = {
@@ -88,6 +90,25 @@ export function getLogginSession(data){
                 console.log("Session Autenticada L-85 APIMiddleware"+JSON.stringify(json));
                 dispatch(getLoggin(json));
             });
+        };    
+        postData();
+    }
+}
+
+export function addPedido(data){
+    return function (dispatch){
+        console.log("Ejecutando addPedido L-98");
+        
+        async function postData(){
+            const requestOptions = {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(data),
+          };     
+          await fetch('http://localhost:4000/pedidos/agregarpedido', requestOptions)
+          .then(response => response.json())
+          .then(json => console.log(json))
+          /* .then(json => dispatch(deleteCart())) */
         };    
         postData();
     }
