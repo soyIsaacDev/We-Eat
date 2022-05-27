@@ -42,26 +42,56 @@ server.post("/agregarpedido", async (req, res) => {
 });
 
 server.get("/pedido/:RestauranteId", async (req, res) => { 
+/* server.get("/pedido", async (req, res) => { */
     try {
         let {RestauranteId} = req.params;
-        const restaurantPedido = PedidosRestaurantes.findAll({
+        /* const restaurantPedido = PedidosRestaurantes.findAll({
             where:{
                 RestauranteId
             }
         });
-        const pedido = Pedidos.findAll({
-            where:{
-               id : restaurantPedido.PedidoId,
-               status:"Colocado"
-            }
-        });
+        console.log("RestaurantPedido  -->  "+restaurantPedido); */
 
-        const platillo = await pedido.getPlatillo();
-        const cliente = await pedido.getClientefinal();
-        res.json(pedido);
+        const pedido = await Pedidos.findAll({
+            where:{
+               status:"Colocado"
+            },
+            include: [{
+                model: Restaurantes,
+                through:{
+                    where:{
+                        RestauranteId
+                    },
+                    attributes:[]
+                }
+            }]
+        });
+        console.log(pedido)
+        /* const platillo = await pedido.getPlatillo();
+        const cliente = await pedido.getClientefinal(); */
+        res.json(pedido)
+        /* res.json(pedido? pedido : "No existe el pedido"); */
     } catch (e) {
         res.json(e);
     }
 });
+
+
+    server.get("/pedido", async (req, res) => { 
+        try {
+            const pedido = await Pedidos.findAll({
+                where:{
+                   status:"Colocado"
+                },
+                include: [{
+                    model: Restaurantes
+                }]
+            });
+            console.log(pedido)
+            res.json(pedido)
+        } catch (e) {
+            res.json(e);
+        }
+    });
 
 module.exports = server;

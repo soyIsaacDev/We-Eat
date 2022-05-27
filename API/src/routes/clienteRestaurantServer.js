@@ -55,6 +55,7 @@ server.post("/agregarclienterestaurantero", async (req, res) => {
   server.get("/clienterestaurantero/:id", async (req, res) => {
     try {
       let {id} = req.params;
+      
       const client= await ClienteRestaurantero.findOne({
         where:{id},
         include: {
@@ -62,27 +63,23 @@ server.post("/agregarclienterestaurantero", async (req, res) => {
           attributes: ['nombre','id'],
         },
       });
-      res.json(client);
+      res.json(client? client : "No existe ese cliente");
     } catch (error) {
-      res.send(error);
+      res.json(error);
     }
   })
 
-  server.get("/clienterestaurantero/:usuario", async (req, res) => {
+  /* server.get("/clienterestaurantero/:usuario", async (req, res) => {
     try {
       let {usuario} = req.params;
       const client= await ClienteRestaurantero.findOne({
-        where:{usuario}/* ,
-        include: {
-          model: Restaurantes,
-          attributes: ['nombre','id'],
-        }, */
+        where:{usuario}
       });
       res.json(client);
     } catch (error) {
       res.send(error);
     }
-  });
+  }); */
 
   const findByUsername = server.get(
     async (username, req,res) => {
