@@ -51,6 +51,6 @@
         font-weight: 500;
         display: flex;
         flex-wrap: wrap;
-        align-content: center;
+        align-content: flex-start;
         justify-content: center;  
     }

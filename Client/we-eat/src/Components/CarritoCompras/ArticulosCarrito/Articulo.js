@@ -14,7 +14,7 @@ export default function Carrito_Compras() {
           <div className={s.wrapper}> 
             <div className={s.cantidad}>{c.cantidad}</div>
             <div className={s.platillo}>
-                <div className={s.comida}>{c.platillo}</div>
+                <div className={s.comida}>{c.nombrePlatillo}</div>
                 <div className={s.complementos}></div>
             </div>
             <div className={s.precio}>${c.precio}.00</div>

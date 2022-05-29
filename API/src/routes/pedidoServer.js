@@ -42,15 +42,8 @@ server.post("/agregarpedido", async (req, res) => {
 });
 
 server.get("/pedido/:RestauranteId", async (req, res) => { 
-/* server.get("/pedido", async (req, res) => { */
     try {
         let {RestauranteId} = req.params;
-        /* const restaurantPedido = PedidosRestaurantes.findAll({
-            where:{
-                RestauranteId
-            }
-        });
-        console.log("RestaurantPedido  -->  "+restaurantPedido); */
 
         const pedido = await Pedidos.findAll({
             where:{
@@ -66,7 +59,6 @@ server.get("/pedido/:RestauranteId", async (req, res) => {
                 }
             }]
         });
-        console.log(pedido)
         /* const platillo = await pedido.getPlatillo();
         const cliente = await pedido.getClientefinal(); */
         res.json(pedido)
@@ -76,22 +68,67 @@ server.get("/pedido/:RestauranteId", async (req, res) => {
     }
 });
 
+server.get("/restaurantPedido/:RestauranteId", async (req, res) => { 
+    try {
+        let {RestauranteId} = req.params;
 
-    server.get("/pedido", async (req, res) => { 
-        try {
-            const pedido = await Pedidos.findAll({
+        const pedido = await Restaurantes.findOne({
+            where:{
+               id:RestauranteId
+            },
+            include: [{
+                model: Pedidos,
                 where:{
-                   status:"Colocado"
+                    status:"Colocado"
                 },
-                include: [{
-                    model: Restaurantes
-                }]
-            });
-            console.log(pedido)
-            res.json(pedido)
-        } catch (e) {
-            res.json(e);
-        }
-    });
+                attributes:['id', 'cantidad', 'notas'],
+                through:{
+                    attributes:[]
+                }
+            }]
+        });
+        console.log(pedido);
+        res.json(pedido)
+    } catch (e) {
+        res.json(e);
+    }
+});
+
+server.get("/pedidoRestAll/:RestauranteId", async (req, res) => { 
+    try {
+        let {RestauranteId} = req.params;
+
+        const pedido = await Restaurantes.findOne({
+            where:{
+               id:RestauranteId
+            },
+            include: [{
+                model: Pedidos
+            }]
+        });
+        res.json(pedido)
+    } catch (e) {
+        res.json(e);
+    }
+});
+
+server.get("/todosLosPedidos/:status", async (req, res) => { 
+    try {
+        let {status} = req.params;
+        const pedido = await Pedidos.findAll({
+            where:{
+               status
+            },
+            include: [{
+                model: Restaurantes/* ,
+                attributes:[id, nombre] */
+            }]
+        });
+        console.log(pedido)
+        res.json(pedido)
+    } catch (e) {
+        res.json(e);
+    }
+});
 
 module.exports = server;
