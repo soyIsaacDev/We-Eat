@@ -13,42 +13,26 @@ export default function Carrito_Compras() {
   const restaurant = useSelector((state)=> state.loadedRestDetails)
   const carrito = useSelector((state)=> state.carrito);
   const clienteId = useSelector((state) => state.loginState.ClientefinalId)
-  const [pedido, setPedido] = useState({
-    cantidad: "",
-    nombrePlatillo: "",
-    notas: "",
-    idCliente: clienteId,
-    idRestaurant: restaurant.id,
-    status: "Colocado"
-  });
-  useEffect(() => {
-    carrito.map((i)=>{
-      setPedido({
-        ...pedido,
-        cantidad: i.cantidad,
-        nombrePlatillo: i.nombrePlatillo,
-        notas: "sin Mantequilla"
-      })
-    });
-  }, []);
-
+  
   var subtotal = 0;
   carrito.map((c)=>{
     subtotal = subtotal + c.precio
   })
+  
   function handleClick(e){
-    /* carrito.map((i)=>{
-      setPedido({
-        ...pedido,
+    carrito.map((i)=>{
+      var pedido = {
         cantidad: i.cantidad,
         nombrePlatillo: i.nombrePlatillo,
-        notas: "sin Mantequilla"
-      }) */
-      
+        notas: "sin Mantequilla",
+        idCliente: clienteId,
+        idRestaurant: restaurant.id,
+        status: "Colocado"
+      };
       dispatch(addPedido(pedido));
-      
       console.log("Colocar Pedido " + JSON.stringify(pedido));
-    /* }); */
+    });
+      
     //dispatch(deleteCart());
   }
 

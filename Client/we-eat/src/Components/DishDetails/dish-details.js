@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -13,9 +13,11 @@ export default function Dish_Details(props) {
   const restaurantId = useSelector((state) => state.loadedRestDetails.id);
   const platillos = useSelector((state)=> state.loadedPlatillos);
   const platilloId = useParams().id;
-  const [cantidad, setCantidad] = useState(1);
+  //const [cantidad, setCantidad] = useState(1);
   var platilloData =  0;
   var rutaImg = 0;
+
+  
   
   platillos.map((p)=>{
     if(p.id === parseInt(platilloId)){
@@ -24,22 +26,38 @@ export default function Dish_Details(props) {
       return platilloData;
     }
   })
-  const dispatch = useDispatch();
-  let navigate = useNavigate();
 
-  const handleAdd = function(e){
-    setCantidad(cantidad + 1);
-  }
-  const handleSubtract = function(e){
-    setCantidad(cantidad - 1);
-  }
-  var precio = cantidad * platilloData.precio;
+  
+  /* console.log("CANTIDAD "+ cantidad);
+  console.log("PRECIO "+price) */
   const [input, setInput] = useState({
     nombrePlatillo: platilloData.nombre,
-    cantidad:  cantidad,
-    precio: precio,
+    cantidad: 1,
+    precio: platilloData.precio,
     notas: ""
   });
+
+  const dispatch = useDispatch();
+  let navigate = useNavigate();
+  var qty = input.cantidad
+  const handleAdd = function(e){
+    //setCantidad(cantidad + 1);
+    
+    setInput({
+      ...input,
+      cantidad: qty + 1,
+      precio: (qty + 1) * platilloData.precio
+    });
+  }
+  const handleSubtract = function(e){
+    //setCantidad(cantidad - 1);
+    setInput({
+      ...input,
+      cantidad: qty - 1,
+      precio: (qty + 1) * platilloData.precio
+    });
+  }
+  
   const handleInputChange = function(e) {
     setInput({
       ...input,
@@ -47,16 +65,15 @@ export default function Dish_Details(props) {
     });
     console.log(input)
   }
+  
   const handleClick = function(e) {
-    dispatch(addItem(input
-      /* {
-        "nombrePlatillo":platilloData.nombre, 
-        "cantidad": cantidad,
-        "precio": precio
-    } */));
+    dispatch(addItem(input));
     navigate(`/restaurantDetails/${restaurantId}`);
   }
 
+  console.log(JSON.stringify(input));
+
+  
   return (
     <div className={s.wrapper}>
       <img className={s.img} src = {rutaImg} alt = {platilloData.nombre}></img> 
@@ -73,11 +90,11 @@ export default function Dish_Details(props) {
       {/* <Extras></Extras> */}
       <div className={s.cwrapper}>
         <button className={s.cboton} onClick={(e) =>handleSubtract(e)}> - </button>
-        <div className={s.cboton} >{cantidad}</div>
+        <div className={s.cboton} >{input.cantidad}</div>
         <button className={s.cboton} onClick={(e) =>handleAdd(e)}> +</button>
       </div>
       <button className={s.boton} onClick={(e) =>handleClick(e)}>
-        <AddPedido precio = {precio} cantidad={cantidad}></AddPedido>
+        <AddPedido precio = {input.precio} cantidad={input.cantidad}></AddPedido>
       </button>
     </div>   
   );

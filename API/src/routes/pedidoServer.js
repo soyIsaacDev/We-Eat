@@ -57,6 +57,9 @@ server.get("/pedido/:RestauranteId", async (req, res) => {
                     },
                     attributes:[]
                 }
+            }],
+            include: [{
+                model: Platillo
             }]
         });
         /* const platillo = await pedido.getPlatillo();
