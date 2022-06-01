@@ -1,4 +1,5 @@
 const server = require("express").Router();
+const { Op } = require("sequelize");
 
 const { Pedidos, Clientefinal, Restaurantes, Platillo, PedidosRestaurantes } = require("../db");
 
@@ -47,7 +48,8 @@ server.get("/pedido/:RestauranteId", async (req, res) => {
 
         const pedido = await Pedidos.findAll({
             where:{
-               status:"Colocado"
+                [Op.or]:[{status:"Colocado"},{status:"Recibido"}, {status: "En_Proceso"}, {status: "Listo"} ]
+               
             },
             include: [{
                 model: Restaurantes,
@@ -70,27 +72,69 @@ server.get("/pedido/:RestauranteId", async (req, res) => {
         res.json(e);
     }
 });
-
+// Mejor ordenado pero 
+// NO acepta modelo Pedidos junto con modelo Platilo  ??
 server.get("/restaurantPedido/:RestauranteId", async (req, res) => { 
     try {
         let {RestauranteId} = req.params;
-
+        //console.log(RestauranteId + "Estatus"+ status)
         const pedido = await Restaurantes.findOne({
             where:{
                id:RestauranteId
             },
             include: [{
+                model: Platillo,
+                attributes:['id', 'nombre']
+            }],
+            include: [{
                 model: Pedidos,
-                where:{
+                /* where:{
                     status:"Colocado"
-                },
+                }, */
                 attributes:['id', 'cantidad', 'notas'],
-                through:{
+                /* through:{
                     attributes:[]
-                }
-            }]
+                } */
+            }],
+
         });
         console.log(pedido);
+        res.json(pedido)
+    } catch (e) {
+        res.json(e);
+    }
+});
+
+// cambiar status a Recibido
+server.get("/cambiarStatus/:PedidoId/:status", async (req, res) => { 
+    try {
+        let {PedidoId, status} = req.params;
+
+        const pedido = await Pedidos.findOne({
+            where:{
+               id:PedidoId
+            }
+        });
+        pedido.status= status;
+        await pedido.save();
+        console.log(pedido);
+        res.json(pedido)
+    } catch (e) {
+        res.json(e);
+    }
+});
+
+server.get("/cambiaraEnProceso/:PedidoId", async (req, res) => { 
+    try {
+        let {PedidoId} = req.params;
+
+        const pedido = await Pedidos.findOne({
+            where:{
+               id:PedidoId
+            }
+        });
+        pedido.status= "En_Proceso";
+        await pedido.save();
         res.json(pedido)
     } catch (e) {
         res.json(e);
