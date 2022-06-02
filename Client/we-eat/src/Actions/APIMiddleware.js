@@ -1,6 +1,6 @@
 // Post a Servidor
 
-import { deleteCart } from "./actions";
+import { deleteCart, getPedidos } from "./actions";
 
 export function addRepartidor(data){
     async function postData(){
@@ -95,6 +95,7 @@ export function getLogginSession(data){
     }
 }
 
+
 export function addPedido(data){
     return function (dispatch){
         console.log("Ejecutando addPedido L-98");
@@ -107,8 +108,9 @@ export function addPedido(data){
           };     
           await fetch('http://localhost:4000/pedidos/agregarpedido', requestOptions)
           .then(response => response.json())
-          .then(json => console.log(json))
-          /* .then(json => dispatch(deleteCart())) */
+          /* .then(json => console.log(json.status+json.id)) */
+          .then(json => dispatch(getPedidos(json.id)))
+          .then(json => dispatch(deleteCart()))
         };    
         postData();
     }

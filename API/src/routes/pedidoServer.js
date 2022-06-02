@@ -105,7 +105,7 @@ server.get("/restaurantPedido/:RestauranteId", async (req, res) => {
     }
 });
 
-// cambiar status a Recibido
+// cambiar status
 server.get("/cambiarStatus/:PedidoId/:status", async (req, res) => { 
     try {
         let {PedidoId, status} = req.params;
@@ -118,41 +118,6 @@ server.get("/cambiarStatus/:PedidoId/:status", async (req, res) => {
         pedido.status= status;
         await pedido.save();
         console.log(pedido);
-        res.json(pedido)
-    } catch (e) {
-        res.json(e);
-    }
-});
-
-server.get("/cambiaraEnProceso/:PedidoId", async (req, res) => { 
-    try {
-        let {PedidoId} = req.params;
-
-        const pedido = await Pedidos.findOne({
-            where:{
-               id:PedidoId
-            }
-        });
-        pedido.status= "En_Proceso";
-        await pedido.save();
-        res.json(pedido)
-    } catch (e) {
-        res.json(e);
-    }
-});
-
-server.get("/pedidoRestAll/:RestauranteId", async (req, res) => { 
-    try {
-        let {RestauranteId} = req.params;
-
-        const pedido = await Restaurantes.findOne({
-            where:{
-               id:RestauranteId
-            },
-            include: [{
-                model: Pedidos
-            }]
-        });
         res.json(pedido)
     } catch (e) {
         res.json(e);
@@ -172,6 +137,21 @@ server.get("/todosLosPedidos/:status", async (req, res) => {
             }]
         });
         console.log(pedido)
+        res.json(pedido)
+    } catch (e) {
+        res.json(e);
+    }
+});
+
+server.get("/pedidobyId/:PedidoId", async (req, res) => { 
+    try {
+        let {PedidoId} = req.params;
+
+        const pedido = await Pedidos.findAll({
+            where:{
+                id:PedidoId
+            }
+        });
         res.json(pedido)
     } catch (e) {
         res.json(e);

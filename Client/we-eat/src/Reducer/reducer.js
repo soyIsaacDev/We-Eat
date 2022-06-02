@@ -12,7 +12,8 @@ const initialState = {
     loginState:"",
     user: [],
     corporativo: [],
-    carrito: []
+    carrito: [],
+    pedido: []
   }
 
   const rootReducer = (state = initialState, action) => {
@@ -79,6 +80,11 @@ const initialState = {
           ...state,
           carrito: []
         } 
+      case 'GET_PEDIDOS':
+        return{
+          ...state,
+          pedido: action.payload
+        }
       default:
         return {...state}
     }

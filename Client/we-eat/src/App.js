@@ -16,6 +16,9 @@ import Map from "./Components/GeolocationMap/Map";
 import Marker from "./Components/GeolocationMap/Marker";
 import Signin from "./Components/Login/SignIn"
 import NavBar from "./Components/NavBar/NavBar";     
+import Pedido from "./Components/Pedido/Pedido";
+import MapLive from "./Components/GeolocationMap/MapLiveCoding"; 
+import Mapa from "./Components/Mapa/Mapa";
 
 function App() { 
 
@@ -27,17 +30,24 @@ function App() {
             {/* <Route path="/signinrest" element={<SignInRest />} /> */}
             <Route exact path="/AgregarClientes" element = { <AgregarClienteFinal/> } />
             <Route path="/NavBar" element={<NavBar/>} />
+            <Route exact path="/LiveCoding" element = { <LiveCoding/> } />
+                <Route exact path="/Geolocation" element = { <Geolocation/> } />
+                <Route exact path="/map" element = { <Map/> } />
+                <Route exact path="/marker" element = { <Marker/> } />
+            <Route exact path="/maplive" element = { <MapLive/> } />
+            <Route exact path="/mapa" element = { <Mapa/> } />
             
             <Route element={<ProtectedRoutes />}>
                 <Route exact path="/Restaurantes" element = { <Restaurantes/> } />
                 <Route path="/RestaurantDetails/:id" element = { <RestaurantDetails/> } />
                 <Route exact path="/DishDetail/:id" element={ <DishDetails/> } />
                 <Route exact path="/Carrito" element = { <Carrito/> } />
-                <Route exact path="/LiveCoding" element = { <LiveCoding/> } />
+                {/* <Route exact path="/LiveCoding" element = { <LiveCoding/> } />
                 <Route exact path="/Geolocation" element = { <Geolocation/> } />
                 <Route exact path="/addRepartidor" element = { <AddRepartidor/> } />
                 <Route exact path="/map" element = { <Map/> } />
                 <Route exact path="/marker" element = { <Marker/> } />
+                <Route exact path="/pedido" element = { <Pedido/> } /> */}
                 {/* <Route exact path="/Perfil" element = { <LoginHome/> } /> */}
             </Route>
         </Routes>
