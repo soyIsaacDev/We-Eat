@@ -31,6 +31,7 @@ export default function Mapa() {
             new window.google.maps.Marker({
                 position: loc,
                 map:mapa,
+                draggable:true,
                 title: "Aqui estoy mundo!",
               })
         )

@@ -16,7 +16,7 @@ const uploadFiles = async (req, res) => {
     const bodyObj = req.body.data;
     const parsedbodyObj = JSON.parse(bodyObj)
     const { nombreCorp, direccionCorp, nombre, direccion, area_de_reparto, 
-      actividad, estatus,costoEnvio, horarios, tipoComida, usuario } = parsedbodyObj;
+      actividad, estatus,costoEnvio, horarios, tipoComida, usuario, location } = parsedbodyObj;
    
     console.log(req.file);
 
@@ -34,7 +34,8 @@ const uploadFiles = async (req, res) => {
         estatus,
         costoEnvio, 
         horarios, 
-        tipoComida
+        tipoComida,
+        location
       }      
     });
 

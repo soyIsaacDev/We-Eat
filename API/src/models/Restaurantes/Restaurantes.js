@@ -47,6 +47,10 @@ module.exports = s => {
         tipoComida:{
             type: DataTypes.ENUM("Desayuno", "Desayuno y brunch", "Comida", "Cena", "Ensaladas"),
             allowNull: false 
+        },
+        location:{
+            type: DataTypes.JSON,
+            allowNull: false
         }
               
     },
