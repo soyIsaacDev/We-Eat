@@ -37,6 +37,7 @@ module.exports = {
   ClienteRestaurantero: require("./clienteRestaurantServer"),
   auth: require("./auth"),
   authrestaurantero: require("./authRestaurantero"),
+  authrepartidor: require("./authRepartidor"),
   pedidos: require("./pedidoServer"),
   index: server,
 };

@@ -59,16 +59,16 @@ export function setLoginSession(data){
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(data),
           };     
-          await fetch('http://localhost:4000/authcliente/logincliente/password', requestOptions)
-          .then(response => response.json())
-          .then(json => console.log(json))
+          await fetch('http://localhost:4000/authcliente/login/password', requestOptions)
+          /* .then(response => response.json())
+          .then(json => console.log(json)) */
         };    
         postData();
         dispatch(getLogginSession(data))
     }
 }
 export function getLoggin(session) {
-    console.log("getLoggin APIMiddleware L-66 -->>  "+JSON.stringify(session))
+    console.log("getLoggin APIMiddleware L-71 -->>  "+JSON.stringify(session))
     return { 
         type: "GET_LOGIN",
         payload: session

@@ -46,6 +46,7 @@ export default function SignIn(props) {
                 /* className= {style.nombreRest} */
                 type= "password"
             />
+
             <input type="submit" /* className={style.submit} *//>
             
             {loginState === "LoggedIn" ? (

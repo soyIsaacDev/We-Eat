@@ -2,6 +2,7 @@ const server = require("express").Router();
 const { Op } = require("sequelize");
 
 const { Pedidos, Clientefinal, Restaurantes, Platillo, PedidosRestaurantes } = require("../db");
+const Direccion = require("../models/Clientes/Direccion");
 
 server.post("/agregarpedido", async (req, res) => { 
     try {
@@ -143,6 +144,46 @@ server.get("/todosLosPedidos/:status", async (req, res) => {
     }
 });
 
+//Pedidos en Reparto
+server.get("/pedidosreparto/:reparto", async (req, res) => { 
+    try {
+        let {reparto} = req.params;
+        const pedido = await Pedidos.findAll({
+            where:{
+               reparto
+            },
+            include: [{
+                model: Restaurantes/* ,
+                through:{
+                    attributes:[id, nombre, direccion, location]
+                } */
+                
+            }, {
+                model: Platillo
+            }]
+        });
+        console.log(pedido)
+        res.json(pedido)
+    } catch (e) {
+        res.json(e);
+    }
+}); 
+server.get("/todosLosPedidosCliente/:ClientefinalId", async (req, res) => { 
+    try {
+        let {ClientefinalId} = req.params;
+        const pedido = await Pedidos.findAll({
+            where:{
+               ClientefinalId,
+               [Op.or]:[{status:"Colocado"},{status:"Recibido"}, {status: "En_Proceso"}, {status: "Listo"} ]
+            }
+        });
+        console.log(pedido)
+        res.json(pedido)
+    } catch (e) {
+        res.json(e);
+    }
+});
+
 server.get("/pedidobyId/:PedidoId", async (req, res) => { 
     try {
         let {PedidoId} = req.params;
@@ -152,6 +193,25 @@ server.get("/pedidobyId/:PedidoId", async (req, res) => {
                 id:PedidoId
             }
         });
+        res.json(pedido)
+    } catch (e) {
+        res.json(e);
+    }
+});
+
+// Cambiar Reparto (para asignar repartidor)
+server.get("/cambiarReparto/:PedidoId/:reparto", async (req, res) => { 
+    try {
+        let {PedidoId, reparto} = req.params;
+
+        const pedido = await Pedidos.findOne({
+            where:{
+               id:PedidoId
+            }
+        });
+        pedido.reparto= reparto;
+        await pedido.save();
+        console.log(pedido);
         res.json(pedido)
     } catch (e) {
         res.json(e);

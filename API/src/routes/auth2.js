@@ -20,9 +20,9 @@ passport.use(new LocalStrategy(
         const repartidor= await Repartidor.findOne({
             where:{usuario:username}
           });
-        console.log("usuario L-23"+ user )
-        console.log("restaurantero L-24"+ restaurantUser)
-        console.log("repartidor L-25"+ repartidor)
+        console.log("usuario L-21"+ user )
+        console.log("restaurantero L-22"+ restaurantUser)
+        console.log("repartidor L-22"+ repartidor)
         //console.log("USUARIO DE PASSPORT LOCAL  -->>"+user.nombre)
         if(!user & !restaurantUser & !repartidor) {
           console.log("USUARIO INCORRECTO");
@@ -35,7 +35,7 @@ passport.use(new LocalStrategy(
             return cb(null, false, { message: 'Incorrect password.' });
           }
           //Success Usuario Final
-          console.log("USUARIO DE PASSPORT LOCAL Loggeado Linea 38  -->>"+user.nombre + " ID "+ user.id)
+          console.log("USUARIO DE PASSPORT LOCAL Loggeado Linea 34  -->>"+user.nombre + " ID "+ user.id)
           SesionAuth("LoggedIn", user.id, "usuarioFinal")
           return cb(null, user)
         }
@@ -85,7 +85,7 @@ const SesionAuth = async (auth, id, clienteTipo) => {
     if(clienteTipo === "restaurantero"){
 
       if(auth=== "LoggedIn"){
-        console.log("Paso por SesionAuth LoggedIn Linea 88");
+        console.log("Paso por SesionAuth LoggedIn -88");
         const sesion = await SesionRestaurantero.findOrCreate({
           where:{ClienteRestauranteroId: id}, 
           defaults:{
@@ -161,7 +161,7 @@ const SesionAuth = async (auth, id, clienteTipo) => {
   }
 };
 
-app.post('/login/password',
+app.post('/logincliente/password',
   passport.authenticate('local', { 
     failureRedirect: '/login' 
   }),
@@ -176,7 +176,7 @@ app.get('/sesion', async function(req, res) {
     const user = await Clientefinal.findOne({
       where:{ usuario: username }
     });
-    console.log("SesionAuth L-179 " + user.id + user.contraseña)
+    console.log("SesionAuth L-109 " + user.id + user.contraseña)
     if(password != user.contraseña){
       console.log("Contraseña Incorrecta SesionAuth L-181")
       res.send("Contraseña Incorrecta"); 
@@ -185,7 +185,7 @@ app.get('/sesion', async function(req, res) {
     const sesion = await Sesion.findOne({
       where:{ClientefinalId: user.id}
     });
-    console.log("SesionAuth Linea 188" + sesion);
+    console.log("SesionAuth Linea 118" + sesion);
     res.json(sesion)    
   } catch (e) {
     res.json(e);
@@ -197,11 +197,11 @@ app.get('/sesion', async function(req, res) {
 app.post('/sesion', async function(req, res) {
   try {
     const { username, password } = req.body;
-    console.log(`SesionAuth L-200 ${username}`);
+    console.log(`SesionAuth L-128 ${username}`);
     const user = await Clientefinal.findOne({
       where:{ usuario: username }
     });
-    console.log("SesionAuth L-204 " + user.id + " " + user.contraseña)
+    console.log("SesionAuth L-132 " + user.id + " " + user.contraseña)
     if(password != user.contraseña){
       console.log("Contraseña Incorrecta SesionAuth L-206")
       res.send({"Response": "Contraseña Incorrecta"}); 

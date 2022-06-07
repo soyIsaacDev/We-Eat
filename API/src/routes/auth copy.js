@@ -1,10 +1,10 @@
-var express = require('express');
+/* var express = require('express');
 var passport = require('passport');
 //var Strategy = require('passport-local').Strategy;
 var LocalStrategy = require('passport-local');
 var app = express.Router();
 
-const { Clientefinal, Sesion, ClienteRestaurantero, SesionRestaurantero, Repartidor, SesionRepartidor } = require("../db");
+const { Clientefinal, Sesion, ClienteRestaurantero, SesionRestaurantero } = require("../db");
 
 // Autenticando al usuario con estrategia local de Passport
 passport.use(new LocalStrategy(
@@ -17,14 +17,11 @@ passport.use(new LocalStrategy(
         const restaurantUser= await ClienteRestaurantero.findOne({
           where:{usuario:username}
         });
-        const repartidor= await Repartidor.findOne({
-            where:{usuario:username}
-          });
-        console.log("usuario L-23"+ user )
-        console.log("restaurantero L-24"+ restaurantUser)
-        console.log("repartidor L-25"+ repartidor)
+
+        console.log("usuario L-21"+ user )
+        console.log("restaurantero L-22"+ restaurantUser)
         //console.log("USUARIO DE PASSPORT LOCAL  -->>"+user.nombre)
-        if(!user & !restaurantUser & !repartidor) {
+        if(!user & !restaurantUser) {
           console.log("USUARIO INCORRECTO");
           return cb(null, false, { message: 'Incorrect username or password.' });
         }
@@ -35,7 +32,7 @@ passport.use(new LocalStrategy(
             return cb(null, false, { message: 'Incorrect password.' });
           }
           //Success Usuario Final
-          console.log("USUARIO DE PASSPORT LOCAL Loggeado Linea 38  -->>"+user.nombre + " ID "+ user.id)
+          console.log("USUARIO DE PASSPORT LOCAL Loggeado Linea 34  -->>"+user.nombre + " ID "+ user.id)
           SesionAuth("LoggedIn", user.id, "usuarioFinal")
           return cb(null, user)
         }
@@ -46,21 +43,10 @@ passport.use(new LocalStrategy(
             return cb(null, false, { message: 'Incorrect password.' });
           }
           //Success Usuario Restaurantero
-          console.log("USUARIO DE PASSPORT LOCAL Loggeado Linea 49  -->>"+restaurantUser.nombre + " ID "+ restaurantUser.id)
+          console.log("USUARIO DE PASSPORT LOCAL Loggeado Linea 43  -->>"+restaurantUser.nombre + " ID "+ restaurantUser.id)
           SesionAuth("LoggedIn", restaurantUser.id, "restaurantero")
           return cb(null, restaurantUser);
         }
-
-        if(repartidor){
-            if(repartidor.contraseña != password) {
-              console.log("CONTRASEÑA INCORRECTA");
-              return cb(null, false, { message: 'Incorrect password.' });
-            }
-            //Success Usuario Restaurantero
-            console.log("USUARIO DE PASSPORT LOCAL Loggeado Linea 60  -->>"+repartidor.nombre + " ID "+ repartidor.id)
-            SesionAuth("LoggedIn", repartidor.id, "Repartidor")
-            return cb(null, repartidor);
-          }
         
       } catch (error) {
         return cb(error);
@@ -85,14 +71,14 @@ const SesionAuth = async (auth, id, clienteTipo) => {
     if(clienteTipo === "restaurantero"){
 
       if(auth=== "LoggedIn"){
-        console.log("Paso por SesionAuth LoggedIn Linea 88");
+        console.log("Paso por SesionAuth LoggedIn Linea 70");
         const sesion = await SesionRestaurantero.findOrCreate({
           where:{ClienteRestauranteroId: id}, 
           defaults:{
             autenticated: auth
           }
       });
-      console.log("SesionAuth Login L-95 -->>"+ sesion)
+      console.log("SesionAuth Login L-77 -->>"+ sesion)
       return(sesion); 
       };
       if(auth=== "LoggedOut"){
@@ -109,14 +95,14 @@ const SesionAuth = async (auth, id, clienteTipo) => {
     else if (clienteTipo === "usuarioFinal"){
 
       if(auth=== "LoggedIn"){
-        console.log("Paso por SesionAuth LoggedIn Linea 112");
+        console.log("Paso por SesionAuth LoggedIn Linea 70");
         const sesion = await Sesion.findOrCreate({
           where:{ClientefinalId: id}, 
           defaults:{
             autenticated: auth
           }
       });
-      console.log("SesionAuth Login L-119 -->>"+ sesion)
+      console.log("SesionAuth Login L-77 -->>"+ sesion)
       return(sesion); 
       };
       if(auth=== "LoggedOut"){
@@ -130,38 +116,13 @@ const SesionAuth = async (auth, id, clienteTipo) => {
       }
 
     }
-
-    if(clienteTipo === "Repartidor"){
-
-        if(auth=== "LoggedIn"){
-          console.log("Paso por SesionAuth LoggedIn Linea 137");
-          const sesion = await SesionRepartidor.findOrCreate({
-            where:{RepartidorId: id}, 
-            defaults:{
-              autenticated: auth
-            }
-        });
-        console.log("SesionAuth Login L-144 -->>"+ sesion)
-        return(sesion); 
-        };
-        if(auth=== "LoggedOut"){
-          const sesion = await SesionRepartidor.findOne({
-            where:{RepartidorId: id}
-          })
-          sesion.autenticated = auth;
-          await sesion.save();
-          console.log("SesionAuth Logout-->>"+ sesion)
-          return(sesion);
-        }
-  
-      }
     
   } catch (e) {
     return(e);
   }
 };
 
-app.post('/login/password',
+app.post('/logincliente/password',
   passport.authenticate('local', { 
     failureRedirect: '/login' 
   }),
@@ -176,16 +137,16 @@ app.get('/sesion', async function(req, res) {
     const user = await Clientefinal.findOne({
       where:{ usuario: username }
     });
-    console.log("SesionAuth L-179 " + user.id + user.contraseña)
+    console.log("SesionAuth L-109 " + user.id + user.contraseña)
     if(password != user.contraseña){
-      console.log("Contraseña Incorrecta SesionAuth L-181")
+      console.log("Contraseña Incorrecta SesionAuth L-111")
       res.send("Contraseña Incorrecta"); 
       return
     }
     const sesion = await Sesion.findOne({
       where:{ClientefinalId: user.id}
     });
-    console.log("SesionAuth Linea 188" + sesion);
+    console.log("SesionAuth Linea 118" + sesion);
     res.json(sesion)    
   } catch (e) {
     res.json(e);
@@ -197,22 +158,22 @@ app.get('/sesion', async function(req, res) {
 app.post('/sesion', async function(req, res) {
   try {
     const { username, password } = req.body;
-    console.log(`SesionAuth L-200 ${username}`);
+    console.log(`SesionAuth L-128 ${username}`);
     const user = await Clientefinal.findOne({
       where:{ usuario: username }
     });
-    console.log("SesionAuth L-204 " + user.id + " " + user.contraseña)
+    console.log("SesionAuth L-132 " + user.id + " " + user.contraseña)
     if(password != user.contraseña){
-      console.log("Contraseña Incorrecta SesionAuth L-206")
+      console.log("Contraseña Incorrecta SesionAuth L-134")
       res.send({"Response": "Contraseña Incorrecta"}); 
       return
     }
-    console.log("SesionAuth L-210  "+user.id)
+    console.log("SesionAuth L-138  "+user.id)
 
     const sesion = await Sesion.findOne({
       where:{ ClientefinalId: user.id }
     });
-    console.log("SesionAuth L-215  "+sesion)
+    console.log("SesionAuth L-143  "+sesion)
     res.json(sesion)
   } catch (e) {
     res.json(e);
@@ -249,6 +210,6 @@ app.get('/profile',
   function(req, res){
     res.json({ user: req.user });
     /* res.render('profile', { user: req.user }); */
-  });
+  //});
 
-module.exports = app;
+//module.exports = app; 

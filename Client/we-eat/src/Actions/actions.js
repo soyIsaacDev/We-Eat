@@ -147,9 +147,9 @@ export function deleteCart() {
     };
 };
 
-export function getPedidos(PedidoId ){
+export function getPedidos(ClientefinalId ){
         return function (dispatch){
-           return fetch("http://localhost:4000/pedidos/pedidobyId/"+PedidoId)
+           return fetch("http://localhost:4000/pedidos/todosLosPedidosCliente/"+ClientefinalId)
                .then(response => response.json())
                .then(json => {
                    dispatch({

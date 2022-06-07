@@ -5,22 +5,34 @@ import { getPedidos } from '../../Actions/actions';
 import NavBar from '../NavBar/NavBar';
 
 export default function Pedido() {
-    const pedido = useSelector((state) => state.pedido);
+    
+    const idCliente = useSelector((state) =>state.loginState.id )
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(getPedidos(pedido[0].id))
+        console.log(idCliente)
+        dispatch(getPedidos(idCliente))
     }, [])
+    const pedido = useSelector((state) => state.pedido);
+
+    if(pedido){
+        if(pedido.length > 0){
+            return (
+                <div>
+                    <p></p>
+                    <NavBar></NavBar>
+                    <p></p>
+                    <h2>Estatus de Pedido</h2>
+                    <p></p>
+                    <div>Tu pedido se encuentra <b>{pedido[0].status}</b></div>
+                </div>
+            )
+        }
+        else{
+            return <div>Loading</div>
+        }
+    }
+    else{
+        return(<div>Loading</div>)
+    }
     
-    return(
-        <div>
-            <p></p>
-            <NavBar></NavBar>
-            <p></p>
-            <h2>Estatus de Pedido</h2>
-            
-            <p></p>
-            <p></p>
-            <div>Tu pedido se encuentra <b>{pedido[0].status}</b></div>
-        </div>
-    )
 }

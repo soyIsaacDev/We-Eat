@@ -1,6 +1,6 @@
 const express = require('express');
 const { index, restaurantes, envios, repartidor, clientefinal, auth, 
-  ClienteRestaurantero, authrestaurantero, pedidos } = require('./src/routes');
+  ClienteRestaurantero, authrestaurantero, pedidos, authrepartidor } = require('./src/routes');
 const app = express();
 const passport = require('passport');
 var session = require('express-session');
@@ -28,6 +28,7 @@ app.use(express.json({extended: false}));
 app.use('/', index);
 app.use("/authcliente", auth ) // usamos autenticacion en todas las rutas
 app.use("/authrestaurantero", authrestaurantero);
+app.use("/authrepartidor", authrepartidor)
 
 app.use("/restaurantes", restaurantes)
 app.use("/envios", envios);

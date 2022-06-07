@@ -27,6 +27,7 @@ const  modelUbicacionRepartidor = require("./models/Repartidor/UbicacionRepartid
 const  modelSesion = require("./models/Sesion.js");
 const  modelClienteRestaurantero = require("./models/ClienteRestaurant/RestaurantCliente");
 const modelSesionRestaurantero = require("./models/SesionRestaurantero");
+const modelSesionRepartidor = require("./models/SesionRepartidor");
 
 
 const sequelize = new Sequelize("postgres://postgres:Postgres@localhost:5432/we_eat",{
@@ -59,13 +60,14 @@ modelRestaurantDetails(sequelize);
 modelSesion(sequelize);
 modelClienteRestaurantero(sequelize);
 modelSesionRestaurantero(sequelize);
+modelSesionRepartidor(sequelize);
 
 
 let {Corporativo, /* Ciudad, */ Envios, Evaluaciones, ImgRest, Menu, Restaurantes, 
     TipodeComida, Clientefinal, Direccion, MetodosdePago, Pedidos, PedidoGrupal, 
     Platillo, IngredientesExtra, IngredientesaQuitar, Ingredientes,
     ComprasJuntas, Repartidor, ImgPlatillo, UbicacionRepartidor, RestaurantDetails, Sesion,
-    ClienteRestaurantero, SesionRestaurantero} = sequelize.models;
+    ClienteRestaurantero, SesionRestaurantero, SesionRepartidor} = sequelize.models;
 
 /* Relaciones de DB */
 Corporativo.hasMany(Restaurantes);
@@ -137,6 +139,9 @@ ClienteRestaurantero.belongsTo(Corporativo);
 Corporativo.hasMany(ClienteRestaurantero);
 SesionRestaurantero.belongsTo(ClienteRestaurantero);
 ClienteRestaurantero.hasOne(SesionRestaurantero);
+
+SesionRepartidor.belongsTo(Repartidor);
+Repartidor.hasOne(SesionRepartidor);
 
 
 module.exports = {
