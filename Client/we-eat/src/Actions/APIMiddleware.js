@@ -47,7 +47,7 @@ export function setUser(user) {
     };
 };
 
-export function setLoginSession(data){
+export function postAuth(data){
     return function (dispatch){
         const auth = {"username": data.username}
         console.log("Ejecutando setLoginSession L-51 --> "+ auth);
@@ -64,18 +64,17 @@ export function setLoginSession(data){
           .then(json => console.log(json)) */
         };    
         postData();
-        dispatch(getLogginSession(data))
     }
 }
-export function getLoggin(session) {
-    console.log("getLoggin APIMiddleware L-71 -->>  "+JSON.stringify(session))
+export function getLogginSession(session) {
+    console.log("getLogginSession APIMiddleware L-71 -->>  "+JSON.stringify(session))
     return { 
         type: "GET_LOGIN",
         payload: session
     };
 };
 
-export function getLogginSession(data){
+export function postLoginSession(data){
     return function (dispatch){
         async function postData(){
             const requestOptions = {
@@ -88,7 +87,7 @@ export function getLogginSession(data){
             .then(response => response.json())
             .then(json => {
                 console.log("Session Autenticada L-85 APIMiddleware"+JSON.stringify(json));
-                dispatch(getLoggin(json));
+                dispatch(getLogginSession(json));
             });
         };    
         postData();

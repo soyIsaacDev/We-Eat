@@ -170,7 +170,7 @@ app.post('/login/password',
 );
 
 
-app.get('/sesion', async function(req, res) {
+/* app.get('/sesion', async function(req, res) {
   try {
     const { username, password } = req.body;
     const user = await Clientefinal.findOne({
@@ -190,7 +190,7 @@ app.get('/sesion', async function(req, res) {
   } catch (e) {
     res.json(e);
   }
-});  
+}) */;  
 
 //Consulto la sesion (se manda como post por 
 // seguridad para mandar la contraseña por req.body)

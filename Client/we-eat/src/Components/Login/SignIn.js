@@ -1,10 +1,9 @@
-import React,{ useState,useEffect } from "react";
-import { loginSession } from "../../Actions/APIMiddleware";
+import React,{ useState} from "react";
 import { Navigate } from "react-router-dom";
 import { useLocation } from "react-router";
 import { useDispatch, useSelector  } from "react-redux";
 
-import { getLogginSession, setLoginSession } from "../../Actions/APIMiddleware";
+import {  postAuth, postLoginSession } from "../../Actions/APIMiddleware";
 
 //import style from "";
 
@@ -24,7 +23,11 @@ export default function SignIn(props) {
     const onSubmit = async(e) => {
         e.preventDefault();
         console.log("en Login Onsubmit --> " + JSON.stringify(input))
-        dispatch(setLoginSession(input));
+        dispatch(postAuth(input));
+        setTimeout(() => {
+            dispatch(postLoginSession(input))
+        }, 500);
+        
     }
     const location = useLocation();
     console.log(location);

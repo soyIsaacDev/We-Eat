@@ -1,6 +1,28 @@
 const server = require("express").Router();
-const { Envios, Repartidor } = require("../db");
+const { Envios, Repartidor, Pedidos } = require("../db");
 
+
+/*  TAREAS
+1.- Pensar como seleccionar un Repartidor a la hora de crear un envio
+2.- Pensar como se obtendra el tiempo promedio que toma a un restaurant entregar su envio. */
+
+server.get("/nuevoEnvio/:reparto/:pedidoId", async (req, res) => { 
+  try {
+    let {reparto, pedidoId} = req.params;
+    const envio = await Envios.create({
+      reparto
+    });
+    const pedido = await Pedidos.findOne({
+      where: {
+        id: pedidoId
+      }
+  });
+    envio.setPedido(pedido);
+    res.json(envio);
+  } catch (error) {
+    res.send(error);
+  }
+});
 
 server.get("/envios", async (req, res) => {
   try {
@@ -12,19 +34,13 @@ server.get("/envios", async (req, res) => {
   }
 });
 
-/*  TAREAS
-1.- Pensar como seleccionar un Repartidor a la hora de crear un envio
-2.- Pensar como se obtendra el tiempo promedio que toma a un restaurant entregar su envio. */
-
-server.post("/nuevoEnvio", async (req, res) => { 
+server.get("/envios/:reparto", async (req, res) => { 
+  let {reparto} = req.params;
   try {
-    const { tipo_de_Entrega } = req.body;
-
-    const envios = await Envios.Create({
-      tipo_de_Entrega: tipo_de_Entrega
+    const envio = await Envios.findAll({
+      where: { reparto }
     });
-    res.json(menu);
-
+    res.json(envio);
   } catch (error) {
     res.send(error);
   }

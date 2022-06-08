@@ -74,11 +74,12 @@ Corporativo.hasMany(Restaurantes);
 Restaurantes.belongsTo(Corporativo);
 Restaurantes.hasOne(TipodeComida);
 TipodeComida.belongsTo(Restaurantes);
-//Envios.hasMany(Repartidor);
-//Repartidor.belongsTo(Envios);
-Envios.belongsTo(Repartidor)
+Envios.belongsTo(Repartidor);
+Repartidor.hasOne(Envios);
 Restaurantes.hasMany(Envios);
 Envios.belongsTo(Restaurantes);
+Pedidos.hasOne(Envios)
+Envios.belongsTo(Pedidos)
 Restaurantes.hasMany(Evaluaciones);
 Evaluaciones.belongsTo(Restaurantes)
 /* Los clientes pueden hacer un pedido a varios restaurantes */

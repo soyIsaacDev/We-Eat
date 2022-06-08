@@ -4,13 +4,13 @@ module.exports = s => {
     s.define(
         "Envios", 
     {
+        reparto: {
+            type: DataTypes.ENUM("Buscando Repartidor", "Aceptado", "Entregado"),
+            allowNull:false
+        },
         tiempo_promedio:{
             type: DataTypes.INTEGER,
-            allowNull: false
-        },
-        tipo_de_Entrega:{
-            type: DataTypes.ENUM("Entrega", "Recoleccion"),
-            allowNull: false
+            allowNull: true
         }
     }, {
     timestamps: false,

@@ -13,9 +13,9 @@ module.exports = s => {
             "Listo","En_Camino", "Entrega_Lista",  "Entregado"),
             allowNull:true
         },
-        reparto: {
-            type: DataTypes.ENUM("Repartir", "Aceptado", "Entregado"),
-            allowNull:true
+        tipo_de_Entrega:{
+            type: DataTypes.ENUM("Entrega", "Recoleccion"),
+            allowNull: false
         },
         notas:{
             type: DataTypes.STRING,

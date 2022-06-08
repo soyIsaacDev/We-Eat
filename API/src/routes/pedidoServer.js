@@ -1,16 +1,17 @@
 const server = require("express").Router();
 const { Op } = require("sequelize");
 
-const { Pedidos, Clientefinal, Restaurantes, Platillo, PedidosRestaurantes } = require("../db");
+const { Pedidos, Clientefinal, Restaurantes, Platillo, PedidosRestaurantes, Envios } = require("../db");
 const Direccion = require("../models/Clientes/Direccion");
 
 server.post("/agregarpedido", async (req, res) => { 
     try {
-        const { cantidad, status, notas, idCliente, idRestaurant, nombrePlatillo } = req.body;  
+        const { cantidad, status, notas, idCliente, idRestaurant, nombrePlatillo, tipo_de_Entrega } = req.body;  
         const pedido = await Pedidos.create({
             cantidad,
             status,
-            notas
+            notas,
+            tipo_de_Entrega
         });
 
         const cliente = await Clientefinal.findOne({
@@ -62,7 +63,9 @@ server.get("/pedido/:RestauranteId", async (req, res) => {
                 }
             }],
             include: [{
-                model: Platillo
+                model: Platillo,
+            },{
+                model: Envios
             }]
         });
         /* const platillo = await pedido.getPlatillo();
@@ -144,30 +147,6 @@ server.get("/todosLosPedidos/:status", async (req, res) => {
     }
 });
 
-//Pedidos en Reparto
-server.get("/pedidosreparto/:reparto", async (req, res) => { 
-    try {
-        let {reparto} = req.params;
-        const pedido = await Pedidos.findAll({
-            where:{
-               reparto
-            },
-            include: [{
-                model: Restaurantes/* ,
-                through:{
-                    attributes:[id, nombre, direccion, location]
-                } */
-                
-            }, {
-                model: Platillo
-            }]
-        });
-        console.log(pedido)
-        res.json(pedido)
-    } catch (e) {
-        res.json(e);
-    }
-}); 
 server.get("/todosLosPedidosCliente/:ClientefinalId", async (req, res) => { 
     try {
         let {ClientefinalId} = req.params;
