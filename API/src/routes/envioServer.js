@@ -1,5 +1,5 @@
 const server = require("express").Router();
-const { Envios, Repartidor, Pedidos } = require("../db");
+const { Envios, Repartidor, Pedidos, Restaurantes, Platillo } = require("../db");
 
 
 /*  TAREAS
@@ -8,7 +8,7 @@ const { Envios, Repartidor, Pedidos } = require("../db");
 
 server.get("/nuevoEnvio/:reparto/:pedidoId", async (req, res) => { 
   try {
-    let {reparto, pedidoId} = req.params;
+    let {reparto, pedidoId, idRestaurant/* , nombrePlatillo, idCliente */} = req.params;
     const envio = await Envios.create({
       reparto
     });
@@ -16,8 +16,24 @@ server.get("/nuevoEnvio/:reparto/:pedidoId", async (req, res) => {
       where: {
         id: pedidoId
       }
-  });
+    });
+    const restaurant = await Restaurantes.findOne({
+      where:{
+          id: idRestaurant
+      }
+    })
+    const platillo = await Platillo.findOne({
+      where:{
+          nombre: nombrePlatillo
+      }
+    })
+    const cliente = await Clientefinal.findOne({
+      where:{
+          id: idCliente
+      }
+    })
     envio.setPedido(pedido);
+    envio.addRestaurantes(restaurant)
     res.json(envio);
   } catch (error) {
     res.send(error);
@@ -39,6 +55,39 @@ server.get("/envios/:reparto", async (req, res) => {
   try {
     const envio = await Envios.findAll({
       where: { reparto }
+    });
+    res.json(envio);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+server.get("/cambiarReparto/:envioId/:reparto", async (req, res) => { 
+  try {
+    let {reparto, envioId} = req.params;
+    const envio = await Envios.findOne({
+      where:{
+        id: envioId
+      }
+    });
+    envio.reparto = reparto
+    await envio.save()
+    res.json(envio);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+server.get("/envioAsignado/:envioId", async (req, res) => { 
+  try {
+    let { envioId } = req.params;
+    const envio = await Envios.findOne({
+      where:{
+        id: envioId
+      }, 
+      include:[
+        { model: Pedidos} 
+         ]
     });
     res.json(envio);
   } catch (error) {

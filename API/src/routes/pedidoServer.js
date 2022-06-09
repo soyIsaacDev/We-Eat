@@ -1,8 +1,7 @@
 const server = require("express").Router();
 const { Op } = require("sequelize");
 
-const { Pedidos, Clientefinal, Restaurantes, Platillo, PedidosRestaurantes, Envios } = require("../db");
-const Direccion = require("../models/Clientes/Direccion");
+const { Pedidos, Clientefinal, Restaurantes, Platillo, PedidosRestaurantes, Envios, Repartidor } = require("../db");
 
 server.post("/agregarpedido", async (req, res) => { 
     try {
@@ -192,6 +191,57 @@ server.get("/cambiarReparto/:PedidoId/:reparto", async (req, res) => {
         await pedido.save();
         console.log(pedido);
         res.json(pedido)
+    } catch (e) {
+        res.json(e);
+    }
+});
+
+// Para ver envios al repartidor
+server.get("/pedidoAEnvio/:reparto", async (req, res) => { 
+    try {
+        let {reparto} = req.params;
+
+        const pedido = await Pedidos.findAll({
+            where:{
+                [Op.or]:[{status: "En_Proceso"}, {status: "Listo"} ], 
+            },
+            include: [{
+                model: Envios,
+                where:{
+                    reparto
+                }
+                },{ model: Platillo},
+                { model: Restaurantes},
+                { model: Clientefinal}
+            ]
+        });
+        res.json(pedido)
+        /* res.json(pedido? pedido : "No existe el pedido"); */
+    } catch (e) {
+        res.json(e);
+    }
+});
+
+// Para ver pedido asignado a repartidor
+server.get("/pedidoEnReparto/:envioId", async (req, res) => { 
+    try {
+        let {envioId} = req.params;
+
+        const pedido = await Pedidos.findAll({
+            where:{
+                [Op.or]:[{status: "En_Proceso"}, {status: "Listo"} ], 
+            },
+            include: [{
+                model: Envios,
+                where:{
+                    id: envioId
+                }
+                },{ model: Platillo},
+                { model: Restaurantes}
+            ]
+        });
+        res.json(pedido)
+        /* res.json(pedido? pedido : "No existe el pedido"); */
     } catch (e) {
         res.json(e);
     }
