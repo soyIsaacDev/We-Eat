@@ -8,7 +8,7 @@ const { Envios, Repartidor, Pedidos, Restaurantes, Platillo } = require("../db")
 
 server.get("/nuevoEnvio/:reparto/:pedidoId", async (req, res) => { 
   try {
-    let {reparto, pedidoId, idRestaurant/* , nombrePlatillo, idCliente */} = req.params;
+    let {reparto, pedidoId/*, idRestaurant , nombrePlatillo, idCliente */} = req.params;
     const envio = await Envios.create({
       reparto
     });
@@ -17,7 +17,7 @@ server.get("/nuevoEnvio/:reparto/:pedidoId", async (req, res) => {
         id: pedidoId
       }
     });
-    const restaurant = await Restaurantes.findOne({
+    /* const restaurant = await Restaurantes.findOne({
       where:{
           id: idRestaurant
       }
@@ -31,9 +31,9 @@ server.get("/nuevoEnvio/:reparto/:pedidoId", async (req, res) => {
       where:{
           id: idCliente
       }
-    })
+    }) */
     envio.setPedido(pedido);
-    envio.addRestaurantes(restaurant)
+    /* envio.addRestaurantes(restaurant) */
     res.json(envio);
   } catch (error) {
     res.send(error);
@@ -62,16 +62,24 @@ server.get("/envios/:reparto", async (req, res) => {
   }
 });
 
-server.get("/cambiarReparto/:envioId/:reparto", async (req, res) => { 
+server.get("/cambiarReparto/:envioId/:reparto/:RepartidorId", async (req, res) => { 
   try {
-    let {reparto, envioId} = req.params;
+    let {reparto, envioId, RepartidorId} = req.params;
     const envio = await Envios.findOne({
       where:{
         id: envioId
       }
     });
-    envio.reparto = reparto
-    await envio.save()
+    /* const repartidor = await Repartidor.findOne({
+      where:{
+        RepartidorId
+      }
+    }) */
+    envio.set({
+      reparto: reparto,
+      RepartidorId : RepartidorId
+    });
+    await envio.save();
     res.json(envio);
   } catch (error) {
     res.send(error);

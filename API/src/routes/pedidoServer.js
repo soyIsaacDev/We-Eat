@@ -196,7 +196,7 @@ server.get("/cambiarReparto/:PedidoId/:reparto", async (req, res) => {
     }
 });
 
-// Para ver envios al repartidor
+// Para ver envios por tipo de reparto 
 server.get("/pedidoAEnvio/:reparto", async (req, res) => { 
     try {
         let {reparto} = req.params;
@@ -238,6 +238,29 @@ server.get("/pedidoEnReparto/:envioId", async (req, res) => {
                 }
                 },{ model: Platillo},
                 { model: Restaurantes}
+            ]
+        });
+        res.json(pedido)
+        /* res.json(pedido? pedido : "No existe el pedido"); */
+    } catch (e) {
+        res.json(e);
+    }
+});
+
+// Para ver envios en reparto por RepartidorId
+server.get("/pedidoEnEntrega/:IdRepartidor", async (req, res) => { 
+    try {
+        let {IdRepartidor} = req.params;
+
+        const pedido = await Pedidos.findAll({
+            include: [{
+                model: Envios,
+                where:{
+                    RepartidorId :IdRepartidor
+                }
+                },{ model: Platillo},
+                { model: Restaurantes},
+                { model: Clientefinal}
             ]
         });
         res.json(pedido)

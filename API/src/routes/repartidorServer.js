@@ -38,12 +38,12 @@ server.post("/nuevoRepartidor", async (req, res) => {
   }
 }); */
 
-server.get("/buscarRepartidor", async (req, res) => {
-  const { name } = req.query;
+server.get("/buscarRepartidor/:idRepartidor", async (req, res) => {
+  const { idRepartidor } = req.params;
   try {
     const repartidor = await Repartidor.findOne({
       where: {
-        nombre: name,
+        id: idRepartidor,
       },
     });
     res.json(repartidor ? repartidor : "No existe ese repartidor");
@@ -126,6 +126,22 @@ server.get("/ubicacionRepartidor", async (req, res) => {
   try {
     const repartidor = await UbicacionRepartidor.findAll({
     });
+    res.json(repartidor);
+  } catch (error) {     
+    res.send(error);
+  }
+});
+
+server.get("/cambiarStatusRepartidor/:idRepartidor/:status", async (req, res) => {
+  try {
+    let {idRepartidor, status} = req.params;
+    const repartidor = await Repartidor.findOne({
+      where:{
+        id: idRepartidor
+      }
+    });
+    repartidor.estatus = status;
+    await repartidor.save()
     res.json(repartidor);
   } catch (error) {     
     res.send(error);
