@@ -5,7 +5,7 @@ module.exports = s => {
         "Envios", 
     {
         reparto: {
-            type: DataTypes.ENUM("Buscando Repartidor", "Aceptado", "Recibido", "Entregado"),
+            type: DataTypes.ENUM("Buscando Repartidor", "Aceptado", "En_Restaurante", "Recibido", "Entregado"),
             allowNull:false
         },
         tiempo_promedio:{

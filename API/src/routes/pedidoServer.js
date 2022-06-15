@@ -256,7 +256,8 @@ server.get("/pedidoEnEntrega/:IdRepartidor", async (req, res) => {
             include: [{
                 model: Envios,
                 where:{
-                    RepartidorId :IdRepartidor
+                    [Op.and]:[{RepartidorId :IdRepartidor},{reparto :{[Op.not]:"Entregado"}}]
+                    
                 }
                 },{ model: Platillo},
                 { model: Restaurantes},
