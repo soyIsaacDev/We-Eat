@@ -1,0 +1,163 @@
+.all{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: black;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items:center;
+    flex-direction: row;
+}
+a{
+    text-decoration: none;
+    /* display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items:center; */
+    color: black;
+}
+html{
+    font-size: 62.5%;
+}
+
+.title{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items:center;
+    width: 100%;
+    margin: 2% 0 0 0;
+    font-size: 3.5rem;
+}
+.restcardwrap{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items:center;
+    width: 100%;
+    height: 25vh;
+    margin-top: 6%;
+    padding: 0;
+}
+
+    .img{
+        width: 93%;
+        height: 80%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+    }
+    .rnamewrap{
+        width: 100%;
+        height: 13%;
+        padding-left: 3.5%;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-start;
+    }
+        .rname{
+            width: 90%;
+            height: 100%;
+            font-size: 1.3rem;
+            font-weight: 500;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        .calif{
+            width: 6.5%;
+            height: 100%;
+            font-size: 1rem;
+            font-weight: 400;
+            border-radius: 50%;
+            margin-top: 1%;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            background-color: lightgray;
+        }
+    .enviowrap{
+        font-size: 1rem;
+        width: 100%;
+        height: 5%;
+        padding-left: 3.5%;
+        margin-top: 1%;
+        display: flex;
+    }
+        .cenvio{
+            width: 25%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+        .penvio{
+            width: 13%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .tenvio{
+            width: 15%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+@media only screen and (min-width: 450px) {
+    .title{
+        font-size: 4rem;
+    }
+    .restcardwrap{
+        width: 60vw;
+        height: 40vh;
+    }
+        
+}
+
+@media only screen and (min-width: 850px) {
+    .title{
+        font-size: 6rem;
+    }
+    .restcardwrap{
+        width: 45vw;
+        height: 42vh;
+    }
+        .img{
+            height: 84%;
+        }
+        .rnamewrap{
+            height: 10%;
+            align-items: flex-start;
+        }
+            .rname{
+                font-size: 1.7rem;
+            }
+            .calif{
+                width: 6%;
+                height: 120%;
+                font-size: 1.4rem;
+            }
+        .enviowrap{
+            font-size: 1.5rem;
+        }
+            .cenvio{
+                width: 30%;
+            }
+            .penvio{
+                width: 15%;
+            }
+            .tenvio{
+                width: 20%;
+            }
+        
+}

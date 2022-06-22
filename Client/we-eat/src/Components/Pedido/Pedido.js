@@ -9,8 +9,10 @@ export default function Pedido() {
     const idCliente = useSelector((state) =>state.loginState.id )
     const dispatch = useDispatch();
     useEffect(() => {
-        console.log(idCliente)
-        dispatch(getPedidos(idCliente))
+        console.log(idCliente);
+        setTimeout(() => {
+            dispatch(getPedidos(idCliente));
+        }, 100);
     }, [])
     const pedido = useSelector((state) => state.pedido);
 
@@ -28,7 +30,7 @@ export default function Pedido() {
             )
         }
         else{
-            return <div>Loading</div>
+            return <div>Sin Pedido Actual</div>
         }
     }
     else{

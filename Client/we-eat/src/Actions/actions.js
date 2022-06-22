@@ -156,6 +156,7 @@ export function getPedidos(ClientefinalId ){
                        type: "GET_PEDIDOS",
                        payload: json
                    }); 
+                   console.log("Respuesta GetPedidos "+json)
                });
         };
     }

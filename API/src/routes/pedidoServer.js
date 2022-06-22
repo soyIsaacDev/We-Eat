@@ -152,8 +152,11 @@ server.get("/todosLosPedidosCliente/:ClientefinalId", async (req, res) => {
         const pedido = await Pedidos.findAll({
             where:{
                ClientefinalId,
-               [Op.or]:[{status:"Colocado"},{status:"Recibido"}, {status: "En_Proceso"}, {status: "Listo"} ]
-            }
+               [Op.or]:[{status:"Colocado"},{status:"Recibido"}, {status: "En_Proceso"}, {status: "Listo"}, 
+               {status: "En_Camino"}, {status: "Entrega_Lista"} ]
+            }, 
+            order:[['id','DESC']] 
+            
         });
         console.log(pedido)
         res.json(pedido)

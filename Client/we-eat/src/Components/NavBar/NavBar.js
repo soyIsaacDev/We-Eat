@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 
-import s from "./navBar.module.css";
+import "./navBar.css";
 
 import inicio from "./start.png";
 import cuenta from "./account.png";
@@ -11,25 +11,19 @@ import delivery from "./take-away.png";
 
 export default function NavBar() {
   return (
-      <div className={s.navBar}>
+      <div className="navBar">
           <Link to= "/Restaurantes">
-            <button className={s.menu_button}>
+            <button className="menu_button">
               <img src= {inicio} alt="Inicio"></img>
             </button>
           </Link> 
-          {/* <button className={s.menu_button}>
-            <img src= {cuenta} alt="Cuenta"></img>
-          </button>
-          <button className={s.menu_button}>
-            <img src= {oferta} alt="Oferta"></img>
-          </button> */}
           <Link to= "/Carrito">
-            <button className={s.menu_button}>
+            <button className="menu_button">
               <img src= {carrito} alt="Carrito"></img>
             </button>
           </Link>
           <Link to= "/pedido">
-            <button className={s.menu_button}>
+            <button className="menu_button">
             <img src= {delivery} alt="Status Orden"></img>
             </button>
           </Link>
