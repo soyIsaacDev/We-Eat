@@ -1,0 +1,111 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+html{
+    font-size: 62.5%;
+}
+.dishWrapper{
+    width: 100vw;
+    height: 22vh;
+    margin: 0;
+    padding-left: 5%;
+    padding-right: 3%;
+    font-size: 1rem;
+    font-weight: 600;
+    display: flex;
+    flex-wrap: wrap;  
+    flex-direction: row;
+    justify-content: flex-start;
+    align-content: flex-start;   
+}
+    .data{
+        width: 60%;
+        height: 100%;
+        margin: 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-content: flex-start;  
+    }
+        .title{
+            width: 100%;
+            height: 15%;
+            font-size: 1.3rem;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: center;
+            justify-content: flex-start;
+        }
+        .precio{
+            width: 100%;
+            height: 12%;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: center;
+            justify-content: flex-start;
+        }
+        .descripcion{ 
+            width: 100%;
+            height: 73%;
+            font-weight: 400;
+            display:flex;
+            flex-wrap: wrap;
+            align-content:flex-start;
+            justify-content: flex-start;
+        }
+        
+    .imgWraper{
+        width: 31%;
+        height:100%;
+        margin-left: 2%;
+        display: flex;
+        flex-wrap: wrap;
+    }
+        .img_dishCard{
+            width:100%;
+            height: 75%;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: center;
+            justify-content: center;
+        }
+        
+@media only screen and (min-width: 450px) {
+    .data{
+        width:52%
+    }
+    .imgWraper{
+        width: 42%;
+    }
+        .img_dishCard{
+            height: 85%;
+        }
+}
+@media only screen and (min-width: 820px) {
+    .dishWrapper{
+        font-size: 1.5rem;
+        width: 85vw;
+        height: 30vh;
+    }
+    .title{
+        font-size: 1.8rem;
+        height: 22%;
+    }
+}
+
+@media only screen and (min-width: 1050px) {
+    .dishWrapper{
+        font-size: 1.5rem;
+        width:76%;
+        height: 30vh;
+    }
+    .title{
+        font-size: 1.8rem;
+        height: 22%;
+    }
+}

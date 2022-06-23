@@ -1,0 +1,116 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+html{
+    font-size: 62.5%;
+}
+.ddwrapper{
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-content: flex-start;
+}
+
+    .ddimg{
+        width: 100%;
+        height: 35%;        
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+    .ddplatillo{
+        width:96%;
+        height: 6%;
+        margin-left: 3%;
+        margin-top: 2%;
+        font-size: 2rem;
+        font-weight: 700;
+        display:flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        text-align: left;
+    }
+    .dd_descripcion{
+        width:93%;
+        height:auto;
+        margin-left: 3%;
+        font-size: 1.6rem;
+        font-weight: 400;
+        display:flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        text-align: left;
+    }
+    .dd_notas{
+        width: 94%;
+        height: 15%;
+        font-size: 1.6rem;
+        margin-left: 3%;
+        margin-top: 3%;
+        padding-left: 2%;
+    }
+    .dd_cwrapper{
+        width:100%;
+        height: 10%;
+        margin: 5% 0%;
+        font-size: 2.3rem;
+        font-weight: 700;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: center;
+        justify-content: center;
+    }
+        .dd_cboton{
+            width:15%;
+            height: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: center;
+            justify-content: center;
+            border: none;
+        }
+    .dd_boton{
+        width:95%;
+        height: 10%;
+        font-size: 2.3rem;
+        font-weight: 700;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: center;
+        justify-content: center;
+        z-index: 3;
+        margin-left: 2.5%;
+        border: none;
+    }
+
+@media only screen and (min-width: 820px) {
+    .ddimg{
+        width: 100%;
+        height: 35%;  
+    }
+    .ddplatillo{
+        height: 7%;
+        font-size: 2.5rem;
+    }
+    .dd_descripcion{
+        width:93%;
+        height:auto;
+        margin-left: 3%;
+        font-size: 1.8rem;
+    }
+    .dd_notas{
+        font-size: 2rem;
+        margin-top: 2%;
+    }
+    .dd_cwrapper{
+        margin: 2% 0%;
+        font-size: 2.3rem;
+        font-weight: 700;
+    }
+}

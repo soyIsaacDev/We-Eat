@@ -1,26 +1,19 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
 
-import s from "./dishCard.module.css";
-import platillo from "./chilaquiles.jpeg";
+import "./dishCard.css";
 
 
 export default function dish_card(props) {
-  //const dispatch = useDispatch();
-
   
-
   return (
-      <div className={s.dishWrapper}>
-          <div className={s.data}>
-            <div className={s.title}>{props.nombrePlatillo}</div>
-            <div className={s.precio}>${props.precio}</div>
-            <div className={s.descripcion}>
-                {props.descripcion}
-            </div>
+      <div className="dishWrapper">
+          <div className="data">
+            <div className="title">{props.nombrePlatillo}</div>
+            <div className="precio">MX ${props.precio}</div>
+            <div className="descripcion"> {props.descripcion} </div>
           </div>
-          <div className={s.imgWraper}>
-            <img className={s.img} src={props.imagen} alt="platillo"></img> 
+          <div className="imgWraper">
+            <img className="img_dishCard" src={props.imagen} alt="platillo"></img> 
           </div>
                    
       </div>

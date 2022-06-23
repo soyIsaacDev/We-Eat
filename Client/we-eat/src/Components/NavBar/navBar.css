@@ -37,32 +37,33 @@
         flex-wrap: wrap;
         justify-content: center;
         align-items:center;
+        flex-direction: row;
         margin-top: 7%;
     }
 
     .menu_button{
-        width: 15vh;
-        height: 15vh;
+        width: 10vh;
+        height: 10vh;
         border-radius: 50%;
         margin: 0 5vw;
     }
 }
 
-@media only screen and (min-width: 1050px) {
+@media only screen and (min-width: 820px) {
     .navBar{
         width:100vw;
-        height: 15vh;
+        height: 18vh;
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
         align-items:center;
-        margin-top: 7%;
+        margin-top: 5%;
     }
 
     .menu_button{
-        width: 15vh;
-        height: 15vh;
+        width: 18vh;
+        height: 18vh;
         border-radius: 50%;
-        margin: 0 5vw;
+        margin: 0 3vw;
     }
 }

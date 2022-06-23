@@ -11,18 +11,13 @@
 }
 a{
     text-decoration: none;
-    /* display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: center;
-    align-items:center; */
     color: black;
 }
 html{
     font-size: 62.5%;
 }
 
-.title{
+.rtitle{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -36,13 +31,13 @@ html{
     flex-wrap: wrap;
     justify-content: center;
     align-items:center;
-    width: 100%;
+    width: 375px;
     height: 25vh;
     margin-top: 6%;
     padding: 0;
 }
 
-    .img{
+    .rimg{
         width: 93%;
         height: 80%;
         display: flex;
@@ -71,7 +66,7 @@ html{
             align-items: center;
             justify-content: flex-start;
         }
-        .calif{
+        .rcalif{
             width: 6.5%;
             height: 100%;
             font-size: 1rem;
@@ -84,7 +79,7 @@ html{
             justify-content: center;
             background-color: lightgray;
         }
-    .enviowrap{
+    .renviowrap{
         font-size: 1rem;
         width: 100%;
         height: 5%;
@@ -114,7 +109,7 @@ html{
         }
         
 @media only screen and (min-width: 450px) {
-    .title{
+    .rtitle{
         font-size: 4rem;
     }
     .restcardwrap{
@@ -124,15 +119,15 @@ html{
         
 }
 
-@media only screen and (min-width: 850px) {
-    .title{
+@media only screen and (min-width: 820px) {
+    .rtitle{
         font-size: 6rem;
     }
     .restcardwrap{
         width: 45vw;
         height: 42vh;
     }
-        .img{
+        .rimg{
             height: 84%;
         }
         .rnamewrap{
@@ -142,12 +137,12 @@ html{
             .rname{
                 font-size: 1.7rem;
             }
-            .calif{
+            .rcalif{
                 width: 6%;
                 height: 120%;
                 font-size: 1.4rem;
             }
-        .enviowrap{
+        .renviowrap{
             font-size: 1.5rem;
         }
             .cenvio{
