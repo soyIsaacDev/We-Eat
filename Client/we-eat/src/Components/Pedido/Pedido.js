@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getPedidos } from '../../Actions/actions';
 import NavBar from '../NavBar/NavBar';
 
+import s from "./pedido.module.css"
+
 export default function Pedido() {
     
     const idCliente = useSelector((state) =>state.loginState.id )
@@ -23,9 +25,9 @@ export default function Pedido() {
                     <p></p>
                     <NavBar></NavBar>
                     <p></p>
-                    <h2>Estatus de Pedido</h2>
+                    <div className={s.estatuspedido}>Estatus de Pedido</div>
                     <p></p>
-                    <div>Tu pedido se encuentra <b>{pedido[0].status}</b></div>
+                    <div className={s.statuspedido}>Tu pedido se encuentra <b>{pedido[0].status}</b></div>
                 </div>
             )
         }

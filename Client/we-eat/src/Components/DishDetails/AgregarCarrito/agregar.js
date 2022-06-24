@@ -11,9 +11,10 @@ export default function Agregar_Carrito(props) {
           <div className={s.add}>Agregar</div>
           <div className={s.cantidad}>{props.cantidad}</div>
           <div className={s.cart}> al Carrito</div>
+          <div className={s.precio}>${props.precio}.00</div>
         </div>
         
-        <div className={s.precio}>${props.precio}.00</div>
+        
       </div>   
     </div>
     

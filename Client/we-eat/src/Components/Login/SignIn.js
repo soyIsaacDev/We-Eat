@@ -1,11 +1,11 @@
 import React,{ useState} from "react";
 import { Navigate } from "react-router-dom";
 import { useLocation } from "react-router";
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector  } from "react-redux";
 
 import {  postAuth, postLoginSession } from "../../Actions/APIMiddleware";
-
-//import style from "";
+import s from "./signin.module.css";
 
 export default function SignIn(props) {
     const dispatch = useDispatch();
@@ -33,31 +33,36 @@ export default function SignIn(props) {
     console.log(location);
     
     return(
-        <form onSubmit={onSubmit} /* className={style} */>
-            <input
-                name= 'username'
-                value = {input.username}
-                placeholder="Nombre de Usuario"
-                onChange={(e) =>handleInputChange(e)}
-                /* className= {style.nombreRest} */
-            />
-            <input
-                name= 'password'
-                value = {input.password}
-                placeholder="Contraseña"
-                onChange={(e) =>handleInputChange(e)}
-                /* className= {style.nombreRest} */
-                type= "password"
-            />
-
-            <input type="submit" /* className={style.submit} *//>
+        <div className={s.allwrapper}>
+            <Link to={`/AgregarClientes`} className={s.agregarclientes} >
+                Obtener una cuenta  <div className={s.aqui}>aqui</div> </Link>
             
-            {loginState === "LoggedIn" ? (
-                <Navigate to="/Restaurantes" ></Navigate>
-                ): (
-                <h2>Usuario o Contraseña Incorrecta</h2>
-                )}
+            <form onSubmit={onSubmit} className={s.form}>
+            <div className={s.title}> Bienvenido a We-Eat </div>
+                <input
+                    name= 'username'
+                    value = {input.username}
+                    placeholder="Nombre de Usuario"
+                    onChange={(e) =>handleInputChange(e)}
+                    className= {s.input}
+                />
+                <input
+                    name= 'password'
+                    value = {input.password}
+                    placeholder="Contraseña"
+                    onChange={(e) =>handleInputChange(e)}
+                    className= {s.input}
+                    type= "password"
+                />
 
-        </form>
+                <input type="submit" className={s.submit}/>
+
+                {loginState === "LoggedIn" ? (
+                    <Navigate to="/Restaurantes" ></Navigate>
+                    ): (
+                    <h2></h2>
+                    )}
+            </form>
+        </div>
     )
 }

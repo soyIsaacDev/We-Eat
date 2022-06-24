@@ -64,24 +64,27 @@ export default function Dish_Details(props) {
   console.log(JSON.stringify(input));
 
   return (
-    <div className="ddwrapper">
-      <img className="ddimg" src = {rutaImg} alt = {platilloData.nombre}></img> 
-      <div className="ddplatillo">{platilloData.nombre} </div> 
-      <div className="dd_descripcion"> {platilloData.descripcion} </div>
-      <input className="dd_notas"
-        name= "notas"
-        value = {input.notas}
-        placeholder="Notas"
-        onChange={(e) => handleInputChange(e)}
-      />
-      <div className="dd_cwrapper">
-        <button className="dd_cboton" onClick={(e) =>handleSubtract(e)}> - </button>
-        <div className="dd_cboton" >{input.cantidad}</div>
-        <button className="dd_cboton" onClick={(e) =>handleAdd(e)}> +</button>
-      </div>
-      <button className="dd_boton" onClick={(e) =>handleClick(e)}>
-        <AddPedido precio = {input.precio} cantidad={input.cantidad}></AddPedido>
-      </button>
-    </div>   
+    <div className="dd_allwrapper">
+      <div className="ddwrapper">
+        <img className="ddimg" src = {rutaImg} alt = {platilloData.nombre}></img> 
+        <div className="ddplatillo">{platilloData.nombre} </div> 
+        <div className="dd_descripcion"> {platilloData.descripcion} </div>
+        <input className="dd_notas"
+          name= "notas"
+          value = {input.notas}
+          placeholder="Notas"
+          onChange={(e) => handleInputChange(e)}
+        />
+        <div className="dd_cwrapper">
+          <button className="dd_mathboton" onClick={(e) =>handleSubtract(e)}> - </button>
+          <div className="dd_cboton" >{input.cantidad}</div>
+          <button className="dd_mathboton" onClick={(e) =>handleAdd(e)}> +</button>
+        </div>
+        <button className="dd_boton" onClick={(e) =>handleClick(e)}>
+          <AddPedido precio = {input.precio} cantidad={input.cantidad}></AddPedido>
+        </button>
+      </div>   
+
+    </div>
   );
 }

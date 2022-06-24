@@ -75,6 +75,11 @@ html{
             justify-content: center;
             border: none;
         }
+        .dd_mathboton{
+            width:15%;
+            height: 100%;
+            font-size: 3.2rem;
+        }
     .dd_boton{
         width:95%;
         height: 10%;
@@ -90,6 +95,17 @@ html{
     }
 
 @media only screen and (min-width: 820px) {
+    .dd_allwrapper{
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: center;
+        justify-content: center;
+    }
+    .ddwrapper{
+        width: 65%;
+        justify-content: center;
+    }
     .ddimg{
         width: 100%;
         height: 35%;  
@@ -110,7 +126,12 @@ html{
     }
     .dd_cwrapper{
         margin: 2% 0%;
-        font-size: 2.3rem;
+        font-size: 2rem;
         font-weight: 700;
     }
+        .dd_mathboton{
+            width:15%;
+            height: 100%;
+            font-size: 3.5rem;
+        }
 }

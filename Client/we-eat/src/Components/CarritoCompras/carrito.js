@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import s from "./carrito.module.css";
 import Articulo from "./ArticulosCarrito/Articulo";
 import { addPedido } from "../../Actions/APIMiddleware";
-import { deleteCart } from "../../Actions/actions";
 
 
 export default function Carrito_Compras() {
@@ -43,18 +42,21 @@ export default function Carrito_Compras() {
   }
 
   return (
+    <div className={s.allwrapper}>
       <div className={s.wrapper}>
         <div className={s.namewrapper}>
             <div className={s.name}>{restaurant.nombre}</div>
-            {/* <div className={s.group}>G+</div> */}
         </div>
-        <Articulo></Articulo> 
+         
+        <div className={s.articulo}>
+          <Articulo></Articulo>
+        </div>
         <div className={s.SubtotalW}>
             <div className={s.subtotal}>Subtotal</div>
             <div className={s.cantidad}>${subtotal}.00</div>
         </div>
-        <label>Tipo de Pedido</label>
-            <select
+        <label className={s.etiqueta}>Tipo de Pedido</label>
+            <select className={s.selection}
                 id="tipo_de_Entrega"
                 name="tipo_de_Entrega"
                 value={tipoEntrega.tipo_de_Entrega}
@@ -66,5 +68,6 @@ export default function Carrito_Compras() {
             </select>     
         <button className={s.pagar} onClick={(e) => handleClick(e)}>Pagar</button>    
       </div>
+    </div>
   );
 }
