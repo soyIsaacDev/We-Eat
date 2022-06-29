@@ -1,5 +1,6 @@
 
 const {Sequelize, Op} = require('sequelize');
+require('dotenv').config();
 
 const  modelCorporativo = require("./models/Corporativo");
 const  modelCiudad = require("./models/Ciudad");
@@ -26,13 +27,24 @@ const  modelImgPlatillo = require("./models/Platillo/ImagenPlatillo");
 const  modelUbicacionRepartidor = require("./models/Repartidor/UbicacionRepartidor");
 const  modelSesion = require("./models/Sesion.js");
 const  modelClienteRestaurantero = require("./models/ClienteRestaurant/RestaurantCliente");
-const modelSesionRestaurantero = require("./models/SesionRestaurantero");
-const modelSesionRepartidor = require("./models/SesionRepartidor");
+const  modelSesionRestaurantero = require("./models/SesionRestaurantero");
+const  modelSesionRepartidor = require("./models/SesionRepartidor");
 
+const isProduction = process.env.NODE_ENV === 'production';
+const connectionString = `postgres://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`;
 
-const sequelize = new Sequelize("postgres://postgres:Postgres@localhost:5432/we_eat",{
-    logging: false   //Loging Deshabilitado
-});
+var connection = 0;
+isProduction ? connection = process.env.DATABASE_URL : connection = connectionString;
+
+const sequelize = new Sequelize(connection,{
+      logging: false   //Loging Deshabilitado
+  });
+  try {
+      sequelize.authenticate();
+      console.log('Conexion a la Base de Datos Exitosa.');
+    } catch (error) {
+      console.error('Unable to connect to the database:', error);
+    }  
 
 modelCorporativo(sequelize);
 modelCiudad(sequelize);

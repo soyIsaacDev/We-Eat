@@ -1,4 +1,8 @@
+//var compression = require('compression');
+var helmet = require('helmet');
+
 const express = require('express');
+
 const { index, restaurantes, envios, repartidor, clientefinal, auth, 
   ClienteRestaurantero, authrestaurantero, pedidos, authrepartidor } = require('./src/routes');
 const app = express();
@@ -7,10 +11,9 @@ var session = require('express-session');
 var db = require('./src/db');
 var path = require('path');
 
-/* app.use(passport.initialize());
-app.use(passport.session()); */
+
 app.set('view engine', 'ejs');
-//app.set('view engine', 'html');
+app.use(helmet());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static('./public'));
 //mantener sesion autenticada
@@ -18,7 +21,6 @@ app.use(session({
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: false,
-  //store: new SQLiteStore({ db: 'sessions.db', dir: './var/db' })
 }));
 app.use(passport.authenticate('session'));
 
