@@ -1,6 +1,7 @@
 // Post a Servidor
 
 import { deleteCart, getPedidos } from "./actions";
+const host = "https://weeatapi.herokuapp.com";
 
 export function addRepartidor(data){
     async function postData(){
@@ -9,7 +10,7 @@ export function addRepartidor(data){
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data)
       };
-      await fetch('http://localhost:4000/repartidor/nuevoRepartidor', requestOptions)
+      await fetch(`${host}/repartidor/nuevoRepartidor`, requestOptions)
       };
       postData();       
 }
@@ -21,7 +22,7 @@ export function addUbicacionRepartidor(data){
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data)
       };
-      await fetch('http://localhost:4000/repartidor/ubicacionRepartidor', requestOptions)
+      await fetch(`${host}/repartidor/ubicacionRepartidor`, requestOptions)
       };
       postUbicacion();       
 }
@@ -34,7 +35,7 @@ export function addClientes(data){
           body: JSON.stringify(data)
       };
       console.log("agregando Cliente "+ data)
-      await fetch('http://localhost:4000/clientefinal/agregarclientes', requestOptions)
+      await fetch(`${host}/clientefinal/agregarclientes`, requestOptions)
       };
       postData();       
 }
@@ -59,7 +60,7 @@ export function postAuth(data){
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(data),
           };     
-          await fetch('http://localhost:4000/authcliente/login/password', requestOptions)
+          await fetch(`${host}/authcliente/login/password`, requestOptions)
           /* .then(response => response.json())
           .then(json => console.log(json)) */
         };    
@@ -83,7 +84,7 @@ export function postLoginSession(data){
               body: JSON.stringify(data),
           };     
           console.log("getLoginSession L-81"+JSON.stringify(data))
-          await fetch('http://localhost:4000/authcliente/sesion', requestOptions)
+          await fetch(`${host}/authcliente/sesion`, requestOptions)
             .then(response => response.json())
             .then(json => {
                 console.log("Session Autenticada L-85 APIMiddleware"+JSON.stringify(json));
@@ -105,7 +106,7 @@ export function addPedido(data){
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(data),
           };     
-          await fetch('http://localhost:4000/pedidos/agregarpedido', requestOptions)
+          await fetch(`${host}/pedidos/agregarpedido`, requestOptions)
           .then(response => response.json())
           /* .then(json => console.log(json.status+json.id)) */
           .then(json => dispatch(getPedidos(json.id)))

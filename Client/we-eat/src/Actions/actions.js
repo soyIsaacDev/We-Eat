@@ -1,4 +1,5 @@
 // ACTIONS
+const host = "https://weeatapi.herokuapp.com";
 
 export function addMap(payload) {
     return { 
@@ -16,7 +17,7 @@ export function addGeolocation(payload) {
 
 export function getRestaurants(){
     return function (dispatch){
-       return fetch("http://localhost:4000/restaurantes/restaurantes")
+       return fetch(`${host}/restaurantes/restaurantes`)
            .then(response => response.json())
            .then(json => {
                console.log(json)
@@ -30,7 +31,7 @@ export function getRestaurants(){
 
 export function getRestaurantDetails(id){
     return function (dispatch){
-       return fetch(`http://localhost:4000/restaurantes/restaurantes/${id}`)
+       return fetch(`${host}/restaurantes/restaurantes/${id}`)
            .then(response => response.json())
            .then(json => {
                console.log(json)
@@ -45,7 +46,7 @@ export function getRestaurantDetails(id){
 export function getPlatillos(restaurantId){
     console.log("get Platillos")
     return function (dispatch){
-       return fetch(`http://localhost:4000/restaurantes/platillos/${restaurantId}`)
+       return fetch(`${host}/restaurantes/platillos/${restaurantId}`)
            .then(response => response.json())
            .then(json => {
                console.log(json)
@@ -59,7 +60,7 @@ export function getPlatillos(restaurantId){
 
 export function getImg(){
     return function (dispatch){
-       return fetch("http://localhost:4000/restaurantes/imagenes")
+       return fetch(`${host}/restaurantes/imagenes`)
            .then(response => response.json())
            .then(json => {
                console.log(json)
@@ -73,7 +74,7 @@ export function getImg(){
 
 export function getMenu(){
     return function (dispatch){
-       return fetch("http://localhost:4000/restaurantes/menu")
+       return fetch(`${host}/restaurantes/menu`)
            .then(response => response.json())
            .then(json => {
                console.log(json)
@@ -87,7 +88,7 @@ export function getMenu(){
 
 export function getUser(){
     return function (dispatch){
-       return fetch("http://localhost:4000/auth/profile")
+       return fetch(`${host}/auth/profile`)
            .then(response => response.json())
            .then(json => {
                console.log(json)
@@ -108,7 +109,7 @@ export function loginEstado() {
 export function getLoginSession(){
     return function (dispatch){
         console.log("getLoginSession")
-       return fetch("http://localhost:4000/sesion?username=ewatt")
+       return fetch(`${host}/sesion?username=ewatt`)
            .then(response => response.json())
            .then(json => {
                console.log("Respuesta Session -->>>"+JSON.stringify(json))
@@ -122,7 +123,7 @@ export function getLoginSession(){
 
 export function getCorporativo(){
     return function (dispatch){
-       return fetch("http://localhost:4000/restaurantes/corporativo")
+       return fetch(`${host}/restaurantes/corporativo`)
            .then(response => response.json())
            .then(json => {
                console.log(json)
@@ -149,7 +150,7 @@ export function deleteCart() {
 
 export function getPedidos(ClientefinalId ){
         return function (dispatch){
-           return fetch("http://localhost:4000/pedidos/todosLosPedidosCliente/"+ClientefinalId)
+           return fetch(`${host}/pedidos/todosLosPedidosCliente/${ClientefinalId}`)
                .then(response => response.json())
                .then(json => {
                    dispatch({
